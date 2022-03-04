@@ -439,6 +439,7 @@ body::-webkit-scrollbar-thumb {
 
 .user--table{
     text-align: center;
+    font-family: var(--ff-poppins);
 }
 
 .user--table td {

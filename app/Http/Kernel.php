@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         // Custome middleware
 
         'preventBackHistory' => \App\Http\Middleware\preventBackHistory::class,
+        'isLoggedIn' => \App\Http\Middleware\isLoggedIn::class,
     ];
 }

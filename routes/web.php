@@ -23,8 +23,9 @@ Route::middleware(['preventBackHistory'])->group(function(){
     Route::middleware(['auth'])->group(function(){
         Route::get('/',[DashboardController::class,'index'])->name('dashboard');
         Route::get('/accesspoints',[AccesspointController::class,'index'])->name('accesspoint');
-        Route::get('/manageusers',[ManageuserController::class,'index'])->name('manageuser');
-
+        Route::get('/admin/manageusers',[ManageuserController::class,'index'])->name('admin.manageuser');
+        Route::get('/admin/edituser/{id}',[ManageuserController::class,'edit'])->name('admin.edituser');
+        Route::delete('/admin/delete/{id}',[ManageuserController::class,'delete'])->name('admin.deleteuser');
     });
 
 
