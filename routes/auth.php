@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('guest')->group(function () {
    
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
-                ->name('login');
+    ->name('login');
 
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
@@ -28,7 +28,10 @@ Route::middleware('guest')->group(function () {
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.update');
+                
+                
 });
+
 Route::get('register', [RegisteredUserController::class, 'create'])
 ->name('register');
 

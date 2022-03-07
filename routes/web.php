@@ -26,9 +26,11 @@ Route::middleware(['preventBackHistory'])->group(function(){
         Route::get('/admin/manageusers',[ManageuserController::class,'index'])->name('admin.manageuser');
         Route::get('/admin/edituser/{id}',[ManageuserController::class,'edit'])->name('admin.edituser');
         Route::delete('/admin/delete/{id}',[ManageuserController::class,'delete'])->name('admin.deleteuser');
+        Route::post('/admin/edituser',[ManageuserController::class,'resetPassword'])->name('admin.resetpass');
     });
+    
 
-
+    
 
 });
 
