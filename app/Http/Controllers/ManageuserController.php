@@ -51,4 +51,8 @@ class ManageuserController extends Controller
 
         // return redirect()->route('admin.manageuser');
     }
+
+    public function updateUser(Request $request){
+        dd($request);
+    }
 }
