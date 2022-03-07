@@ -5,8 +5,8 @@
 <div class="container-fluid manage--dashboard">
     <span>User Database</span>
 
-    <div class="manage--user--list">
-        <table class="table table-responsive user--table" id="sortTable">
+    <div class="manage--user--list table-responsive">
+        <table class="table  user--table" id="sortTable">
             <thead>
                 <tr>
                     <th>ID</th>

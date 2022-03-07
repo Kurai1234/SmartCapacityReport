@@ -26,7 +26,7 @@
     <form>    
     <div class="form-row">
         <div class="form-group col-md-6">
-            <label for="name">Name</label>
+            <label for="name">Full Name</label>
             <input type="text" class="form-control" id="name" name="name" placeholder="Name" value="{{old('name')}}@isset($user){{$user->name}}@endisset">
         </div>
         <div class="form-group col-md-6">
