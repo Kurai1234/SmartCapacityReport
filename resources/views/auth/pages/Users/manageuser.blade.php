@@ -3,7 +3,14 @@
 @section('content')
 <h4>User Management Control</h4>
 <div class="container-fluid manage--dashboard">
+    <div class="create--user--div mb-3"> 
+    <span > Create A User </span>
+    
+    <a href="{{route('admin.createuser')}}" class="btn btn-success ms-auto">Add User</a>
+    </div>
+    <hr class="mb-4"/>
     <span>User Database</span>
+    
       @if(session()->has('message'))
     <div class="alert alert-success">
         {{ session()->get('message') }}
@@ -43,5 +50,6 @@
 
         </table>
     </div>
+    
 </div>
 @endsection

@@ -467,3 +467,69 @@ body::-webkit-scrollbar-thumb {
     background-color: green;
     color: white;
 }
+
+
+.create--user--div{
+    display: flex;
+    height: auto;
+    /* border: 1px solid black; */
+    
+}
+.create--user--div span{
+    color: var(--custom-primary-color);
+    font-size: 1.5rem;
+}
+.create--user--div a{
+    margin-left: auto;
+    
+}
+
+
+
+/* first login */
+
+.hero{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.hero .card{
+    width: 25em;
+    margin: auto;
+    
+}
+.hero .card .f--title{
+    color: var(--custom-primary-color);
+    font-size: 1.6rem;
+    padding-top: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+.hero .card .f--title::after{
+    content: 'Monitor';
+    color: var(--custom-secondary-color);
+}
+.hero .card .card-body input{
+    margin: 1.2rem;
+    color: var(--custom-primary-color);
+    width: 80%;
+    border: none;
+    border-bottom: 1px solid var(--custom-primary-color);
+    -webkit-appearance: none;
+
+}
+
+.hero .card .card-body input::placeholder{
+    color: var(--custom-primary-color);
+}
+
+.hero .card .card-body input:focus{
+outline: none;}
+
+.hero .card .card-body button{
+    width: 60%;
+    margin-left:19%;
+}   
+

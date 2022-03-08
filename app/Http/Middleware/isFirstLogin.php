@@ -17,7 +17,7 @@ class isFirstLogin
      */
     public function handle(Request $request, Closure $next)
     {
-       if(count(User::all())<1)
+       if(count(User::all())>1)
         return $next($request);
       return redirect()->route('login');  
     }

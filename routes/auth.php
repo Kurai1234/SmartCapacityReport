@@ -6,7 +6,9 @@ use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\FirstLoginController;
 use App\Http\Middleware\isFirstLogin;
+
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +45,8 @@ Route::middleware('guest')->group(function () {
 Route::middleware('isFirstLogin')->group(function(){
     Route::get('register', [RegisteredUserController::class, 'create'])
         ->name('register');
+        Route::get('/setup',[FirstLoginController::class,'create'])->name('firstlogin');
+        Route::post('/store',[FirstLoginController::class,'store'])->name('firstsignup');
 
     
 });

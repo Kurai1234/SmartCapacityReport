@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccesspointController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\FirstLoginController;
 use App\Http\Controllers\ManageuserController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,7 +39,8 @@ Route::middleware(['preventBackHistory'])->group(function(){
     });
     
 
-    
+   
+
 
 });
 
