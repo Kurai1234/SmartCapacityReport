@@ -27,6 +27,7 @@
                     <th>Email</th>
                     <th>Modify</th>
                 </tr>
+                {{-- fix --}}
             </thead>
             <tbody>
                 @foreach($users as $user)

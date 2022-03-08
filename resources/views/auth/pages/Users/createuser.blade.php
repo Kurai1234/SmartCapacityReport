@@ -22,3 +22,5 @@
     @include('layouts.partialform',['create'=>true])
     </form>
 @endsection
+
+{{-- fix --}}
