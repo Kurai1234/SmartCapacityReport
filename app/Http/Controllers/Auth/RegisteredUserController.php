@@ -43,6 +43,7 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'user_name'=>$request->user_name,
+            'is_admin'=>$request->is_admin==NULL?false:true,
             'password' => Hash::make($request->password),
         ]);
 
@@ -50,6 +51,6 @@ class RegisteredUserController extends Controller
 
         // Auth::login($user);
 
-        return redirect()->route('login');
+        return redirect()->back();
     }
 }

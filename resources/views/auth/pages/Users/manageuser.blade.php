@@ -4,7 +4,11 @@
 <h4>User Management Control</h4>
 <div class="container-fluid manage--dashboard">
     <span>User Database</span>
-
+      @if(session()->has('message'))
+    <div class="alert alert-success">
+        {{ session()->get('message') }}
+    </div>
+    @endif
     <div class="manage--user--list table-responsive">
         <table class="table  user--table" id="sortTable">
             <thead>
