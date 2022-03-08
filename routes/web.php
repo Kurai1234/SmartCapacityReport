@@ -3,6 +3,7 @@
 use App\Http\Controllers\AccesspointController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\FirstLoginController;
 use App\Http\Controllers\ManageuserController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,17 +21,26 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['preventBackHistory'])->group(function(){
 
     require __DIR__.'/auth.php';
-    Route::middleware(['auth'])->group(function(){
+    
+    Route::middleware(['auth','isLoggedIn'])->group(function(){
         Route::get('/',[DashboardController::class,'index'])->name('dashboard');
         Route::get('/accesspoints',[AccesspointController::class,'index'])->name('accesspoint');
-        Route::get('/admin/manageusers',[ManageuserController::class,'index'])->name('admin.manageuser');
-        Route::get('/admin/edituser/{id}',[ManageuserController::class,'edit'])->name('admin.edituser');
-        Route::delete('/admin/delete/{id}',[ManageuserController::class,'delete'])->name('admin.deleteuser');
-        Route::post('/admin/edituser',[ManageuserController::class,'resetPassword'])->name('admin.resetpass');
+
+        Route::middleware(['isAdmin'])->group(function(){
+            Route::get('/admin/manageusers',[ManageuserController::class,'index'])->name('admin.manageuser');
+            Route::get('/admin/edituser/{id}/edit',[ManageuserController::class,'edit'])->name('admin.edituser');
+            Route::get('/admin/createuser',[ManageuserController::class,'createUser'])->name('admin.createuser');
+            Route::delete('/admin/delete/{id}',[ManageuserController::class,'delete'])->name('admin.deleteuser');
+            Route::post('/admin/edituser',[ManageuserController::class,'resetPassword'])->name('admin.resetpass');
+            Route::patch('/admin/edituser/{id}/update',[ManageuserController::class,'updateUser'])->name('admin.updateuser');
+        });
+    
+
     });
     
 
-    
+   
+
 
 });
 

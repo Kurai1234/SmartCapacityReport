@@ -34,25 +34,49 @@ class ManageuserController extends Controller
 
     public function resetPassword(Request $request)
     {
-        // dd($request);
+        
+        if(auth()->user()->is_admin){
+        if($request->has('passwordReset')){
         $request->validate([
             'email' => ['required', 'email'],
         ]);
-        // dd($request->email);
         $credentials = ['email'=>$request->email];
-        // Password::sendResetLink($request->only(['email']));
         $status = Password::sendResetLink(
             $credentials
         );
 
         return $status == Password::RESET_LINK_SENT
-            ? back()->with('message', 'Password Link Has Been Sent')
+            ? redirect()->route('admin.manageuser')->with('message', 'Password Link Has Been Sent')
             : back()->withErrors(['email' => __($status)]);
-
-        // return redirect()->route('admin.manageuser');
+    }}
+    else {
+        return redirect()->back()->withErrors("You are Not admin");
     }
 
-    public function updateUser(Request $request){
-        dd($request);
     }
+
+    public function updateUser(Request $request,$id){
+        if(auth()->user()->is_admin){
+            // dd($request->is_admin);
+        if($request->has('updateUser')){
+            $user = User::findorFail($id);
+            $user->is_admin = $request->is_admin===null? false:true;
+           $user->save;
+           $user->update($request->except(['_token','updateUser','_method']));
+           
+            return redirect()->route('admin.manageuser')->with('message','User sucessfully updated');
+
+        }
+    }
+    else
+{
+    return redirect()->back()->withErrors("You are Not Admin");
+}
+}
+
+
+public function createUser(){
+    return view('auth.pages.Users.createuser');
+}
+
 }

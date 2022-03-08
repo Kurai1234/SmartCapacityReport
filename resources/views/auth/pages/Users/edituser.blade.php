@@ -10,13 +10,18 @@
             {{ __('Whoops! Something went wrong.') }}
         </div>
 
+<<<<<<< HEAD
         <ul class="list-disc list-inside text-sm text-red-600">
+=======
+        <ul class="mt-3 list-disc list-inside text-sm text-red-600">
+>>>>>>> working
             @foreach ($errors->all() as $error)
             <li>{{ $error }}</li>
             @endforeach
         </ul>
     </div>
     @endif
+<<<<<<< HEAD
     @if(session()->has('message'))
     <div class="alert alert-success">
         {{ session()->get('message') }}
@@ -50,6 +55,26 @@
             <button type="submit" class="btn btn-sm btn-primary">Send Reset Email</button>
             <input hidden type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{old('email')}}@isset($user){{$user->email}}@endisset">
 
+=======
+    {{-- @if(session()->has('message'))
+    <div class="alert alert-success">
+        {{ session()->get('message') }}
+    </div>
+    @endif --}}
+    <span>User Database</span>
+    <form method="POST" action="{{route("admin.updateuser",$user->id)}}">
+        @csrf
+        @method('patch')
+        @include('layouts.partialform')   
+    </form>
+    <div class="form-group col-md-6 my-4">
+
+        <form method="POST" action="{{route('admin.resetpass')}}" id="submit">
+            @csrf
+            <input hidden type="email" class="form-control" id="email" name="email" placeholder="Email" value="{{old('email')}}@isset($user){{$user->email}}@endisset">
+            <button type="submit" class="btn btn-primary" name="passwordReset">Send Reset Email</button>
+            {{-- <a class="btn btn-sm btn-primary">Send Reset email</a> --}}
+>>>>>>> working
         </form>
         
 
@@ -80,5 +105,6 @@
     </div>
   </div>
 </div>
-</form>
+
+
 @endsection
