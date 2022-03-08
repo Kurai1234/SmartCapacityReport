@@ -34,7 +34,7 @@ class ManageuserController extends Controller
 
     public function resetPassword(Request $request)
     {
-        // dd($request);
+        
         if(auth()->user()->is_admin){
         if($request->has('passwordReset')){
         $request->validate([
@@ -60,9 +60,10 @@ class ManageuserController extends Controller
             // dd($request->is_admin);
         if($request->has('updateUser')){
             $user = User::findorFail($id);
-           $user->update($request->except(['_token','updateUser','_method']));
-           $user->is_admin = $request->is_admin==NULL? false:true;
+            $user->is_admin = $request->is_admin===null? false:true;
            $user->save;
+           $user->update($request->except(['_token','updateUser','_method']));
+           
             return redirect()->route('admin.manageuser')->with('message','User sucessfully updated');
 
         }
