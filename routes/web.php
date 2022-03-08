@@ -22,7 +22,7 @@ Route::middleware(['preventBackHistory'])->group(function(){
     require __DIR__.'/auth.php';
     
     Route::middleware(['auth','isLoggedIn'])->group(function(){
-        Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
+        Route::get('/',[DashboardController::class,'index'])->name('dashboard');
         Route::get('/accesspoints',[AccesspointController::class,'index'])->name('accesspoint');
 
         Route::middleware(['isAdmin'])->group(function(){

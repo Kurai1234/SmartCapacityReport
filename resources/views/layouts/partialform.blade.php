@@ -21,7 +21,7 @@
     </div>
     <div class="form-group col-md-6">
         <label for="password_confirmation">Confirm Password</label>
-        <input type="password_confirmation" required class="form-control" id="password_confirmation" name="password_confirmation" required>
+        <input type="password" required class="form-control" id="password_confirmation" name="password_confirmation" required>
     </div>
     @endisset
 

@@ -48,9 +48,16 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
+        if($user)
+        {
+            return redirect()->route('admin.manageuser')->with('message','User signed up');
 
+        }
+        else
+        {
+            return redirect()->back()->withErrors("Input valid Information");
+        }
         // Auth::login($user);
 
-        return redirect()->back();
     }
 }

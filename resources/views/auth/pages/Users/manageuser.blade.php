@@ -30,6 +30,7 @@
                     <th>{{$user->is_admin?"Admin":"User"}}</th>
                     <th>{{$user->email}}</th>
                     <th><a class="btn btn-sm btn-primary" href="{{route('admin.edituser',$user->id)}}">Edit</a>
+                  
                      <a class="btn btn-sm btn-danger"  href="{{ route('admin.deleteuser',$user->id)}}" onclick="event.preventDefault(); document.getElementById('delete-user-{{$user->id}}').submit()">Delete </a>
                         <form method="POST" action="{{ route('admin.deleteuser',$user->id)}}" id="delete-user-{{$user->id}}">
                             @csrf
