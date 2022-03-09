@@ -2,6 +2,7 @@
 
 @section('content')
 <h4>Access Point</h4>
+{{$testing??''}}
 <div class="row container-fluid access--point--dashboard">
     <div class="col-md-4 filter--container">
         <h5 class="py-4">Filter Access Points</h5>

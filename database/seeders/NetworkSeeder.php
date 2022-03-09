@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\AccessPointStatistic;
+use App\Models\Network;
 use Illuminate\Database\Seeder;
 
-class AccessPointStatisticSeeder extends Seeder
+class NetworkSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,6 +15,6 @@ class AccessPointStatisticSeeder extends Seeder
     public function run()
     {
         //
-        AccessPointStatistic::factory()->count(5)->create();
+        Network::factory()->count(5)->create();
     }
 }

@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\AccessPointStatistic;
+use App\Models\Maestro;
 use Illuminate\Database\Seeder;
 
-class AccessPointStatisticSeeder extends Seeder
+class MaestroSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,6 +15,6 @@ class AccessPointStatisticSeeder extends Seeder
     public function run()
     {
         //
-        AccessPointStatistic::factory()->count(5)->create();
+    Maestro::factory()->count(2)->create();
     }
 }

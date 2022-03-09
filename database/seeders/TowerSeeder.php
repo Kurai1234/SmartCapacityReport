@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\AccessPointStatistic;
 use Illuminate\Database\Seeder;
-
-class AccessPointStatisticSeeder extends Seeder
+use App\Models\Tower;
+class TowerSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,6 +14,6 @@ class AccessPointStatisticSeeder extends Seeder
     public function run()
     {
         //
-        AccessPointStatistic::factory()->count(5)->create();
+        Tower::factory()->count(5)->create();
     }
 }

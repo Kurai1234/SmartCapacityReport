@@ -5,12 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Maestro extends Model
+class Tower extends Model
 {
     use HasFactory;
 
-    public function networks(){
-        return $this->hasMany(Network::class);
+    protected $table='towers';
+
+    public function network(){
+        return $this->belongsTo(Network::class);
     }
 
 
