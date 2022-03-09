@@ -9,9 +9,9 @@ use App\Models\User;
 class ManageuserController extends Controller
 {
     //
-
     public function index()
     {
+        
         // dd(User::with('roles')->find(auth::id()));
         // dd(auth()->user());
         //    $users= User::all();

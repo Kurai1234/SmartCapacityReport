@@ -28,7 +28,7 @@ class CreateAccessPointStatisticsTable extends Migration
             $table->integer('reboot');
             $table->double('frame_utilization');
             $table->timestamps();
-            $table->foreign('access_point_id')->references('id')->on('access_points');
+            // $table->foreign('access_point_id')->references('id')->on('access_points');
         });
     }
 

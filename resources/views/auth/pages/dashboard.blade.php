@@ -66,7 +66,21 @@
                         <td>Otto</td>
                         <td>Otto</td>
                     </tr>
-                    <tr>
+                    @foreach ($testing as $key)
+                        <tr>
+                            <th scope="row">{{$key->id}}</th>
+                            <td colspan="2">{{$key->connected_sms}}</td>
+                            <td>{{$key->status}}</td>
+                            <td>{{$key->mode}}</td>
+                            <td>{{$key->frame_utilization}}</td>
+                            <td>{{$key->dl_throughput}}</td>
+                        </tr>
+                    
+                        
+                    @endforeach
+
+
+                    {{-- <tr>
                         <th scope="row">2</th>
                         <td colspan="2">Jacob</td>
                         <td>Thornton</td>
@@ -211,7 +225,7 @@
                         <td>Otto</td>
                         <td>Otto</td>
                         <td>Otto</td>
-                    </tr>
+                    </tr> --}}
                 </tbody>
             </table>
         </div>

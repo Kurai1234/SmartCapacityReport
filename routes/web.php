@@ -45,7 +45,7 @@ Route::middleware('isFirstLogin')->group(function(){
             Route::get('/setup',[FirstLoginController::class,'create'])->name('firstlogin');
             Route::post('/store',[FirstLoginController::class,'store'])->name('firstsignup');
         });
-    
+        
         
     
 
