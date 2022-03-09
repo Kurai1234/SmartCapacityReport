@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Http\Middleware;
-
-use Closure;
 use App\Models\User;
+use Closure;
 use Illuminate\Http\Request;
 
-class isFirstLogin
+class isNotFirstLogin
 {
     /**
      * Handle an incoming request.
@@ -17,10 +16,8 @@ class isFirstLogin
      */
     public function handle(Request $request, Closure $next)
     {
-       if(count(User::all())<1)
+        if(count(User::all())>0)
        return $next($request);
-      return redirect()->route('login');
-
-        
+      return redirect()->route('firstlogin');
     }
 }

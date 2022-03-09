@@ -42,14 +42,7 @@ Route::middleware('guest')->group(function () {
     
 });
 
-Route::middleware('isFirstLogin')->group(function(){
-    Route::get('register', [RegisteredUserController::class, 'create'])
-        ->name('register');
-        Route::get('/setup',[FirstLoginController::class,'create'])->name('firstlogin');
-        Route::post('/store',[FirstLoginController::class,'store'])->name('firstsignup');
 
-    
-});
 
 Route::middleware('auth')->group(function () {
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])

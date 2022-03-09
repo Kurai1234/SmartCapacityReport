@@ -19,9 +19,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['preventBackHistory'])->group(function(){
-
+   Route::middleware(['isNotFirstLogin'])->group(function(){
     require __DIR__.'/auth.php';
-    
     Route::middleware(['auth','isLoggedIn'])->group(function(){
         Route::get('/',[DashboardController::class,'index'])->name('dashboard');
         Route::get('/accesspoints',[AccesspointController::class,'index'])->name('accesspoint');
@@ -37,10 +36,18 @@ Route::middleware(['preventBackHistory'])->group(function(){
     
 
     });
+});    
+
+Route::middleware('isFirstLogin')->group(function(){
+
+        Route::get('register', [RegisteredUserController::class, 'create'])
+            ->name('register');
+            Route::get('/setup',[FirstLoginController::class,'create'])->name('firstlogin');
+            Route::post('/store',[FirstLoginController::class,'store'])->name('firstsignup');
+        });
     
-
-   
-
+        
+    
 
 });
 
