@@ -31,5 +31,7 @@ class fillDatabase implements ShouldQueue
     public function handle()
     {
         //
+        error_log("hi");
+        return;
     }
 }

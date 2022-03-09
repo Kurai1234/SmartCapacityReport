@@ -68,7 +68,7 @@
                     </tr>
                     @foreach ($testing as $key)
                         <tr>
-                            <th scope="row">{{$key->id}}</th>
+                            <th scope="row">{{$loop->iteration}}</th>
                             <td colspan="2">{{$key->connected_sms}}</td>
                             <td>{{$key->status}}</td>
                             <td>{{$key->mode}}</td>

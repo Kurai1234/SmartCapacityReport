@@ -11,7 +11,7 @@ class DashboardController extends Controller
     //
 
     public function index(){
-        $testing = AccessPointStatistic::all();
+        $testing = AccessPointStatistic::orderby('dl_throughput','desc')->get();
         // dd(User::with('roles')->find(auth::id()));
         // dd(auth()->user());
         return view('auth.pages.dashboard',['testing'=>$testing]);
