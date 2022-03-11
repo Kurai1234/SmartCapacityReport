@@ -15,7 +15,7 @@ class CreateAccessPointsTable extends Migration
     {
         Schema::create('access_points', function (Blueprint $table) {
             $table->id();
-            $table->string('access_id');
+            $table->string('name');
             $table->string('mac_address');
             $table->string('product');
             $table->unsignedBigInteger('tower_id');

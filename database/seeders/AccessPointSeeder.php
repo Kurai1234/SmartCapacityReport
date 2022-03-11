@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\AccessPoint;
 use Illuminate\Database\Seeder;
 
 class AccessPointSeeder extends Seeder
@@ -14,5 +15,7 @@ class AccessPointSeeder extends Seeder
     public function run()
     {
         //
+        AccessPoint::factory()->count(5)->create();
+
     }
 }

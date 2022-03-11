@@ -35,7 +35,7 @@ class RetrieveAccessPointsStatistic implements ShouldQueue
      */
     public function handle()
     {
-        //
+        
         $token_request = new Client(['verify' => false]);
 
         $raw_response = $token_request->post(env('MAESTRO_SECOND_SERVER') . '/access/token', [
@@ -51,6 +51,7 @@ class RetrieveAccessPointsStatistic implements ShouldQueue
         $data = json_decode($raw_response->getBody()->getContents());
         $token = $data->access_token;
 
+        // $token= get_maestro_api_token();
         $api_request = new Client(['verify' => false]);
             $api_raw_response = $api_request->get(env('MAESTRO_SECOND_SERVER') . '/devices/statistics?mode=ap', [
                 'headers' => [
