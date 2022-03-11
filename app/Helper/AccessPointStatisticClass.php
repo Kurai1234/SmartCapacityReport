@@ -10,17 +10,18 @@ class AccessPointStatisticHelperClass
     public string $maestro;
     private string $clientId;
     private string $clientSecret;
+    private string $api_append;
     public string $url;
     public string $page;
-    public string $array;
-    function __construct(String $maestro, String $clientId, String $clientSecret)
+    public string $filter;
+    public array $reponse_data;
+    function __construct(String $maestro, String $clientId, String $clientSecret,String $api_append)
     {
         $this->maestro = $maestro;
         $this->clientId = $clientId;
         $this->clientSecret = $clientSecret;
-        $this->set_url();
-        $this->set_url_query(array('start_time'=>'2022/03/10 6:00','stop_time'=>'2022/03/11 8:20'));
-        
+        $this->api_append = $api_append;
+        $this->set_url_query(array('mode'=>'ap'));
     }
     function get_maestro()
     {
@@ -30,13 +31,16 @@ class AccessPointStatisticHelperClass
     {
         return $this->clientId;
     }
-    function set_url_query(array $array){
-        $this->array = http_build_query($array);
+    function set_url_query(array $array)
+    {
+        $this->filter = http_build_query($array);
     }
-    function get_url_query(){
-        return $this->array;
+    function get_url_query()
+    {
+        return $this->filter;
     }
-    function get_token(){
+    function get_token()
+    {
         $token_request = new Client(['verify' => false]);
 
         $response = $token_request->post($this->maestro . '/access/token', [
@@ -52,21 +56,23 @@ class AccessPointStatisticHelperClass
         return $token;
     }
 
-    function set_url()
-    {   
-
-
-
-
-  }
-    function get_url()
+    function call_api()
     {
-       return $this->url;
+        $api_request = new Client(['verify' => false]);
+        $api_raw_response = $api_request->get($this->maestro . $this->api_append.'?'.$this->filter,[
+            'headers' => [
+                'Authorization' => 'Bearer ' . $this->get_token(),
+            ]
+        ]);
+        $api_data = json_decode($api_raw_response->getBody()->getContents());
+        $this->reponse_data= $api_data->data;
     }
 
 
-    
-   
+    function get_response_data()
+    {
+        return $this->reponse_data;
+    }
 }
 
 
