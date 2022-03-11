@@ -46,6 +46,7 @@ class Network implements ShouldQueue
         error_log($total[4]->name);
         error_log($total[5]->name);
         error_log($total[6]->name);
+        error_log(count($total));
 
         return;
     }
