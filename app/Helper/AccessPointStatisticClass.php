@@ -99,7 +99,7 @@ class AccessPointStatisticHelperClass
         $this->paging = $api_data->paging->total;
 
 
-        // return $api_data->data[155];
+        return $api_data;
     }
 
 
