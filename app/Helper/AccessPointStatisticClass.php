@@ -12,10 +12,10 @@ class AccessPointStatisticHelperClass
     private string $clientSecret;
     private string $api_append;
     public string $url;
-    public string $page;
     public string $filter;
     public int $paging;
     public array $response_data;
+    //constructor ask for a url link, the client id, the client secret, and the api format url
     function __construct(String $maestro, String $clientId, String $clientSecret, String $api_append)
     {
         $this->maestro = $maestro;
@@ -27,22 +27,27 @@ class AccessPointStatisticHelperClass
     }
     function get_maestro()
     {
+        //returns  the amestro api link
         return $this->maestro;
     }
-    function get_client()
-    {
-        return $this->clientId;
-    }
+    // function get_client()
+    // {
+    //  was for testing the output
+    //     return $this->clientId;
+    // }
     function set_url_query(array $array)
     {
+        //builds the filter for the api, its optional
         $this->filter = http_build_query($array);
     }
     function get_url_query()
     {
+        //reutnrs filter
         return $this->filter;
     }
     function get_token()
     {
+        // Request a token from the api
         $token_request = new Client(['verify' => false]);
 
         $response = $token_request->post($this->maestro . '/access/token', [
@@ -60,6 +65,7 @@ class AccessPointStatisticHelperClass
 
     function call_api()
     {
+        //request data from the api
         $api_request = new Client(['verify' => false]);
         $api_raw_response = $api_request->get($this->maestro . $this->api_append . '?' . $this->filter, [
             'headers' => [
@@ -67,47 +73,45 @@ class AccessPointStatisticHelperClass
             ]
         ]);
         $api_data = json_decode($api_raw_response->getBody()->getContents());
-        $this->response_data= $api_data->data;
+
+        if ($api_data->paging->total > 100) {
+            $api_object_total = $api_data->paging->total;
+            $api_objects_limit = $api_data->paging->limit;
+            $api_request = new Client(['verify' => false]);
+            for ($counter = $api_objects_limit; $counter < $api_object_total; $counter += $api_objects_limit) {
+                $api_url_query = array(
+                    'offset' => $counter,
+
+                );
+                $api_new_query = http_build_query($api_url_query);
+
+                $api_raw_response = $api_request->get($this->maestro . $this->api_append . '?' . $api_new_query .'&'. $this->filter, [
+                    'headers' => [
+                        'Authorization' => 'Bearer ' . $this->get_token(),
+                    ]
+                ]);
+                $data= json_decode($api_raw_response->getBody()->getContents());
+                $api_data->data = array_merge($api_data->data, $data->data);
+            }
+        }
+
+        $this->response_data = $api_data->data;
         $this->paging = $api_data->paging->total;
 
-        // if ($api_data->paging->total > $api_data->paging->limit) {
-        //     $api_object_total = $api_data->paging->total;
-        //     $api_objects_limit = $api_data->paging->limit;
-        //     for ($counter = $api_objects_limit; $counter < $api_object_total; $counter += $api_objects_limit) {
-        //         $api_url_query = array(
-        //             'mode' => 'ap',
-        //             'offset' => $counter,
 
-        //         );
-        //         $this->set_url_query($api_url_query);
-        //         // $api_new_query = http_build_query($api_url_query);
-
-        //         $api_raw_response = $api_request->get(env('MAESTRO_SECOND_SERVER') . '/devices/statistics?' . $this->filter, [
-        //             'headers' => [
-        //                 'Authorization' => 'Bearer ' . $this->get_token(),
-        //             ]
-        //         ]);
-        //         $api_data->data = array_merge($api_data->data, json_decode($api_raw_response->getBody()->getContents())->data);
-        //     }
-        // }
-
-
-
-        return $api_data;
+        // return $api_data->data[155];
     }
 
 
     function get_response_data()
     {
-        // $this->call_api();
+        //returns the api data in array
 
         return $this->response_data;
     }
-    function get_paging(){
+    function get_paging()
+    {
+        //returns the api paging
         return $this->paging;
     }
 }
-
-
-
-//not using
