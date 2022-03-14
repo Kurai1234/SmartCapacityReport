@@ -53,6 +53,7 @@ class Tower implements ShouldQueue
                 }
             }
         }
+        error_log("Insertion Completed");
         return;
     }
 }

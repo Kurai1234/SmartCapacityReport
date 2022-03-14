@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\AccessPoint;
 class AccessPointStatistic extends Model
 {
     use HasFactory;
@@ -24,5 +24,8 @@ class AccessPointStatistic extends Model
     //         'frame_utilization',
         
     // ];
+    public function accesspoint(){
+        return $this->belongsTo(AccessPoint::class);
+    }
     
 }

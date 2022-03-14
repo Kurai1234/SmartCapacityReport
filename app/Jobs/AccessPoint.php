@@ -37,7 +37,7 @@ class AccessPoint implements ShouldQueue
     public function handle()
     {
         $maestro_ip = Maestro::all();
-        $towers_info = Tower::with('network', 'network.maestro')->get();
+        $towers_info = Tower::with('network')->get();
         // dd($towers_info[0]->network->maestro->url);
         foreach ($maestro_ip as $key) {
             $accesspoints = new AccessPointStatisticHelperClass($key->url, env('CLIENT_ID_SECOND'), env('CLIENT_SECRET_SECOND'), '/devices');
@@ -57,37 +57,22 @@ class AccessPoint implements ShouldQueue
             }
             foreach ($complied_data as $model) {
                 if (!ModelsAccessPoint::where('mac_address', $model->mac)->exists()) {
+                    $towers_info= Tower::with('network')->where('name','=',$model->tower)->first();
+                    // dd($towers_info->id);
+                    $insertion = new ModelsAccessPoint();
+                    $insertion->name=$model->name;
+                    $insertion->mac_address=$model->mac;
+                    $insertion->product=$model->product;
+                    $insertion->tower_id=$towers_info->id;
+                    $insertion->type=$model->type;
+                    $insertion->save();
                 }
             }
 
-            error_log('hi');
+            error_log('Insertiong completed');
         }
-        // $accesspoints = new AccessPointStatisticHelperClass(env('MAESTRO_SECOND_SERVER'), env('CLIENT_ID_SECOND'), env('CLIENT_SECRET_SECOND'), '/devices');
-        // $filter = array(
-        //     'type' => 'epmp',
-        // );
-        // $counter = 0;
-        // $accesspoints->set_url_query($filter);
-        // $accesspoints->call_api();
-        // $total = $accesspoints->get_response_data();
-        // $tester = array();
-        // foreach ($total as $key) {
-        //     if (str_contains($key->network, 'ePMP')) {
-        //         if (str_contains($key->product, '2000') || str_contains($key->product, '3000') || str_contains($key->product, '1000')) {
-        //             array_push($tester, $key);
-        //         }
-        //     }
-        // }
-        // error_log($tester[0]->name);
-        // error_log($tester[1]->name);
-        // error_log($tester[2]->name);
-        // error_log($tester[3]->name);
-        // error_log($tester[4]->name);
-        // error_log($tester[5]->name);
-        // error_log($tester[6]->name);
-        // error_log($counter);
-        // error_log(count($tester));
+       
         return;
-        //
+       
     }
 }

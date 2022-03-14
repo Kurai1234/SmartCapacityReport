@@ -62,7 +62,8 @@ class Network implements ShouldQueue
             }
         }
        // $maestros =Maestro::all();
-        error_log(count($complied_data));
+        // error_log(count($complied_data));
+        error_log('Insertion Completed');
         return;
     }
 }

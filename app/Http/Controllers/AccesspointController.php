@@ -15,8 +15,8 @@ class AccesspointController extends Controller
     public function index()
     {
 
-        $towers_info = Tower::with('network','network.maestro')->get();
-        dd($towers_info);
+        // $towers_info = Tower::with('network','network.maestro')->get();
+        // dd($towers_info);
 
         // $counter=0;
 //        // $testing= get_maestro_api_token();
@@ -50,9 +50,9 @@ class AccesspointController extends Controller
         
         $testing11 = Maestro::all();
         
-        foreach($testing11 as $test){
-            dd($test->name,$test->url);    
-        }
+        // foreach($testing11 as $test){
+//            dd($test->name,$test->url);    
+        // }
         $testing = AccessPoint::with(['tower:id,name,network_id', 'tower.network:id,name'])->get();
         $encode = json_encode($testing);
         $decode = json_decode($encode);
