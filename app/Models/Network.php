@@ -9,6 +9,10 @@ class Network extends Model
 {
     use HasFactory;
     protected $table = 'networks';
+    protected $fillable = [
+        'name',
+        'url'
+    ];
 
     public function maestro(){
         return $this->belongsTo(Maestro::class);
