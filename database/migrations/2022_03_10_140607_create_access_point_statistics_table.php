@@ -26,7 +26,7 @@ class CreateAccessPointStatisticsTable extends Migration
             $table->string('status');
             $table->integer('connected_sms');
             $table->integer('reboot');
-            $table->double('frame_utilization');
+            $table->double('dl_capacity_throughput');
             $table->timestamps();
             $table->foreign('access_point_id')->references('id')->on('access_points');
         });

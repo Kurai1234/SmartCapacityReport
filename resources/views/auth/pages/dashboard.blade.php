@@ -45,8 +45,27 @@
     <div class="col-lg-7 container-fluid table--container">
         <span>Live Feedback of Access Points Statistics</span>
         <h6 class="dashboard--subtitle">AP's under distress are displayed Live</h6>
+        
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <div class="ap--table--container">
-            <table class="table table-responsive table-hover ap--live--table">
+            <table class="table table-responsive table-hover ap--live--table" >
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -72,168 +91,48 @@
                             <td colspan="2">{{$key->connected_sms}}</td>
                             <td>{{$key->status}}</td>
                             <td>{{$key->mode}}</td>
-                            <td>{{$key->frame_utilization}}</td>
+                            <td>{{$key->dl_capacity_throughput}}</td>
                             <td>{{$key->dl_throughput}}</td>
                         </tr>
                     
                         
                     @endforeach
-
-
-                    {{-- <tr>
-                        <th scope="row">2</th>
-                        <td colspan="2">Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">3</th>
-                        <td colspan="2">Larry the Bird</td>
-                        <td>@twitter</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr> --}}
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+<div class="dashboard--table table-responsive">
 
+<table class="table" id="sortTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Network</th>
+                    <th>Tower</th>
+                    <th>DL Capacity Throughput</th>
+                    <th>DL Throughput</th>
+                    <th>Retransmission PcT</th>
+                </tr>
+                {{-- fix --}}
+            </thead>
+            <tbody>
+                @foreach($testing as $key)
+                <tr>
+                    <th>{{$loop->iteration}}</th>
+                    <th>{{$key->access_point_id}}</th>
+                    <th>{{$key->access_point_id}}</th>
+                    <th>{{$key->access_point_id}}</th>
+                    <th>{{$key->dl_capacity_throughput}}</th>
+                    <th>{{$key->dl_throughput}}</th>
+                    <th>{{$key->dl_retransmit_pcts}}</th>
+                </tr>
+                @endforeach
+            </tbody>
 
-
+        </table>
+    </div>
 
 <script defer type="text/javascript" src="{{asset('js/dashboard_graphs.js')}}"> </script>
 @endsection

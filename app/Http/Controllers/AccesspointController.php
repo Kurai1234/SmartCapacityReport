@@ -56,7 +56,7 @@ class AccesspointController extends Controller
         $testing = AccessPoint::with(['tower:id,name,network_id', 'tower.network:id,name'])->get();
         $encode = json_encode($testing);
         $decode = json_decode($encode);
-        dd($decode);
+        // dd($decode);
         return view('auth.pages.accesspoint', ['testing' => $testing]);
     }
 }

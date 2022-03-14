@@ -68,7 +68,7 @@ class RetrieveAccessPointsStatistic implements ShouldQueue
                     $insertion->status = $key->status;
                     $insertion->connected_sms = $key->connected_sms ? $key->connected_sms : 0;
                     $insertion->reboot = $key->reboots ? $key->reboots : 0;
-                    $insertion->frame_utilization = (($key->radio->dl_throughput/1000)*100)/$maximum_mbps;
+                    $insertion->dl_capacity_throughput= (($key->radio->dl_throughput/1000)*100)/$maximum_mbps;
                     $insertion->save();
     
     

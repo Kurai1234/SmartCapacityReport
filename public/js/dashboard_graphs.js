@@ -1,5 +1,7 @@
 google.charts.load('visualization','1',{packages:['corechart','line']});
 google.charts.setOnLoadCallback(drawchart);
+$('#sortTable').DataTable();
+
 function drawchart(){
     var data=google.visualization.arrayToDataTable([
         ['Status','Numbers of Access Points'],

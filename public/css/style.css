@@ -306,6 +306,25 @@ body::-webkit-scrollbar-thumb {
     text-align: center;
     height: 80px;
 }
+.dashboard--table{
+    width: 100%;
+    background: #ffffff;
+    box-shadow: 5px 4px 8px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    /* text-align: center; */
+    padding:1rem;
+}
+.dashboard--table table{
+    font-size: .8rem;
+    text-align: center;
+    font-family: var(--ff-poppins);
+/* color: red; */
+}
+
+.dashboard--table table>*{
+    font-weight: lighter;
+}
+
 .dashboard--ap--stats div {
     display: flex;
     overflow: hidden;
