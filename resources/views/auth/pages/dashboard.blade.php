@@ -123,7 +123,7 @@
                     <th>{{$loop->iteration}}</th>
                     <th>{{$key->access_point_id}}</th>
                     <th>{{$key->access_point_id}}</th>
-                    <th>{{$key->access_point_id}}</th>
+                    <th>{{$key->status}}</th>
                     <th>{{$key->dl_capacity_throughput}}</th>
                     <th>{{$key->dl_throughput}}</th>
                     <th>{{$key->dl_retransmit_pcts}}</th>
@@ -134,5 +134,11 @@
         </table>
     </div>
 
+
+
 <script defer type="text/javascript" src="{{asset('js/dashboard_graphs.js')}}"> </script>
+<script>
+
+    </script>
+
 @endsection

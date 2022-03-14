@@ -41,7 +41,19 @@ function drawchart(){
     
     };
 
-    
+    $.ajaxSetup({
+        headers:{
+        'X-CSRF-TOKEN':$('meta[name="crsf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: 'GET',
+        url:'/livetabledata',
+        dataType:"json",
+        success:function(response){
+            console.log(response.data);
+        }
+    });
     
 $(window).resize(function(){
 

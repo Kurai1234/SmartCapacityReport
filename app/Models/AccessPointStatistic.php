@@ -25,7 +25,7 @@ class AccessPointStatistic extends Model
         
     // ];
     public function accesspoint(){
-        return $this->belongsTo(AccessPoint::class);
+        return $this->belongsTo(AccessPoint::class,'access_point_id');
     }
     
 }
