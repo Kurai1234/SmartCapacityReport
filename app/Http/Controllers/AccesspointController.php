@@ -8,6 +8,7 @@ use App\Models\AccessPoint;
 use Illuminate\Http\Request;
 use AccessPointStatisticHelperClass;
 use App\Models\Maestro;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class AccesspointController extends Controller
 {
@@ -47,12 +48,29 @@ class AccesspointController extends Controller
         // dd($counter);
         // dd($testing->get_response_data());
         // dd(Maestro::all());
-        
-        $testing11 = Maestro::all();
-        
+        try{
+        $testing11 = Maestro::findOrFail(1);
+        }
+        catch(ModelNotFoundException $e){
+              dd(get_class_methods($e));
+              dd($e);
+
+        }
         // foreach($testing11 as $test){
-//            dd($test->name,$test->url);    
+//            dd($test->name,$test->url);   
+            
         // }
+        $info =array('chicken','dog','cat');
+        // updateAccessPoints();
+        dd(AccessPoint::wherehas('tower',function($query){
+            $query->where('tower_id',1);
+        })->with('tower')->get());
+        // dd(updateAccessPoints(false,));
+        dd(hectorDextorBextor());
+        dd("yes");
+
+
+
         $testing = AccessPoint::with(['tower:id,name,network_id', 'tower.network:id,name'])->get();
         $encode = json_encode($testing);
         $decode = json_decode($encode);

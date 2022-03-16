@@ -49,7 +49,7 @@ Route::middleware('auth')->group(function () {
         ->name('password.request');
 
    
-        Route::post('register', [RegisteredUserController::class, 'store']);
+        Route::post('register', [RegisteredUserController::class, 'store'])->name('register');
     Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
         ->name('password.confirm');
 

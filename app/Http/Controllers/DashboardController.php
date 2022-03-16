@@ -20,12 +20,12 @@ class DashboardController extends Controller
         return view('auth.pages.dashboard',['testing'=>$testing]);
     }
 
-    public function livedata(){
-        $total = count(AccessPoint::all());
-        $data = AccessPointStatistic::with('accesspoint','accesspoint.tower','accesspoint.tower.network')->orderby('id','desc')->take($total)->get();
+    // public function livedata(){
+    //     $total = count(AccessPoint::all());
+    //     $data = AccessPointStatistic::with('accesspoint','accesspoint.tower','accesspoint.tower.network')->orderby('id','desc')->take($total)->get();
 
-        // dd($data);
+    //     // dd($data);
 
-        return response()->json(['data'=>$data]);
-        }
+    //     return response()->json(['data'=>$data]);
+    //     }
 }

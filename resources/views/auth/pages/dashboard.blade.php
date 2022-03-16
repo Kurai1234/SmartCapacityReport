@@ -5,19 +5,19 @@
 <div class="dashboard--ap--stats">
     <div class="online--ap">
         <span>online</span>
-        <span>
+        <span id='ap--online--count'>
             1
         </span>
     </div>
     <div class="boarding--ap">
         <span>boarding</span>
-        <span>
+        <span id="ap--boarding--count">
             2
         </span>
     </div>
     <div class="offline--ap">
         <span>offline</span>
-        <span>
+        <span id="ap--offline--count">
             3
         </span>
     </div>
@@ -118,17 +118,7 @@
                 {{-- fix --}}
             </thead>
             <tbody>
-                @foreach($testing as $key)
-                <tr>
-                    <th>{{$loop->iteration}}</th>
-                    <th>{{$key->access_point_id}}</th>
-                    <th>{{$key->access_point_id}}</th>
-                    <th>{{$key->status}}</th>
-                    <th>{{$key->dl_capacity_throughput}}</th>
-                    <th>{{$key->dl_throughput}}</th>
-                    <th>{{$key->dl_retransmit_pcts}}</th>
-                </tr>
-                @endforeach
+               
             </tbody>
 
         </table>

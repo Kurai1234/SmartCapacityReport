@@ -37,8 +37,7 @@ class AccessPoint implements ShouldQueue
     public function handle()
     {
         $maestro_ip = Maestro::all();
-        $towers_info = Tower::with('network')->get();
-        // dd($towers_info[0]->network->maestro->url);
+        // $towers_info = Tower::with('network')->get();
         foreach ($maestro_ip as $key) {
             $accesspoints = new AccessPointStatisticHelperClass($key->url, env('CLIENT_ID_SECOND'), env('CLIENT_SECRET_SECOND'), '/devices');
             $filter = array(
