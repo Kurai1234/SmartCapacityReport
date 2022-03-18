@@ -9,6 +9,15 @@ class AccessPoint extends Model
 {
     use HasFactory;
 
+    protected $fillable=[
+        'name',
+        'mac_address',
+        'product',
+        'tower_id',
+        'type',
+        'ip_address',
+    ];
+
     public function tower(){
         return $this->belongsTo(tower::class);
     }

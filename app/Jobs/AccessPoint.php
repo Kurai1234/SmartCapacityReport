@@ -64,6 +64,7 @@ class AccessPoint implements ShouldQueue
                     $insertion->product=$model->product;
                     $insertion->tower_id=$towers_info->id;
                     $insertion->type=$model->type;
+                    $insertion->ip_address=$model->ip;
                     $insertion->save();
                 }
             }

@@ -66,7 +66,6 @@ class AccesspointController extends Controller
             $query->where('tower_id',1);
         })->with('tower')->get());
         // dd(updateAccessPoints(false,));
-        dd(hectorDextorBextor());
         dd("yes");
 
 

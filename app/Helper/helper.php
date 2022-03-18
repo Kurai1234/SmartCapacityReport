@@ -1,54 +1,44 @@
 <?php
+use PhpParser\Builder\Class_;
 
 use App\Jobs\AccessPoint;
-use App\Models;
 use App\Models\AccessPoint as ModelsAccessPoint;
 use App\Models\Maestro;
 use App\Models\Tower;
+// use AccessPointStatisticHelperClass;
+
 // use App\Models\AccessPoint;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
 
 if (!function_exists('updateAccessPoints')) {
-    function updateAccessPoints()
-    {
-        
-        $maestro_ip = Maestro::all();
-        // $towers_info = Tower::with('network')->get();
-        foreach ($maestro_ip as $key) {
-            $accesspoints = new AccessPointStatisticHelperClass($key->url, env('CLIENT_ID_SECOND'), env('CLIENT_SECRET_SECOND'), '/devices');
-            $filter = array(
-                'type' => 'epmp',
-            );
-            $accesspoints->set_url_query($filter);
-            $accesspoints->call_api();
-            $reponse_data = $accesspoints->get_response_data();
-            $complied_data = array();
-            foreach ($reponse_data as $key) {
-                if (str_contains($key->network, 'ePMP')) {
-                    if (str_contains($key->product, '2000') || str_contains($key->product, '3000') || str_contains($key->product, '1000')) {
-                        array_push($complied_data, $key);
-                    }
-                }
-            }
-            foreach ($complied_data as $model) {
-                if (!ModelsAccessPoint::where('mac_address', $model->mac)->exists()) {
-                    $towers_info= Tower::with('network')->where('name','=',$model->tower)->first();
-                    // dd($towers_info->id);
-                    $insertion = new ModelsAccessPoint();
-                    $insertion->name=$model->name;
-                    $insertion->mac_address=$model->mac;
-                    $insertion->product=$model->product;
-                    $insertion->tower_id=$towers_info->id;
-                    $insertion->type=$model->type;
-                    $insertion->save();
-                }
-            }
+    function updateAccessPoints( $info_to_test,$maestro)
+    {   
+        error_log($maestro);
+        $device_mac_address= str_replace(':','%3A',$info_to_test->mac);
+        $device_mac_address='/devices'.'/'.$device_mac_address;
+        $new_access_point = new AccessPointStatisticHelperClass($maestro,env('CLIENT_ID_SECOND'), env('CLIENT_SECRET_SECOND'),$device_mac_address); 
+        $new_access_point->set_url_query(array());
+        $datas=$new_access_point->call_api();
+        $datas2=$new_access_point->get_response_data();
+        // dd($datas2[0]->name);
+        // error_log('hi');
+        foreach($datas2 as $data){
+        $tower= Tower::query()->where('name','=',$data->tower)->first();
+            error_log('bye');
+        $update_or_create = ModelsAccessPoint::updateOrCreate(
+            ['ip_address'=>$data->ip,],
+            ['name'=>$data->name,
+            'mac_address'=>$data->mac,
+            'tower_id'=>$tower->id,
+            'product'=>$data->product,
+            'type'=>$data->type]
+        );
+        // $update_or_create->save();
+    }
 
-            error_log('Insertiong completed');
-        }
-       
-        return true;
+        
+        return;    
     }
 }
 

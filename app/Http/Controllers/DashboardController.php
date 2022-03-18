@@ -14,10 +14,10 @@ class DashboardController extends Controller
     //
 
     public function index(){
-        $testing = AccessPointStatistic::orderby('dl_throughput','desc')->get();
+        // $testing = AccessPointStatistic::orderby('dl_throughput','desc')->take(5)->get();
         // dd(User::with('roles')->find(auth::id()));
         // dd(auth()->user());
-        return view('auth.pages.dashboard',['testing'=>$testing]);
+        return view('auth.pages.dashboard');
     }
 
     // public function livedata(){

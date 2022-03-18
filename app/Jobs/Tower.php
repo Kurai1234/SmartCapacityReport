@@ -39,7 +39,6 @@ class Tower implements ShouldQueue
         $networks = Network::with('maestro')->get();
         
         foreach ($networks as $key) {
-            $collections= array();
             $networks = new AccessPointStatisticHelperClass($key->maestro->url, env('CLIENT_ID_SECOND'), env('CLIENT_SECRET_SECOND'), '/networks/' . str_replace(' ', '%20', $key->name). '/towers');
             $networks->call_api();
             $complied_data = $networks->get_response_data();

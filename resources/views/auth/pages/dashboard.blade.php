@@ -6,19 +6,19 @@
     <div class="online--ap">
         <span>online</span>
         <span id='ap--online--count'>
-            1
+            0
         </span>
     </div>
     <div class="boarding--ap">
         <span>boarding</span>
         <span id="ap--boarding--count">
-            2
+            0
         </span>
     </div>
     <div class="offline--ap">
         <span>offline</span>
         <span id="ap--offline--count">
-            3
+            0
         </span>
     </div>
 
@@ -42,83 +42,34 @@
             3
         </div> --}}
     </div>
-    <div class="col-lg-7 container-fluid table--container">
+    {{-- <div class="col-lg-7 container-fluid table--container">
         <span>Live Feedback of Access Points Statistics</span>
         <h6 class="dashboard--subtitle">AP's under distress are displayed Live</h6>
         
         
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <div class="ap--table--container">
-            <table class="table table-responsive table-hover ap--live--table" >
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th colspan="2" scope="col">Name</th>
-                        <th scope="col">Network</th>
-                        <th scope="col">Tower</th>
-                        <th scope="col">Frame_Utilization</th>
-                        <th scope="col">DL Throughput</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td colspan="2">Mark</td>
-                        <td>Otto</td>
-                        <td>@asdasdasdadasdsadmdo</td>
-                        <td>Otto</td>
-                        <td>Otto</td>
-                    </tr>
-                    @foreach ($testing as $key)
-                        <tr>
-                            <th scope="row">{{$loop->iteration}}</th>
-                            <td colspan="2">{{$key->connected_sms}}</td>
-                            <td>{{$key->status}}</td>
-                            <td>{{$key->mode}}</td>
-                            <td>{{$key->dl_capacity_throughput}}</td>
-                            <td>{{$key->dl_throughput}}</td>
-                        </tr>
-                    
-                        
-                    @endforeach
-                </tbody>
-            </table>
+       <div class="ap--table--container">
         </div>
-    </div>
+    </div> --}}
 </div>
 <div class="dashboard--table table-responsive">
-
+    <span>Live Feedback of Access Points Statistics</span>
+    <h6 class="dashboard--subtitle text-center">AP's under distress are displayed Live</h6>
+    
 <table class="table" id="sortTable">
             <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Name</th>
+                    <th>Product</th>
                     <th>Network</th>
                     <th>Tower</th>
+                    <th>Connected SM's</th>
                     <th>DL Capacity Throughput</th>
                     <th>DL Throughput</th>
                     <th>Retransmission PcT</th>
                 </tr>
-                {{-- fix --}}
             </thead>
-            <tbody>
-               
+            <tbody id="dashboard_table_body">
+                
             </tbody>
 
         </table>

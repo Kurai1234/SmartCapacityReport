@@ -23,6 +23,7 @@ class CreateAccessPointsTable extends Migration
             $table->timestamps();
             $table->foreign('tower_id')->references('id')->on('towers')->onDelete('cascade');
         });
+        
     }
 
     /**

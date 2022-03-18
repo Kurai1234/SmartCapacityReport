@@ -320,6 +320,13 @@ body::-webkit-scrollbar-thumb {
     font-family: var(--ff-poppins);
 /* color: red; */
 }
+.dashboard--table span{
+    width: 100%;
+    display: block;
+    text-align: center;
+
+    color: var(--custom-primary-color);
+}
 
 .dashboard--table table>*{
     font-weight: lighter;
