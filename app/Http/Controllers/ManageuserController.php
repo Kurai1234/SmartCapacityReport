@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 
 class ManageuserController extends Controller
 {
@@ -28,6 +29,9 @@ class ManageuserController extends Controller
 
     public function delete($id)
     {
+        if(auth()->user()->id==$id) return redirect()->back()->with('message','Dont delete yourself silly');
+       $isLast=User::query()->all();
+       if(count($isLast)<1) return redirect()->back()->with('message','Your the last one dude,do not leave us');
         User::destroy($id);
         return redirect()->route('admin.manageuser');
     }

@@ -324,6 +324,7 @@ body::-webkit-scrollbar-thumb {
     width: 100%;
     display: block;
     text-align: center;
+    font-size: 1rem;
 
     color: var(--custom-primary-color);
 }
