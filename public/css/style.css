@@ -405,12 +405,12 @@ body::-webkit-scrollbar-thumb {
     overflow-y: scroll;
     width: 100%;
 }
-.ap--table--container::-webkit-scrollbar {
+/* .ap--table--container::-webkit-scrollbar {
     width: 0.25rem;
 }
 .ap--table--container::-webkit-scrollbar-track {
     /* background-color: var(--custom-secondary-color); */
-}
+/* } */ */
 .ap--table--container::-webkit-scrollbar-thumb {
     background-color: var(--custom-primary-color);
 }
