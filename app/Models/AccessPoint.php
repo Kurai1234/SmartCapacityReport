@@ -19,7 +19,7 @@ class AccessPoint extends Model
     ];
 
     public function tower(){
-        return $this->belongsTo(tower::class);
+        return $this->belongsTo(Tower::class);
     }
     public function accesspointstatistics(){
         return $this->hasMany(AccessPointStatistic::class);

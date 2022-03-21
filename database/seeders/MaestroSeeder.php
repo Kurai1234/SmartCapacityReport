@@ -21,5 +21,9 @@ class MaestroSeeder extends Seeder
             'name'=>'Small network',
             'url'=>'https://172.20.19.21/api/v2',
         ]);
+        DB::table('maestros')->insert([
+            'name'=>'Large network',
+            'url'=>'https://172.20.19.6/api/v2',
+        ]);
     }
 }

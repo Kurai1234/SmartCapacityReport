@@ -37,10 +37,15 @@ class Network implements ShouldQueue
     public function handle()
     {
         $maestros_ip = Maestro::all();
+        $largeNetwork="Large network";
+        $smallNetwork="Small network";
         //
 
         foreach ($maestros_ip as $ip) {
-            $networks = new AccessPointStatisticHelperClass($ip->url, env('CLIENT_ID_SECOND'), env('CLIENT_SECRET_SECOND'), '/networks');
+            
+            if($ip->name==$smallNetwork)$networks = new AccessPointStatisticHelperClass($ip->url, env('CLIENT_ID_SECOND'), env('CLIENT_SECRET_SECOND'), '/networks');
+            if($ip->name==$largeNetwork)$networks = new AccessPointStatisticHelperClass($ip->url, env('CLIENT_ID_FIRST'), env('CLIENT_SECRET_FIRST'), '/networks');
+
             $networks->call_api();
             $total = $networks->get_response_data();
             $complied_data = array();

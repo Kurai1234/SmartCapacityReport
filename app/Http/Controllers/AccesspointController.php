@@ -15,7 +15,8 @@ class AccesspointController extends Controller
     //
     public function index()
     {
-        
+       
+
         return view('auth.pages.accesspoint');
     }
     
