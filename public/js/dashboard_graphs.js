@@ -11,21 +11,16 @@ function drawchart() {
         type: "GET",
         url: "/api/appieinfo",
         dataType: "json",
-        async:false,
-        // success: function (response) {
-        //     console.log(response.data);
-
-        // },   
+        async:false, 
     }).responseText;
     var data = google.visualization.arrayToDataTable(
-        // ["Status", "Numbers of Access Points"],
-        // ["Critical", 10],
-        // ["OK", 100],
+
         JSON.parse(datatest)
         );
     var option = {
         pieHole: 0.3,
         fontName: "Arial",
+        width:'300',
         legend: {
             position: "bottom",
             textStyle: {
@@ -38,7 +33,7 @@ function drawchart() {
         },
         chartArea: {
             width: "100%",
-            height: "80%",
+            height: "70%",
         },
         tooltip: {
             showColorCode: true,

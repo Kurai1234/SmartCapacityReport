@@ -25,11 +25,11 @@
 </div>
 
 <div class="row my-4 gx-3 container-fluid dashboard--content">
-    <div class="col-lg-5">
+    <div class="col-lg-3">
         <div class="row g-3">
-            <div class="col-lg-10 col-md-10  container piechart--container">
-                <span>Average of Access Points Status</span>
-                <h6 class="dashboard--subtitle">Grapical Representation of AP's Status</h6>
+            <div class="col-lg-12 col-md-12  container piechart--container">
+                <span>Access Points DL Capacity</span>
+                <h6 class="dashboard--subtitle">Access Points Dl Capacity over 80%</h6>
                 <div id="piechart" class="charts"> </div>
             </div>
             {{-- <div class="col-lg-5 col-md-5 container piechart--container">

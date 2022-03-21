@@ -372,11 +372,14 @@ text-align: center;}
     box-shadow: 5px 4px 8px rgba(0, 0, 0, 0.25);
     border-radius: 15px;
     text-align: center;
+    width: 300px;
+    padding: 0;
     padding-top: 1rem;
 }
 
 .piechart--container span {
     color: var(--custom-primary-color);
+    font-size: 1rem;
 }
 .ap--live--table {
     width: auto;
@@ -439,7 +442,7 @@ text-align: center;}
     color: var(--custom-primary-color);
 }
 .charts {
-    width: 100%;
+    width: auto;
     /* overflow: hidden; */
 }
 
