@@ -7,12 +7,22 @@ $.ajaxSetup({
 });
 
 function drawchart() {
-    var data = google.visualization.arrayToDataTable([
-        ["Status", "Numbers of Access Points"],
-        ["Critical", 10],
-        ["OK", 100],
-    ]);
+   var datatest= $.ajax({
+        type: "GET",
+        url: "/api/appieinfo",
+        dataType: "json",
+        async:false,
+        // success: function (response) {
+        //     console.log(response.data);
 
+        // },   
+    }).responseText;
+    var data = google.visualization.arrayToDataTable(
+        // ["Status", "Numbers of Access Points"],
+        // ["Critical", 10],
+        // ["OK", 100],
+        JSON.parse(datatest)
+        );
     var option = {
         pieHole: 0.3,
         fontName: "Arial",
@@ -125,14 +135,22 @@ var status_of_apis = function () {
 
 
 var interval = 1000 * 60 * 2;
-setInterval(status_of_apis, interval);
+// setInterval(status_of_apis, interval);
 setInterval(function(){
     dashBoardTable.ajax.reload();
-},interval)
-$(window).resize(function () {
+    status_of_apis();
+},interval);
+
+$(window).resize(function(){
+    if(this.resizeTo) clearTimeout(this.resizeTo);
+    this.resizeTo = setTimeout(function(){
+        $(this).trigger('resizeEnd');
+    },500);
+})
+
+$(window).on('resizeEnd',function(){
     drawchart();
 });
-
 // window.onload=(event)=>{
 $(document).ready(function () {
     // update_ap_data_table();
@@ -141,4 +159,4 @@ $(document).ready(function () {
 
 
 
-}, 500);
+});

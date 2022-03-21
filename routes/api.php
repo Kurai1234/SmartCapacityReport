@@ -23,3 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/liveapdata',[LiveAccessPointsStatistic::class,'livedata']);
 Route::get('/apstatus',[AccessPointGraphData::class,'index']);
+Route::get('/appieinfo',[AccessPointGraphData::class,'pieChart']);
+

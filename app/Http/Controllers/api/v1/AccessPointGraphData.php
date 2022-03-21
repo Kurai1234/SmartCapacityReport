@@ -33,4 +33,18 @@ class AccessPointGraphData extends Controller
         return response()->json(['data' => $data]);
         return "hi";
     }
+    public function pieChart(){
+        $total = count(ModelsAccessPoint::all());
+        $collection = AccessPointStatistic::query()->latest()->take($total)->get();
+        $counter =1;
+        (object) $dog=[];
+        (object)$chicken= array('accesspoint','Percentage');
+        (object) $cat=array('online',2);
+
+        (object) $fly=array('offline',10);
+        $dog[0]=$chicken;
+        $dog[1]=$cat;
+        $dog[2]=$fly;
+    return  response()->json($dog);
+    }
 }

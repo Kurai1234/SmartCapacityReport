@@ -35,36 +35,45 @@ body::-webkit-scrollbar-thumb {
 
 /* Css for Login Screen */
 
-.main {
+.main,.login--page {
     width: 100%;
     display: flex;
-    /* height: 100vh; */
+    height: 100vh;
     width: 100vw;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 }
 .login--container {
-    width: 37em;
-    min-height: 40em;
-    max-height: 50em;
+    width: 25em;
+    height: 20em;
     box-shadow: 5px 4px 8px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
     background-color: white;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    /* text-align: center; */
+    /* align-self: center; */
     padding: 1rem;
 }
-
-.login--content {
-    display: flex;
-    flex-direction: column;
-}
-.login--content > * {
-    margin: 1em;
+.login--form--container{
+    margin: 1rem;
     font-size: 1rem;
+text-align: center;}
+
+.login--container h4{
+    text-align: center  ;
+    color: var(--custom-primary-color);
+    text-transform: uppercase;
+    font-weight: 900;
+    font-size: 1.6rem;
 }
-.login--content > input {
+.login--container h4::after{
+    content: 'Monitoring';
+    color: var(--custom-secondary-color);
+}
+
+
+.login--container  input {
     -webkit-appearance: none;
     border: none;
     color: var(--custom-primary-color);
@@ -72,24 +81,13 @@ body::-webkit-scrollbar-thumb {
     border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 }
 
-.login--content > input::placeholder {
+.login--container  input::placeholder{
     color: var(--custom-primary-color);
     font-family: var(--ff-poppins);
 }
-.login--title {
-    color: var(--custom-primary-color);
-    font-size: 1.6rem;
-    font-weight: 600;
-    text-transform: uppercase;
-}
-.login--title > span::after {
-    color: var(--custom-secondary-color);
-    content: "Monitoring";
-}
-
-.login--button {
+.login--container button {
     margin: auto;
-    margin-top: 2.5rem;
+    margin-top: 1.5rem;
     background-color: #f7f2f2;
     color: #000000;
     width: 10rem;
