@@ -45,7 +45,8 @@ body::-webkit-scrollbar-thumb {
 }
 .login--container {
     width: 25em;
-    height: 20em;
+    max-height: 23em;
+    min-height: 20em;
     box-shadow: 5px 4px 8px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
     background-color: white;
@@ -68,7 +69,7 @@ text-align: center;}
     font-size: 1.6rem;
 }
 .login--container h4::after{
-    content: 'Monitoring';
+    content: 'Monitor';
     color: var(--custom-secondary-color);
 }
 
@@ -77,6 +78,7 @@ text-align: center;}
     -webkit-appearance: none;
     border: none;
     color: var(--custom-primary-color);
+ 
     outline: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 }

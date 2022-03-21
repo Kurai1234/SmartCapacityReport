@@ -25,31 +25,23 @@
 </div>
 
 <div class="row my-4 gx-3 container-fluid dashboard--content">
-    <div class="col-lg-3">
+    <div class="col-lg-3 gx-4">
         <div class="row g-3">
             <div class="col-lg-12 col-md-12  container piechart--container">
                 <span>Access Points DL Capacity</span>
                 <h6 class="dashboard--subtitle">Access Points Dl Capacity over 80%</h6>
                 <div id="piechart" class="charts"> </div>
             </div>
-            {{-- <div class="col-lg-5 col-md-5 container piechart--container">
-                <span>Average of Access Points Status</span>
-                <h6 class="dashboard--subtitle">Grapical Representation of AP's Status</h6>
-                <div id="piechart"> </div>
-            </div> --}}
+           
         </div>
-        {{-- <div class="row">
-            3
-        </div> --}}
     </div>
-    {{-- <div class="col-lg-7 container-fluid table--container">
-        <span>Live Feedback of Access Points Statistics</span>
-        <h6 class="dashboard--subtitle">AP's under distress are displayed Live</h6>
-        
-        
-       <div class="ap--table--container">
+    <div class="col-lg-4 gx-4">
+        <div class="row g-5">
+            <div class="col-lg-12 col-md-12">
+                hi
+            </div>
         </div>
-    </div> --}}
+    </div>
 </div>
 <div class="dashboard--table table-responsive">
     <span>Live Feedback of Access Points Statistics</span>
