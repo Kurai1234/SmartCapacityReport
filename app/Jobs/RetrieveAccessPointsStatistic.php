@@ -43,34 +43,29 @@ class RetrieveAccessPointsStatistic implements ShouldQueue, ShouldBeUnique
         $hasBeenUpdated = false;
         $maestros_ip = Maestro::all();
         foreach ($maestros_ip as $ip) {
+
             $statistic_data = new AccessPointStatisticHelperClass($ip->url, env('CLIENT_ID_SECOND'), env('CLIENT_SECRET_SECOND'), '/devices/statistics');
             $statistic_data->set_url_query(array('mode' => 'ap'));
             $statistic_data->call_api();
             $data = $statistic_data->get_response_data();
             foreach ($data as $key) {
+            
 
                 if (str_contains($key->network, "ePMP")) {
                     $maximum_mbps = 0;
                     try {
-                        $access_point_info = AccessPoint::query()->where('name', '=', $key->name)->where('mac_address',$key->mac)->firstOrFail();
-                      
+
+                        $access_point_info = AccessPoint::query()->where('name', '=', $key->name)->where('mac_address','=',$key->mac)->firstOrFail();
                     } catch (ModelNotFoundException $e) {
-                        // $array[]=(array)$key;
-                        // error_log($key->name);
+                        error_log($key->name);
                         updateAccessPoints($key,$ip->url);
                         $access_point_info = AccessPoint::query()->where('name', '=', $key->name)->where('mac_address',$key->mac)->firstOrFail();
-
-                        // dd($dog);
-                        // error_log(gettype($key));
 
                     }
                     if (str_contains($access_point_info->product, '3000')) $maximum_mbps = 220;
                     if (str_contains($access_point_info->product, '1000')) $maximum_mbps = 120;
                     if (str_contains($access_point_info->product, '2000')) $maximum_mbps = 120;
-
-
                     $insertion = new AccessPointStatistic();
-                    //insertion missing
                     $insertion->access_point_id = $access_point_info->id;
                     $insertion->mode = $key->mode ? $key->mode : "N/A";
                     $insertion->dl_retransmit = $key->radio->dl_retransmits ? $key->radio->dl_retransmits : 0;
@@ -84,7 +79,8 @@ class RetrieveAccessPointsStatistic implements ShouldQueue, ShouldBeUnique
                     $insertion->reboot = $key->reboots ? $key->reboots : 0;
                     $insertion->dl_capacity_throughput = (($key->radio->dl_throughput / 1000) * 100) / $maximum_mbps;
                     $insertion->save();
-                   
+                    // error_log("6");
+
 
 
                     // $chicken = $key->name;
@@ -95,7 +91,7 @@ class RetrieveAccessPointsStatistic implements ShouldQueue, ShouldBeUnique
 
         //insert db
 
-        error_log("working");
+        error_log("New Batch of information");
         return;
     }
 }
