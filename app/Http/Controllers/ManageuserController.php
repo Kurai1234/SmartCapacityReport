@@ -67,7 +67,6 @@ class ManageuserController extends Controller
                 $user->is_admin = $request->is_admin === null ? false : true;
                 $user->save;
                 $user->update($request->except(['_token', 'updateUser', '_method']));
-
                 return redirect()->route('admin.manageuser')->with('message', 'User sucessfully updated');
             }
         } else {

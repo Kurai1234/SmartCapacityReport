@@ -40,11 +40,14 @@ class RetrieveAccessPointsStatistic implements ShouldQueue, ShouldBeUnique
      */
     public function handle()
     {
-        $hasBeenUpdated = false;
         $maestros_ip = Maestro::all();
+        $largeNetwork="Large network";
+        $smallNetwork="Small network";
         foreach ($maestros_ip as $ip) {
 
-            $statistic_data = new AccessPointStatisticHelperClass($ip->url, env('CLIENT_ID_SECOND'), env('CLIENT_SECRET_SECOND'), '/devices/statistics');
+            if($ip->name==$smallNetwork) $statistic_data = new AccessPointStatisticHelperClass($ip->url, env('CLIENT_ID_SECOND'), env('CLIENT_SECRET_SECOND'), '/devices/statistics');
+            if($ip->name==$largeNetwork) $statistic_data = new AccessPointStatisticHelperClass($ip->url, env('CLIENT_ID_FIRST'), env('CLIENT_SECRET_FIRST'), '/devices/statistics');
+
             $statistic_data->set_url_query(array('mode' => 'ap'));
             $statistic_data->call_api();
             $data = $statistic_data->get_response_data();

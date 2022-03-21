@@ -41,8 +41,8 @@ class AccessPointGraphData extends Controller
             $key->dl_capacity_throughput<80? $fine++:$critical++;
         }
         (object)$header= array('accesspoint','Percentage');
-        (object) $cool=array('Cool',$fine);
-        (object) $overWork=array('Crtitical',$critical);
+        (object) $cool=array('Top-Notch',$fine);
+        (object) $overWork=array('Intense',$critical);
         $response[0]=$header;
         $response[1]=$overWork;
         $response[2]=$cool;
