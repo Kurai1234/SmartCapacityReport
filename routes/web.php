@@ -26,9 +26,8 @@ Route::middleware(['preventBackHistory'])->group(function(){
     Route::middleware(['auth','isLoggedIn'])->group(function(){
         Route::get('/',[DashboardController::class,'index'])->name('dashboard');
         // Route::get('/livetabledata',[DashboardController::class,'livedata'])->name('dashboard.table');
-
         Route::get('/accesspoints',[AccesspointController::class,'index'])->name('accesspoint');
-
+        Route::post('/accesspointgraph',[AccesspointController::class,'view'])->name('accesspointgraph');
         Route::middleware(['isAdmin'])->group(function(){
             Route::get('/admin/manageusers',[ManageuserController::class,'index'])->name('admin.manageuser');
             Route::get('/admin/edituser/{id}/edit',[ManageuserController::class,'edit'])->name('admin.edituser');

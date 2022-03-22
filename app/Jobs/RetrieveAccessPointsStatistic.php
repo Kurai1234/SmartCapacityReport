@@ -50,6 +50,7 @@ class RetrieveAccessPointsStatistic implements ShouldQueue, ShouldBeUnique
 
             $statistic_data->set_url_query(array('mode' => 'ap'));
             $statistic_data->call_api();
+            
             $data = $statistic_data->get_response_data();
             foreach ($data as $key) {
             

@@ -6,12 +6,16 @@
 <div class="row container-fluid access--point--dashboard">
     <div class="col-md-4 filter--container">
         <h5 class="py-4">Filter Access Points</h5>
-        <form>
+        <form method="POST" action="{{route('accesspointgraph')}}">
+            @csrf
             <div class="mb-3 pe-3">
                 <label for="Network" class="form-label">Network</label>
-                <select id="Network" class="form-control form-control-sm ap--filter--select">
+                <select id="Network" class="form-control form-control-sm ap--filter--select" name="network">
                     <option value="Default">Default
                     </option>
+                    @foreach($network as $key)
+                            <option value="{{$key->id}}"> {{$key->name}}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="mb-3 pe-3">
@@ -19,6 +23,7 @@
                 <select id="Tower" class="form-control form-control-sm ap--filter--select">
                     <option value="Default">Default
                     </option>
+                    
                 </select>
             </div>
             <div class="mb-3 pe-3">
@@ -41,7 +46,7 @@
             </div>
 
             <div class="mb-3 pe-3 text-center">
-                <button type="button" class="btn btn-success mx-2">Display</button>
+                <button type="submit" class="btn btn-success mx-2">Display</button>
                 <button type="button" class="btn btn-light">Clear</button>
             </div>
 
