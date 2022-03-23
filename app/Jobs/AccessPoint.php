@@ -73,9 +73,9 @@ class AccessPoint implements ShouldQueue
                 }
             }
 
-            error_log('Insertiong completed');
         }
-       
+        error_log('Insertion completed');
+
         return;
        
     }
