@@ -30,8 +30,8 @@ class AccesspointController extends Controller
                 'start_time'=>'required',
                 'end_time'=>'required'
             ]);
-
-            dd(AccessPoint::query()->where('tower_id',$request->tower)->where('id',$request->accesspoint)->firstOrFail());
+            return "working on it";
+                        dd(AccessPoint::query()->where('tower_id',$request->tower)->where('id',$request->accesspoint)->firstOrFail());
 
         }
 }
