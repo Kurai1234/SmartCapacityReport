@@ -37,7 +37,7 @@
         </div>
         <div class="col-lg-4 my-1">
             <div class="row g-3">
-                <div class="col-lg-12 col-md-12 offlinetable--container piechart--container ">
+                <div class="col-lg-12 col-md-12 offlinetable--container">
                         <span>Offline Ap's </span>
                         <h6 class="dashboard--subtitle">Access points that are offline</h6>
                         <div class="offline--aps--table">

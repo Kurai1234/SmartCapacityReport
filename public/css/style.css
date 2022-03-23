@@ -432,9 +432,15 @@ text-align: center;}
     padding: 1.2rem 0;
     padding-top: 1rem;
 }
-
+.offlinetable--container span{
+    color: #D74C4C;
+    font-size: 1rem;
+    text-transform: capitalize;
+    font-weight: 800;
+}
 .piechart--container span {
     color: var(--custom-primary-color);
+    text-transform: capitalize;
     font-size: 1rem;
     font-weight: 800;
 }
