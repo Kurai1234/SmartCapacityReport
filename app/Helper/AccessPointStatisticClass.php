@@ -49,13 +49,16 @@ class AccessPointStatisticHelperClass
     {
         // Request a token from the api
         $token_request = new Client(['verify' => false]);
+<<<<<<< HEAD
+=======
+        
+>>>>>>> e43c0d0b2139926db0a2e1dbe942610cb2eb2d5c
         $response = $token_request->post($this->maestro . '/access/token', [
             'form_params' => [
                 'grant_type' => 'client_credentials',
                 'client_id' => $this->clientId,
                 'client_secret' => $this->clientSecret
             ]
-
         ]);
         $data = json_decode($response->getBody()->getContents());
         $token = $data->access_token;
