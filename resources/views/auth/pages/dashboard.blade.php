@@ -56,8 +56,10 @@
                     <th>Tower</th>
                     <th>Connected SM's</th>
                     <th>DL Capacity Throughput</th>
+                    <th>UL Throughput </th>
                     <th>DL Throughput</th>
                     <th>Retransmission PcT</th>
+                
                 </tr>
             </thead>
             <tbody id="dashboard_table_body">
