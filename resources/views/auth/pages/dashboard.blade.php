@@ -24,8 +24,8 @@
 
     </div>
 
-    <div class="row my-4 gx-3 container-fluid dashboard--content">
-        <div class="col-lg-3 gx-4">
+    <div class="row my-1  container-fluid dashboard--content">
+        <div class="col-lg-3 my-1">
             <div class="row g-3">
                 <div class="col-lg-12 col-md-12  container piechart--container">
                     <span>Access Points DL Capacity</span>
@@ -35,13 +35,29 @@
 
             </div>
         </div>
-        <div class="col-lg-4 gx-4">
-            <div class="row g-5">
-                <div class="col-lg-12 col-md-12 container ">
-                    hi
+        <div class="col-lg-4 my-1">
+            <div class="row g-3">
+                <div class="col-lg-12 col-md-12 offlinetable--container piechart--container ">
+                        <span>Offline Ap's </span>
+                        <h6 class="dashboard--subtitle">Access points that are offline</h6>
+                        <div class="offline--aps--table">
+                          <table class="table table-borderless offline--table">
+                              <thead>
+                                  <tr class="offline--aps--header">
+                                      <th>Name </th>
+                                      <th>Tower </th>
+                                      <th>Network</th>
+                                  </tr>
+                              </thead>
+                              <tbody id="offline--aps--tbody">
+                                 
+                              </tbody>
+                          </table>
+                        </div>
                 </div>
             </div>
         </div>
+        
     </div>
     <div class="dashboard--table table-responsive">
         <span>Live Feedback of Access Points Statistics</span>

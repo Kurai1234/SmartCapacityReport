@@ -302,7 +302,44 @@ text-align: center;}
 /* Dashboard */
 
 /* start of 3 status */
-
+.offline--aps--table{
+    border: 1px solid black;
+    max-height: 180px;
+    max-width: 95%;
+    margin: auto;
+    margin-bottom: 10px;
+    position: relative;
+    overflow-y: scroll;
+    /* overflow-x: hidden; */
+    -webkit-overflow-scrolling: touch;
+}
+.offline--aps--header{
+    background-color: #D74C4C;
+    color: white;
+}
+.offline--aps--table table{
+    margin: auto;
+        width: 100%;
+        overflow: hidden;
+    font-size: .635rem;
+}
+.offline--aps--table table td.text {
+    overflow: hidden;
+    display: inline-block;
+    /* word-break: break-word; */
+    /* width: 100%; */
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.offline--aps--table::-webkit-scrollbar {
+    width: 0.25rem;
+}
+.offline--aps--table::-webkit-scrollbar-track {
+    background-color: var(--custom-secondary-color);
+}
+.offline--aps--table::-webkit-scrollbar-thumb {
+    background-color: var(--custom-primary-color);
+}
 .dashboard--ap--stats {
     display: flex;
     overflow: hidden;
@@ -375,10 +412,24 @@ text-align: center;}
 .piechart--container {
     background: #ffffff;
     box-shadow: 5px 4px 8px rgba(0, 0, 0, 0.25);
-    border-radius: 15px;
+    /* border-radius: 15px; */
     text-align: center;
-    width: 300px;
-    padding: 0;
+    max-height: 310px;
+    min-height: 290px;
+    width: 310px;
+    padding: 1.2rem 0;
+    padding-top: 1rem;
+}
+.offlinetable--container{
+    background: #ffffff;
+    box-shadow: 5px 4px 8px rgba(0, 0, 0, 0.25);
+    /* border-radius: 15px; */
+    text-align: center;
+    max-height: 310px;
+    min-height: 290px;
+    min-width: 100%;
+    max-width: auto;
+    padding: 1.2rem 0;
     padding-top: 1rem;
 }
 

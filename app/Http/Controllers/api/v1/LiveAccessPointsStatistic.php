@@ -12,9 +12,7 @@ class LiveAccessPointsStatistic extends Controller
 {
     //
     public function livedata(){
-        $total = count(AccessPoint::all());
-        $data = AccessPointStatistic::with('accesspoint','accesspoint.tower','accesspoint.tower.network')->latest()->take($total)->get();
-        // dd($data);
+        $data = AccessPointStatistic::with('accesspoint','accesspoint.tower','accesspoint.tower.network')->latest()->take(AccessPoint::count())->get();
         return response()->json(['data'=>$data]);
         }
 }

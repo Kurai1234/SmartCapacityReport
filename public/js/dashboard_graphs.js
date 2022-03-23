@@ -38,7 +38,7 @@ function drawchart() {
         tooltip: {
             showColorCode: true,
 
-            textStyle: {
+                textStyle: {
                 bold: true,
             },
         },
@@ -58,7 +58,7 @@ var dashBoardTable=$("#sortTable").DataTable({
         "type":"GET",
          "url": "/api/liveapdata",
          "dataSrc":function (json) { 
-             console.log(json.data);
+            //  console.log(json.data); 
              return json.data;
          }
     },
@@ -104,6 +104,8 @@ var dashBoardTable=$("#sortTable").DataTable({
 //     });
 // };
 var status_of_apis = function () {
+    document.getElementById("offline--aps--tbody").innerHTML ='';
+
     $.ajaxSetup({
         headers: {
             "X-CSRF-TOKEN": $('meta[name="crsf-token"]').attr("content"),
@@ -114,13 +116,20 @@ var status_of_apis = function () {
         url: "/api/apstatus",
         dataType: "json",
         success: function (response) {
-            // console.log(response.data);
+            Object.values(response.data.devices).forEach(device => {
+                document.getElementById("offline--aps--tbody").innerHTML +=`<td>${device.accesspoint.name} </td>
+                <td>${device.accesspoint.tower.name} </td>
+                <td>${device.accesspoint.tower.network.name} </td>`;
+
+                console.log(device);
+                // console.log(device[382]);
+            });
             document.getElementById("ap--online--count").innerText =
-                response.data.online;
+                response.data.status.online;
             document.getElementById("ap--boarding--count").innerText =
-                response.data.boarding;
+                response.data.status.boarding;
             document.getElementById("ap--offline--count").innerText =
-                response.data.offline;
+                response.data.status.offline;
         },
     });
 };
