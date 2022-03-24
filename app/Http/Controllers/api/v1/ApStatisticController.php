@@ -20,7 +20,7 @@ class ApStatisticController extends Controller
     public function index(){
         // $data = AccessPointStatistic::with('accesspoint','accesspoint.tower','accesspoint.tower.network')->latest()->take(AccessPoint::count())->get();
         // return response()->json(['data'=>$data]);
-        
+        //return the collection and stores in cache for 5 minutes.
         return ApStatisticResource::collection(
             Cache::remember('apstats',60*5,function(){
                 return AccessPointStatistic::query()

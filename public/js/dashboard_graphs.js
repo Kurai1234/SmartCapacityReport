@@ -1,3 +1,4 @@
+var interval = 1000 * 60 * 2;
 google.charts.load("visualization", "1", { packages: ["corechart", "line"] });
 google.charts.setOnLoadCallback(drawchart);
 $.ajaxSetup({
@@ -76,30 +77,6 @@ var dashBoardTable=$("#sortTable").DataTable({
     ]
  });
 
-
-
-
-
-
-
-
-// var update_ap_data_table = function () {
-//     $.ajaxSetup({
-//         headers: {
-//             "X-CSRF-TOKEN": $('meta[name="crsf-token"]').attr("content"),
-//         },
-//     });
-//     $.ajax({
-//         type: "GET",
-//         url: "/api/liveapdata",
-//         cache:false,
-//         dataType: "json",
-//         success: function (response) {
-//             // console.log(response.data[0]);
-        
-//         },
-//     });
-// };
 var status_of_apis = function () {
     document.getElementById("offline--aps--tbody").innerHTML ='';
 
@@ -117,9 +94,7 @@ var status_of_apis = function () {
                 document.getElementById("offline--aps--tbody").innerHTML +=`<td>${device.accesspoint.name} </td>
                 <td>${device.accesspoint.tower.name} </td>
                 <td>${device.accesspoint.tower.network.name} </td>`;
-
-                console.log(device);
-                // console.log(device[382]);
+                // console.log(device);
             });
             document.getElementById("ap--online--count").innerText =
                 response.data.status.online;
@@ -131,12 +106,6 @@ var status_of_apis = function () {
     });
 };
 
-
-
-
-
-var interval = 1000 * 60 * 2;
-// setInterval(status_of_apis, interval);
 setInterval(function(){
     dashBoardTable.ajax.reload();
     status_of_apis();
@@ -152,12 +121,7 @@ $(window).resize(function(){
 $(window).on('resizeEnd',function(){
     drawchart();
 });
-// window.onload=(event)=>{
 $(document).ready(function () {
-    // update_ap_data_table();
-    // dashBoardTable();
+    
     status_of_apis();
-
-
-
 });
