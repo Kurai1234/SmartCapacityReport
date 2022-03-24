@@ -56,19 +56,16 @@ function drawchart() {
 var dashBoardTable=$("#sortTable").DataTable({
     "ajax":{
         "type":"GET",
-         "url": "/api/liveapdata",
+         "url": "/api/apstatistic",
          "dataSrc":function (json) { 
-            //  console.log(json.data); 
+             console.log(json.data); 
              return json.data;
          }
     },
-    
     "columns":[
-            
             {"data":"accesspoint.name"},
             {"data":"accesspoint.product"},
             {"data":"accesspoint.tower.network.name"},
-
             {"data":"accesspoint.tower.name"},
             {"data":"connected_sms"},
             {"data":"dl_capacity_throughput",render: $.fn.dataTable.render.number(',','.',2,''," %")},

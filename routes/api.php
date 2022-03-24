@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\v1\LiveAccessPointsStatistic;
 use App\Http\Controllers\api\v1\AccessPointGraphData;
+use App\Http\Controllers\api\v1\ApStatisticController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,7 +22,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-
+Route::get('/apstatistic',[ApStatisticController::class,'index']);
 Route::get('/liveapdata',[LiveAccessPointsStatistic::class,'livedata']);
 Route::get('/apstatus',[AccessPointGraphData::class,'index']);
 Route::get('/appieinfo',[AccessPointGraphData::class,'pieChart']);
