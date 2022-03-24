@@ -31,7 +31,8 @@
         },
         "files":[
             "app/Helper/helper.php",
-            "app/Helper/AccessPointStatisticClass.php"
+            "app/Helper/AccessPointStatisticClass.php",
+            "app/Helper/MaestroApiClass.php"
         ]
     },
     "autoload-dev": {

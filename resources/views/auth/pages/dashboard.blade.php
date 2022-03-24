@@ -25,7 +25,7 @@
     </div>
 
     <div class="row my-1  container-fluid dashboard--content">
-        <div class="col-lg-3 my-1">
+        <div class="col-lg-3 my-1 ">
             <div class="row g-3">
                 <div class="col-lg-12 col-md-12  container piechart--container">
                     <span>Access Points DL Capacity</span>

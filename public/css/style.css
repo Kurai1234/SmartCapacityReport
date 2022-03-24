@@ -340,6 +340,9 @@ text-align: center;}
 .offline--aps--table::-webkit-scrollbar-thumb {
     background-color: var(--custom-primary-color);
 }
+.dashboard--content{
+    padding-left: .6rem;
+}
 .dashboard--ap--stats {
     display: flex;
     overflow: hidden;
