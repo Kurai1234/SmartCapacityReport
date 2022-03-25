@@ -13,7 +13,9 @@ use GuzzleHttp\Exception\BadResponseException;
 
 if (!function_exists('updateAccessPoints')) {
     function updateAccessPoints( $info_to_test,$maestro)
-    {   $largeNetwork="Large network";
+    {   
+        
+        $largeNetwork="Large network";
         $smallNetwork="Small network";
         $maesto_name = Maestro::where('url',$maestro)->firstOrFail();
         error_log($maestro);

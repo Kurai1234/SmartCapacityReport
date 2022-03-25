@@ -25,7 +25,7 @@ class MaestroApiClass
         $this->clientId = $this->get_Client_Id();
         $this->clientSecret = $this->get_Client_Secret();
         $this->urlQuery = $urlQuery;
-        $this->filter = empty($filters) ? $this->set_filter($filters) : '';
+        $this->filter = !empty($filters) ? $this->set_filter($filters) : '';
     }
     private function get_Client_ID()
     {

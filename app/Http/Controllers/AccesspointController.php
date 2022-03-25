@@ -16,22 +16,13 @@ class AccesspointController extends Controller
     //
     public function index()
     {  
-        // foreach(Maestro::all() as $maestro){
-            $call_api = new MaestroApiClass(1,'/devices',array('type'=>'epmp'));
-            $accesspoints = $call_api->call_api();
-            $complied_data = array();
-            foreach ($accesspoints as $accespoint) {
-                dd($accespoint);
-                if (str_contains($accespoint->network, 'ePMP')) {
-                    if (str_contains($accespoint->product, '2000') || str_contains($accespoint->product, '3000') || str_contains($accespoint->product, '1000')) {
-                        array_push($complied_data, $accespoint);
-                    }
-                }
-            }
-            dd($complied_data);
-        // }
-        
-        
+     
+        foreach(Maestro::all() as $maestro){
+            $api_call = new MaestroApiClass($maestro->id,'/devices/statistics',array('mode'=>'ap'));
+            dd($api_call->call_api());
+            
+        }
+
         $data=[
             'networks'=>Network::all('id','name'),
             'towers'=>Tower::all('id','name','network_id'),
@@ -48,10 +39,10 @@ class AccesspointController extends Controller
                 'start_time'=>'required',
                 'end_time'=>'required'
             ]);
-            $url=Network::query()->with('maestro:id,url')->where('id',$request->network)->firstOrFail();
-            dd($url->maestro->url);
+            // $url=Network::query()->with('maestro:id,url')->where('id',$request->network)->firstOrFail();
+            // dd($url->maestro->url);
             
-            // return "go back, currently working on it";
+            return "go back, currently working on it";
             dd(AccessPoint::query()->where('tower_id',$request->tower)->where('id',$request->accesspoint)->firstOrFail());
         }
 }
