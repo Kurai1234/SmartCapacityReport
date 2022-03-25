@@ -16,8 +16,8 @@ class AccesspointController extends Controller
     //
     public function index()
     {  
+        
         $tring='2022-03-04T14:29';
-       dd(formatTimeToString($tring));
         $data=[
             'networks'=>Network::all('id','name'),
             'towers'=>Tower::all('id','name','network_id'),
@@ -34,8 +34,19 @@ class AccesspointController extends Controller
                 'start_time'=>'required|before:tomorrow',
                 'end_time'=>'required|before:tomorrow'
             ]);
+            
+            $testing = new MaestroApiClass(Network::findOrFail($request->network)->maestro_id,
+            modifyUrl('/devices',AccessPoint::findOrFail($request->accesspoint)->mac_address).'/performance',
+            array(
+                'start_time'=>formatTimeToString($request->start_time),
+                'stop_time'=>formatTimeToString($request->end_time)
+                )
+            );
+
+            dd($testing->call_api());
             // dd($request);
             
+
             // $tt= AccessPoint::find($request->accesspoint)->mac_address;
             dd($request->start_time);
             dd(http_build_query(array('start_time'=>'2022/03/04 00:00')));
