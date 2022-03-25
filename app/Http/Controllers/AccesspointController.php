@@ -19,9 +19,10 @@ class AccesspointController extends Controller
      
         foreach(Maestro::all() as $maestro){
             $api_call = new MaestroApiClass($maestro->id,'/devices/statistics',array('mode'=>'ap'));
-            dd($api_call->call_api());
-            
-        }
+            foreach($api_call->call_api() as $statistic_data){
+                if(str_contains($statistic_data->network,"ePMP")){
+                    dd($statistic_data);
+                }}}
 
         $data=[
             'networks'=>Network::all('id','name'),

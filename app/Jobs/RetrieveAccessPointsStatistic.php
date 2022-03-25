@@ -41,6 +41,7 @@ class RetrieveAccessPointsStatistic implements ShouldQueue, ShouldBeUnique
      */
     public function handle()
     {
+        return error_log('hi');
         foreach(Maestro::all() as $maestro){
             $api_call = new MaestroApiClass($maestro->id,'/devices/statistics',array('mode'=>'ap'));
             foreach($api_call->call_api() as $statistic_data){
@@ -51,7 +52,7 @@ class RetrieveAccessPointsStatistic implements ShouldQueue, ShouldBeUnique
                         $access_point_info = AccessPoint::query()->where('name', '=', $statistic_data->name)->where('mac_address','=',$statistic_data->mac)->firstOrFail();
                     } catch (ModelNotFoundException $e) {
                         error_log($statistic_data->name);
-                        updateAccessPoints($statistic_data,$maestro->url);
+                        updateAccessPoints($statistic_data,$maestro->ip);
                         $access_point_info = AccessPoint::query()->where('name', '=', $statistic_data->name)->where('mac_address',$statistic_data->mac)->firstOrFail();
                     }
                     if (str_contains($access_point_info->product, '3000')) $maximum_mbps = 220;
@@ -76,11 +77,6 @@ class RetrieveAccessPointsStatistic implements ShouldQueue, ShouldBeUnique
         }
         error_log("New Batch of information");
         return;
-
-
-
-
-
         // $maestros_ip = Maestro::all();
         // $largeNetwork="Large network";
         // $smallNetwork="Small network";
