@@ -15,9 +15,23 @@ class AccesspointController extends Controller
 {
     //
     public function index()
-    {
-       dd (new MaestroApiClass(1,'/networks',['']));
+    {  
        
+        foreach(Network::all() as $network){
+            $api_call = new MaestroApiClass($network->maestro_id,'/networks/' . str_replace(' ', '%20', $network->name). '/towers',[]);
+            $towers = $api_call->call_api();
+            dd($towers);
+            // foreach($towers as $tower){
+            //     ModelsTower::updateOrCreate([
+            //         'name'=>$tower->name
+            //     ],
+            //     [
+            //         'network_id'=>$network->id
+            //     ]);
+            // }
+       }
+        
+        
         $data=[
             'networks'=>Network::all('id','name'),
             'towers'=>Tower::all('id','name','network_id'),

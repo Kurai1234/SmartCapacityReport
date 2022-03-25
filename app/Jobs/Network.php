@@ -9,6 +9,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use AccessPointStatisticHelperClass;
+use MaestroApiClass;
 use App\Models\Maestro;
 use App\Models\Network as ModelsNetwork;
 use Illuminate\Validation\Rules\Exists;
@@ -36,39 +37,64 @@ class Network implements ShouldQueue
      */
     public function handle()
     {
-        $maestros_ip = Maestro::all();
-        $largeNetwork="Large network";
-        $smallNetwork="Small network";
-        //
 
-        foreach ($maestros_ip as $ip) {
-            
-            if($ip->name==$smallNetwork)$networks = new AccessPointStatisticHelperClass($ip->url, env('CLIENT_ID_SECOND'), env('CLIENT_SECRET_SECOND'), '/networks');
-            if($ip->name==$largeNetwork)$networks = new AccessPointStatisticHelperClass($ip->url, env('CLIENT_ID_FIRST'), env('CLIENT_SECRET_FIRST'), '/networks');
-
-            $networks->call_api();
-            $total = $networks->get_response_data();
-            $complied_data = array();
-            foreach ($total as $key) {
-                if (str_contains($key->name, 'ePMP')) {
-                    array_push($complied_data, $key);
-                    // error_log($key->name);
+        foreach (Maestro::all() as $key) {
+            $complied_data=array();
+            $api_call = new MaestroApiClass($key->id, '/networks', []);
+            $networks = $api_call->call_api();
+            foreach ($networks as $network) {
+                if (str_contains($network->name, 'ePMP')) {
+                    array_push($complied_data,$network);
                 }
-                // $complied_data->name;
             }
-
-            foreach ($complied_data as $model) {
-                if(!ModelsNetwork::where('name', $model->name)->exists()){
-                    $insertion = new ModelsNetwork();
-                    $insertion->name = $model->name;
-                    $insertion->maestro_id=$ip->id;
-                    $insertion->save();
-                }
+            foreach($complied_data as $insert){
+                ModelsNetwork::updateOrCreate([
+                    'name'=>$insert->name
+                ],[
+                    'maestro_id'=>$key->id
+                ]);
             }
         }
-       // $maestros =Maestro::all();
-        // error_log(count($complied_data));
-        error_log('Insertion Completed');
-        return;
+        return error_log("Network Inserted");
+        
+
+       
+
+        // dd($complied_data);
+
+        // $maestros_ip = Maestro::all();
+        // $largeNetwork = "Large network";
+        // $smallNetwork = "Small network";
+        //
+
+        // foreach ($maestros_ip as $ip) {
+
+        //     if ($ip->name == $smallNetwork) $networks = new AccessPointStatisticHelperClass($ip->url, env('CLIENT_ID_SECOND'), env('CLIENT_SECRET_SECOND'), '/networks');
+        //     if ($ip->name == $largeNetwork) $networks = new AccessPointStatisticHelperClass($ip->url, env('CLIENT_ID_FIRST'), env('CLIENT_SECRET_FIRST'), '/networks');
+
+        //     $networks->call_api();
+        //     $total = $networks->get_response_data();
+        //     $complied_data = array();
+        //     foreach ($total as $key) {
+        //         if (str_contains($key->name, 'ePMP')) {
+        //             array_push($complied_data, $key);
+        //             // error_log($key->name);
+        //         }
+        //         // $complied_data->name;
+        //     }
+
+        //     foreach ($complied_data as $model) {
+        //         if (!ModelsNetwork::where('name', $model->name)->exists()) {
+        //             $insertion = new ModelsNetwork();
+        //             $insertion->name = $model->name;
+        //             $insertion->maestro_id = $ip->id;
+        //             $insertion->save();
+        //         }
+        //     }
+        // }
+        // // $maestros =Maestro::all();
+        // // error_log(count($complied_data));
+        // error_log('Insertion Completed');
+        // return;
     }
 }

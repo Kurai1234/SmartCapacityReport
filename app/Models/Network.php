@@ -11,7 +11,7 @@ class Network extends Model
     protected $table = 'networks';
     protected $fillable = [
         'name',
-        'url'
+        'maestro_id'
     ];
 
     public function maestro(){
