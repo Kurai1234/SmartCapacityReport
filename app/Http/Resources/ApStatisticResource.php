@@ -15,6 +15,7 @@ class ApStatisticResource extends JsonResource
     public function toArray($request)
     {
         return [
+            
             'connected_sms'=>$this->connected_sms,
             'dl_capacity_throughput'=>$this->dl_capacity_throughput,
             'ul_throughput'=>$this->ul_throughput,
