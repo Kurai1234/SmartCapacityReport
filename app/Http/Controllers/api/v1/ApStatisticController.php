@@ -22,7 +22,7 @@ class ApStatisticController extends Controller
         // return response()->json(['data'=>$data]);
         //return the collection and stores in cache for 5 minutes.
         return ApStatisticResource::collection(
-            Cache::remember('apstats',60*5,function(){
+            Cache::remember('apstats',60*10,function(){
                 return AccessPointStatistic::query()
                 ->with('accesspoint','accesspoint.tower','accesspoint.tower.network')
                 ->latest()

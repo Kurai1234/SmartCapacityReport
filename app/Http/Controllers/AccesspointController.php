@@ -16,14 +16,8 @@ class AccesspointController extends Controller
     //
     public function index()
     {  
-     
-        foreach(Maestro::all() as $maestro){
-            $api_call = new MaestroApiClass($maestro->id,'/devices/statistics',array('mode'=>'ap'));
-            foreach($api_call->call_api() as $statistic_data){
-                if(str_contains($statistic_data->network,"ePMP")){
-                    dd($statistic_data);
-                }}}
-
+        $tring='2022-03-04T14:29';
+       dd(formatTimeToString($tring));
         $data=[
             'networks'=>Network::all('id','name'),
             'towers'=>Tower::all('id','name','network_id'),
@@ -37,12 +31,15 @@ class AccesspointController extends Controller
                 'network'=>'required|max:255|not_in:Default',
                 'accesspoint'=>'required|max:255|not_in:Default',
                 'tower'=>'required|max:255|not_in:Default',
-                'start_time'=>'required',
-                'end_time'=>'required'
+                'start_time'=>'required|before:tomorrow',
+                'end_time'=>'required|before:tomorrow'
             ]);
-            // $url=Network::query()->with('maestro:id,url')->where('id',$request->network)->firstOrFail();
-            // dd($url->maestro->url);
+            // dd($request);
             
+            // $tt= AccessPoint::find($request->accesspoint)->mac_address;
+            dd($request->start_time);
+            dd(http_build_query(array('start_time'=>'2022/03/04 00:00')));
+            dd(modifyUrl('/devices',AccessPoint::find($request->accesspoint)->mac_address));
             return "go back, currently working on it";
             dd(AccessPoint::query()->where('tower_id',$request->tower)->where('id',$request->accesspoint)->firstOrFail());
         }

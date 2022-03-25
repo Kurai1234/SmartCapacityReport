@@ -47,7 +47,6 @@ class RetrieveAccessPointsStatistic implements ShouldQueue, ShouldBeUnique
                 if(str_contains($statistic_data->network,"ePMP")){
                     $maximum_mbps = 0;
                     try {
-
                         $access_point_info = AccessPoint::query()->where('name', '=', $statistic_data->name)->where('mac_address','=',$statistic_data->mac)->firstOrFail();
                     } catch (ModelNotFoundException $e) {
                         error_log($statistic_data->name);

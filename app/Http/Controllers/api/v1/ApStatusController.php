@@ -13,7 +13,7 @@ class ApStatusController extends Controller
     //
     public function index()
     {        
-      return  Cache::remember('apstatus',60*5,function(){
+      return  Cache::remember('apstatus',60*10,function(){
             $collection = AccessPointStatistic::query()
             ->with('accesspoint:id,name,tower_id','accesspoint.tower:id,name,network_id','accesspoint.tower.network:id,name')
             ->latest()

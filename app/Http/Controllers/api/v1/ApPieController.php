@@ -14,7 +14,7 @@ class ApPieController extends Controller
     public function index()
     {
         //devices that are over 80% capacity throughput
-        return Cache::remember('pieinfo', 60 * 5, function () {
+        return Cache::remember('pieinfo', 60 * 10, function () {
             $collection = AccessPointStatistic::query()->latest()->take(AccessPoint::count())->get();
             (object)$header = array('accesspoint', 'Percentage');
             (object) $cool = array('Top-Notch', count($collection->where('dl_capacity_throughput', '<', 80)));
