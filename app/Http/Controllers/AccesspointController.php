@@ -16,20 +16,20 @@ class AccesspointController extends Controller
     //
     public function index()
     {  
-       
-        foreach(Network::all() as $network){
-            $api_call = new MaestroApiClass($network->maestro_id,'/networks/' . str_replace(' ', '%20', $network->name). '/towers',[]);
-            $towers = $api_call->call_api();
-            dd($towers);
-            // foreach($towers as $tower){
-            //     ModelsTower::updateOrCreate([
-            //         'name'=>$tower->name
-            //     ],
-            //     [
-            //         'network_id'=>$network->id
-            //     ]);
-            // }
-       }
+        // foreach(Maestro::all() as $maestro){
+            $call_api = new MaestroApiClass(1,'/devices',array('type'=>'epmp'));
+            $accesspoints = $call_api->call_api();
+            $complied_data = array();
+            foreach ($accesspoints as $accespoint) {
+                dd($accespoint);
+                if (str_contains($accespoint->network, 'ePMP')) {
+                    if (str_contains($accespoint->product, '2000') || str_contains($accespoint->product, '3000') || str_contains($accespoint->product, '1000')) {
+                        array_push($complied_data, $accespoint);
+                    }
+                }
+            }
+            dd($complied_data);
+        // }
         
         
         $data=[

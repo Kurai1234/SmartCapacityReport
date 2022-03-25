@@ -53,6 +53,16 @@ class Tower implements ShouldQueue
        }
        error_log("Towers Populated");
        return;  // ends task
+
+
+
+
+
+
+
+
+       //old code
+
         // $networks = Network::with('maestro')->get();
         
         // foreach ($networks as $key) {

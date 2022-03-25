@@ -16,27 +16,28 @@ class MaestroApiClass
     public string $filter;
     private string $clientId;
     private string $clientSecret;
-
+    private string $token;
     public function __construct(int $id, string $urlQuery, array $filters)
     {
         //builds the api call'
-        $this->maestroId=$id;
+        $this->maestroId = $id;
         $this->maestroUrl = Maestro::query()->where('id', $id)->firstOrFail()->url;
-        $this->clientId= $this->get_Client_Id();
-        $this->clientSecret=$this->get_Client_Secret();
+        $this->clientId = $this->get_Client_Id();
+        $this->clientSecret = $this->get_Client_Secret();
         $this->urlQuery = $urlQuery;
         $this->filter = empty($filters) ? $this->set_filter($filters) : '';
     }
-    private function get_Client_ID(){
+    private function get_Client_ID()
+    {
         //returns the proper client id for server
-        if($this->maestroId==1) return env('CLIENT_ID_SECOND');
-        if($this->maestroId==2) return env('CLIENT_ID_FIRST');
-
+        if ($this->maestroId == 1) return env('CLIENT_ID_SECOND');
+        if ($this->maestroId == 2) return env('CLIENT_ID_FIRST');
     }
-    private function get_Client_Secret(){
+    private function get_Client_Secret()
+    {
         //returns the proper client secret
-        if($this->maestroId==1) return env('CLIENT_SECRET_SECOND');
-        if($this->maestroId==2) return env('CLIENT_SECRET_FIRST');
+        if ($this->maestroId == 1) return env('CLIENT_SECRET_SECOND');
+        if ($this->maestroId == 2) return env('CLIENT_SECRET_FIRST');
     }
     private function set_filter(array $array)
     {
@@ -48,10 +49,10 @@ class MaestroApiClass
         //return filter to check for errors
         return $this->filter;
     }
-    function get_Url(){
+    function get_Url()
+    {
         //returns url called
         return $this->maestroUrl;
-        
     }
     public function get_token()
     {
@@ -66,11 +67,13 @@ class MaestroApiClass
         ]);
         $data = json_decode($response->getBody()->getContents());
         $token = $data->access_token;
+        $this->token=$token;
         //returns the $token
         return $token;
     }
-    
-    function call_api(){
+
+    function call_api()
+    {
         //set client to false to access the api
         $api_request = new Client(['verify' => false]);
         //calls api
@@ -80,9 +83,9 @@ class MaestroApiClass
             ]
         ]);
         //gets the actually data from the response
-         $api_data = json_decode($api_raw_response->getBody()->getContents());
-         //checks the data if pagination is needed.
-         if ($api_data->paging->total > $api_data->paging->limit) {
+        $api_data = json_decode($api_raw_response->getBody()->getContents());
+        //checks the data if pagination is needed.
+        if ($api_data->paging->total > $api_data->paging->limit) {
 
             //set total number of objects
             $api_object_total = $api_data->paging->total;
@@ -96,13 +99,13 @@ class MaestroApiClass
 
                 ));
                 //calls api again for the data
-                $api_raw_response = $api_request->get($this->maestroUrl . $this->urlQuery . '?' . $api_new_query .'&'. $this->filter, [
+                $api_raw_response = $api_request->get($this->maestroUrl . $this->urlQuery . '?' . $api_new_query . '&' . $this->filter, [
                     'headers' => [
-                        'Authorization' => 'Bearer ' . $this->get_token(),
+                        'Authorization' => 'Bearer ' . $this->token,
                     ]
                 ]);
                 //get the data
-                $data= json_decode($api_raw_response->getBody()->getContents());
+                $data = json_decode($api_raw_response->getBody()->getContents());
                 //merges data in a single object
                 $api_data->data = array_merge($api_data->data, $data->data);
             }
@@ -112,7 +115,6 @@ class MaestroApiClass
 
         //also returns data
         return $this->response_data = $api_data->data;
-        
     }
     function get_response_data()
     {
@@ -124,7 +126,8 @@ class MaestroApiClass
         //returns the api paging
         return $this->paging;
     }
-    public function __destruct(){
+    public function __destruct()
+    {
         error_log('bye world');
     }
 }

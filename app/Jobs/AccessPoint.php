@@ -13,6 +13,7 @@ use App\Models\AccessPoint as ModelsAccessPoint;
 use App\Models\Maestro;
 use App\Models\Tower;
 use Error;
+use MaestroApiClass;
 
 class AccessPoint implements ShouldQueue
 {
@@ -36,47 +37,35 @@ class AccessPoint implements ShouldQueue
      */
     public function handle()
     {
-        $maestro_ip = Maestro::all();
-        $largeNetwork="Large network";
-        $smallNetwork="Small network";
-        // $towers_info = Tower::with('network')->get();
-        foreach ($maestro_ip as $key) {
-            if($key->name==$smallNetwork)$accesspoints = new AccessPointStatisticHelperClass($key->url, env('CLIENT_ID_SECOND'), env('CLIENT_SECRET_SECOND'), '/devices');
-            if($key->name==$largeNetwork)$accesspoints = new AccessPointStatisticHelperClass($key->url, env('CLIENT_ID_FIRST'), env('CLIENT_SECRET_FIRST'), '/devices');
-           
-            $filter = array(
-                'type' => 'epmp',
-            );
-            $accesspoints->set_url_query($filter);
-            $accesspoints->call_api();
-            $reponse_data = $accesspoints->get_response_data();
+
+        foreach (Maestro::all() as $maestro) {
+            $call_api = new MaestroApiClass($maestro->id, '/devices', array('type' => 'epmp'));
+            $accesspoints = $call_api->call_api();
             $complied_data = array();
-            foreach ($reponse_data as $key) {
-                if (str_contains($key->network, 'ePMP')) {
-                    if (str_contains($key->product, '2000') || str_contains($key->product, '3000') || str_contains($key->product, '1000')) {
-                        array_push($complied_data, $key);
+            foreach ($accesspoints as $accesspoint) {
+                if (str_contains($accesspoint->network, 'ePMP')) {
+                    if (str_contains($accesspoint->product, '2000') || str_contains($accesspoint->product, '3000') || str_contains($accesspoint->product, '1000')) {
+                        array_push($complied_data, $accesspoint);
                     }
                 }
             }
-            foreach ($complied_data as $model) {
-                if (!ModelsAccessPoint::where('mac_address', $model->mac)->exists()) {
-                    $towers_info= Tower::with('network')->where('name','=',$model->tower)->first();
-                    // dd($towers_info->id);
-                    $insertion = new ModelsAccessPoint();
-                    $insertion->name=$model->name;
-                    $insertion->mac_address=$model->mac;
-                    $insertion->product=$model->product;
-                    $insertion->tower_id=$towers_info->id;
-                    $insertion->type=$model->type;
-                    $insertion->ip_address=$model->ip;
-                    $insertion->save();
-                }
-            }
 
+            foreach($complied_data as $insert){
+                $towers_info = Tower::with('network')->where('name',$insert->tower)->first();
+                ModelsAccessPoint::updateOrCreate([
+                    'ip_address'=>$insert->ip,
+                ],[
+                    'name' => $insert->name,
+                    'mac_address' => $insert->mac,
+                    'product' => $insert->product,
+                    'tower_id' => $towers_info->id,
+                    'type' => $insert->type,
+                    'ip_address' => $insert->ip,
+                ]);
+            }
         }
         error_log('Insertion completed');
 
         return;
-       
     }
 }
