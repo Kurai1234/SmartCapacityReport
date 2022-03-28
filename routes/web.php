@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\FirstLoginController;
 use App\Http\Controllers\ManageuserController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,12 +18,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::middleware(['auth','isLoggedIn'])->group(function(){
+    Route::get('/exports',[ReportController::class,'export'])->name('weeklyexports');
+});
 
 Route::middleware(['preventBackHistory'])->group(function(){
-
    Route::middleware(['isNotFirstLogin'])->group(function(){
     require __DIR__.'/auth.php';
-
     Route::middleware(['auth','isLoggedIn'])->group(function(){
         Route::get('/',[DashboardController::class,'index'])->name('dashboard');
         // Route::get('/livetabledata',[DashboardController::class,'livedata'])->name('dashboard.table');
@@ -37,22 +39,16 @@ Route::middleware(['preventBackHistory'])->group(function(){
             Route::post('/admin/edituser',[ManageuserController::class,'resetPassword'])->name('admin.resetpass');
             Route::patch('/admin/edituser/{id}/update',[ManageuserController::class,'updateUser'])->name('admin.updateuser');
         });
-    
-
     });
 });    
 
-Route::middleware('isFirstLogin')->group(function(){
 
+Route::middleware('isFirstLogin')->group(function(){
         // Route::get('register', [RegisteredUserController::class, 'create'])
         //     ->name('register');
             Route::get('/setup',[FirstLoginController::class,'create'])->name('firstlogin');
             Route::post('/store',[FirstLoginController::class,'store'])->name('firstsignup');
         });
-        
-        
-    
-
 });
 
 

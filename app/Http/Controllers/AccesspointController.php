@@ -3,20 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\Network;
+use App\Models\User;
 use App\Models\Tower;
 use App\Models\AccessPoint;
 use Illuminate\Http\Request;
 use AccessPointStatisticHelperClass;
+use App\Models\AccessPointStatistic;
 use App\Models\Maestro;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use MaestroApiClass;
-
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 class AccesspointController extends Controller
 {
     //
     public function index()
     {  
-        
+        // $testing= 
+        //  AccessPointStatistic::with('accesspoint')->where('created_at','>=',Carbon::now()->startOfWeek()->toDateTimeString())->where('created_at','<=',Carbon::now()->endOfWeek())->get();
+
+        // dd($testing->groupBy('access_point_id'));
         $tring='2022-03-04T14:29';
         $data=[
             'networks'=>Network::all('id','name'),

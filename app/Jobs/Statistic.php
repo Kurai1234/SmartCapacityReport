@@ -70,7 +70,7 @@ class Statistic implements ShouldQueue, ShouldBeUnique
                     $insertion->connected_sms = $statistic_data->connected_sms ? $statistic_data->connected_sms : 0;
                     $insertion->reboot = $statistic_data->reboots ? $statistic_data->reboots : 0;
                     $insertion->dl_capacity_throughput = (($statistic_data->radio->dl_throughput / 1000) * 100) / $maximum_mbps;
-                    // $insertion->save();
+                    $insertion->save();
                 }
             }
         }
