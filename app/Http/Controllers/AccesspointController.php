@@ -19,10 +19,15 @@ class AccesspointController extends Controller
     //
     public function index()
     {  
-        // $testing= 
-        //  AccessPointStatistic::with('accesspoint')->where('created_at','>=',Carbon::now()->startOfWeek()->toDateTimeString())->where('created_at','<=',Carbon::now()->endOfWeek())->get();
-
-        // dd($testing->groupBy('access_point_id'));
+        $testing= DB::table('access_point_statistics')->join('access_points','access_point_statistics.access_point_id','=','access_points.id')
+        ->select(DB::raw('access_point_id,MAX(dl_throughput) as max'),'access_points.name','access_point_statistics.created_at')
+        // ->select('access_point_statistics.*','access_points.id')
+        ->groupBy('access_point_id','access_points.name','access_point_statistics.created_at')
+        ->where('access_point_statistics.created_at','>=',Carbon::now()->startOfWeek(Carbon::SUNDAY))
+        ->where('access_point_statistics.created_at','<=',Carbon::now()->endOfWeek(Carbon::SATURDAY))
+        ->get();
+        // $testing=DB::table('access_point_statistics')->get();      
+        dd($testing);
         $tring='2022-03-04T14:29';
         $data=[
             'networks'=>Network::all('id','name'),

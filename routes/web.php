@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 */
 Route::middleware(['auth','isLoggedIn'])->group(function(){
     Route::get('/exports',[ReportController::class,'export'])->name('weeklyexports');
+    Route::get('/exports',[ReportController::class,'exportPeakCapacity'])->name('weeklypeakexports');
+
 });
 
 Route::middleware(['preventBackHistory'])->group(function(){
