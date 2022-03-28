@@ -43,7 +43,18 @@ if(!function_exists('formatTimeToString')){
         return implode(" ",explode("T",implode("/",explode("-",$time)))); //formats the time to be acceptable for the api call
     }
 }
+if(!function_exists('prepareDataForGraph')){
+    function prepareDataForGraph($results){
+        dd($results);
+        dd(isset($results[1]->radio));
+        foreach($results as $key=>$result){
+            dd($results);
+        }
 
+        $array= array($results[0]->radio);
+        dd($array,gettype($array));        
+    }
+}
 
 function hectorDextorBextor()
 {

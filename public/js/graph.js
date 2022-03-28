@@ -1,24 +1,32 @@
+
 google.charts.load("visualization", "1", { packages: ["corechart", "line"] });
 
 google.charts.setOnLoadCallback(drawDownLinkChart);
 google.charts.setOnLoadCallback(drawFrameUtilizationChart);
 google.charts.setOnLoadCallback(drawRetransmissionChart);
 function drawDownLinkChart() {
+    
     var data = new google.visualization.DataTable();
-    data.addColumn("number", "X");
+    data.addColumn("datetime", "Date");
     data.addColumn("number", "Downlink Throughput");
     data.addColumn("number", "Uplink Throughput");
     data.addRows([
-        [0, 0, 0],
-        [1, 2, 2],
-        [2, 3, 5],
+        [new Date(2000, 8, 4, 10,0), 0, 0],
+        [new Date(2000, 8, 6 ,7,6), 2, 2],
+        [new Date(2000, 8, 7, 4,5), 3, 125],
     ]);
     var option = {
+        title:'Frame Ultization',
         hAxis: {
-            title: "Time",
+                gridlines:{
+                    count:1,
+                }
         },
         vAxis: {
             title: "Mpbs",
+                gridlines:{
+                    count:1,
+                }
         },
         legend: {
             position: "bottom",
@@ -95,6 +103,16 @@ function drawRetransmissionChart() {
     );
     chart.draw(data, option);
 }
+
+test1='2022-03-28T00:40:54-06:00';
+test2='2022-03-28T06:38:00+00:00';
+
+function arrangeDate(date){
+    return new Date(date);
+}
+
+
+
 $(window).resize(function () {
     if (this.resizeTo) clearTimeout(this.resizeTo);
     this.resizeTo = setTimeout(function () {
