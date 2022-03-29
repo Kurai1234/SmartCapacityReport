@@ -17,5 +17,8 @@ class ReportController extends Controller
     }
     public function exportPeakCapacity(){
         return Excel::download(new PeakCapacityThroughputExportMapping,Carbon::now()->startOfWeek()->toDateTimeString().'_'.Carbon::now()->endOfWeek()->toDateTimeString().'.xlsx');
+    //    (new PeakCapacityThroughputExportMapping)->store(Carbon::now()->startOfWeek()->toDateTimeString().'_'.Carbon::now()->endOfWeek()->toDateTimeString().'.xlsx');
+        // return back()->withSucess('Started');
+        // (new PeakCapacityThroughputExportMapping)->queue('ues.xlsx');    
     }
 }
