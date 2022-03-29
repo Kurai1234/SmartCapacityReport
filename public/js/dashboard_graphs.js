@@ -70,8 +70,8 @@ var dashBoardTable=$("#sortTable").DataTable({
             {"data":"accesspoint.tower.name"},
             {"data":"connected_sms"},
             {"data":"dl_capacity_throughput",render: $.fn.dataTable.render.number(',','.',2,''," %")},
-            {"data":"ul_throughput",render:$.fn.dataTable.render.number(',','.',3,''," mbps")},
-            {"data":"dl_throughput",render:$.fn.dataTable.render.number(',','.',3,''," mbps")},
+            {"data":"ul_throughput",render:$.fn.dataTable.render.number(',','.',2,''," mbps")},
+            {"data":"dl_throughput",render:$.fn.dataTable.render.number(',','.',2,''," mbps")},
             {"data":"dl_retransmit_pcts",render:$.fn.dataTable.render.number(',','.',2,''," %")},
 
     ]

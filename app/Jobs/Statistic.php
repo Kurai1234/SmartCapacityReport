@@ -62,14 +62,14 @@ class Statistic implements ShouldQueue, ShouldBeUnique
                     $insertion->mode = $statistic_data->mode ? $statistic_data->mode : "N/A";
                     $insertion->dl_retransmit = $statistic_data->radio->dl_retransmits ? $statistic_data->radio->dl_retransmits : 0;
                     $insertion->dl_retransmit_pcts = $statistic_data->radio->dl_retransmits_pct ? $statistic_data->radio->dl_retransmits_pct : 0;
-                    $insertion->dl_pkts = $statistic_data->radio->dl_pkts ? $statistic_data->radio->dl_pkts / 1024 : 0;
-                    $insertion->ul_pkts = $statistic_data->radio->ul_pkts ? $statistic_data->radio->ul_pkts / 1024 : 0;
-                    $insertion->dl_throughput = $statistic_data->radio->dl_throughput ? $statistic_data->radio->dl_throughput / 1024 : 0;
-                    $insertion->ul_throughput = $statistic_data->radio->ul_throughput ? $statistic_data->radio->ul_throughput / 1024 : 0;
+                    $insertion->dl_pkts = $statistic_data->radio->dl_pkts ? round($statistic_data->radio->dl_pkts / 1024,2) : 0;
+                    $insertion->ul_pkts = $statistic_data->radio->ul_pkts ? round($statistic_data->radio->ul_pkts / 1024,2) : 0;
+                    $insertion->dl_throughput = $statistic_data->radio->dl_throughput ? round($statistic_data->radio->dl_throughput / 1024,2) : 0;
+                    $insertion->ul_throughput = $statistic_data->radio->ul_throughput ? round($statistic_data->radio->ul_throughput / 1024,2) : 0;
                     $insertion->status = $statistic_data->status;
                     $insertion->connected_sms = $statistic_data->connected_sms ? $statistic_data->connected_sms : 0;
                     $insertion->reboot = $statistic_data->reboots ? $statistic_data->reboots : 0;
-                    $insertion->dl_capacity_throughput = (($statistic_data->radio->dl_throughput / 1000) * 100) / $maximum_mbps;
+                    $insertion->dl_capacity_throughput = round((($statistic_data->radio->dl_throughput / 1000) * 100) / $maximum_mbps,2);
                     $insertion->save();
                 }
             }

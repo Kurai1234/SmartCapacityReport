@@ -19,7 +19,8 @@ class AccesspointController extends Controller
     //
     public function index()
     {  
-    
+
+
         $tring='2022-03-04T14:29';
         $data=[
             'networks'=>Network::all('id','name'),
