@@ -10,7 +10,7 @@
     {{-- <link rel="icon" type="image/png" href="{{ asset('favicon_io/favicon-16x16.png') }}"> --}}
     {{-- Installed bootstrap --}}
     {{-- <script src="{{ asset('js/bootstrap.js') }}" defer></script> --}}
-
+    <script src="https://unpkg.com/@popperjs/core@2" defer></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- Styles -->
@@ -34,7 +34,7 @@
     </script>
     {{-- here --}}
     <script defer type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
 
     <script defer type="text/javascript" src="{{asset('/js/main.js')}}"> </script>
 

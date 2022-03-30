@@ -25,8 +25,6 @@
     </div>
     @endisset
 
-
-
 </div>
 <div class="form-group col-md-6 my-3 ">
     <h4>Roles</h4>

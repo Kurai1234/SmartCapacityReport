@@ -24,7 +24,7 @@ class ManageuserController extends Controller
 
     public function delete($id)
     {   
-        $this->delete('delete-accounts');
+        $this->authorize('delete-accounts');
         if (auth()->user()->id == $id) return redirect()->back()->with('message', 'Dont delete yourself silly');
         if (User::count() < 4) return redirect()->back()->with('message', 'Your the last one dude, do not leave us');
         User::destroy($id);

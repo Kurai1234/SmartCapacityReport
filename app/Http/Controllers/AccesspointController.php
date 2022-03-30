@@ -20,7 +20,7 @@ class AccesspointController extends Controller
     public function index()
     {   
         $tring='2022-03-04T14:29';
-        dd(Carbon::parse($tring));
+        dd(Carbon::parse($tring)->format('Y-m-d\TH:i'));
         dd(Carbon::now()->endOfWeek(Carbon::THURSDAY));
 
         dd(Carbon::now()->subWeek()->endOfWeek(Carbon::FRIDAY));
