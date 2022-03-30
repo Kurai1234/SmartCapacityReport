@@ -24,7 +24,7 @@
 
     </div>
 
-    <div class="row my-1  container-fluid dashboard--content">
+    <div class="row my-4  g-5 container-fluid dashboard--content">
         <div class="col-lg-3 my-1 ">
             <div class="row g-3">
                 <div class="col-lg-12 col-md-12  container piechart--container">
@@ -35,7 +35,7 @@
 
             </div>
         </div>
-        <div class="col-lg-4 my-1">
+        <div class="col-lg-6 my-1">
             <div class="row g-3">
                 <div class="col-lg-12 col-md-12 offlinetable--container">
                         <span>Offline Ap's </span>
@@ -88,7 +88,5 @@
 
 
     <script defer type="text/javascript" src="{{ asset('js/dashboard_graphs.js') }}"> </script>
-    <script>
 
-    </script>
 @endsection

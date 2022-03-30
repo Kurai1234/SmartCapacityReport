@@ -18,10 +18,13 @@ class AccesspointController extends Controller
 {
     //
     public function index()
-    {  
-
-
+    {   
         $tring='2022-03-04T14:29';
+        dd(Carbon::parse($tring));
+        dd(Carbon::now()->endOfWeek(Carbon::THURSDAY));
+
+        dd(Carbon::now()->subWeek()->endOfWeek(Carbon::FRIDAY));
+
         $data=[
             'networks'=>Network::all('id','name'),
             'towers'=>Tower::all('id','name','network_id'),

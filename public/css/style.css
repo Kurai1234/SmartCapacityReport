@@ -415,7 +415,7 @@ text-align: center;}
 .piechart--container {
     background: #ffffff;
     box-shadow: 5px 4px 8px rgba(0, 0, 0, 0.25);
-    /* border-radius: 15px; */
+    border-radius: 15px;
     text-align: center;
     max-height: 310px;
     min-height: 290px;
@@ -426,7 +426,7 @@ text-align: center;}
 .offlinetable--container{
     background: #ffffff;
     box-shadow: 5px 4px 8px rgba(0, 0, 0, 0.25);
-    /* border-radius: 15px; */
+    border-radius: 15px;
     text-align: center;
     max-height: 310px;
     min-height: 290px;
@@ -626,4 +626,20 @@ outline: none;}
     width: 60%;
     margin-left:19%;
 }   
+
+.report--container{
+    background: #ffffff;
+    /* margin: auto; */
+    /* margin-left: 0.2rem; */
+    box-shadow: 5px 4px 8px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    padding: 1rem 1rem;
+}
+.report--datatable{
+    margin-top: 2rem;
+}
+.report--table{
+    width: 100%;
+}
+
 

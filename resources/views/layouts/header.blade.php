@@ -6,7 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon_io/favicon.ico') }}">
+    {{-- <link rel="icon" type="image/png" href="{{ asset('favicon_io/favicon-16x16.png') }}"> --}}
     {{-- Installed bootstrap --}}
     {{-- <script src="{{ asset('js/bootstrap.js') }}" defer></script> --}}
 

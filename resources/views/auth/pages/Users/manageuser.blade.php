@@ -53,4 +53,6 @@
     </div>
     
 </div>
+<script defer type="text/javascript" src="{{ asset('js/manageuser.js') }}"> </script>
+
 @endsection

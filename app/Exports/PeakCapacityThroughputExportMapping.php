@@ -2,7 +2,6 @@
 
 namespace App\Exports;
 
-use App\Models\AccessPointStatistic;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
@@ -10,7 +9,7 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
 
-class PeakCapacityThroughputExportMapping implements FromCollection,WithMapping,WithHeadings,ShouldQueue
+class PeakCapacityThroughputExportMapping implements FromCollection,WithMapping,WithHeadings
 {
     /**
     * @return \Illuminate\Support\Collection
