@@ -2,22 +2,23 @@
 
 @section('content')
     <h1>Reports</h1>
-@if(session()->has('testing'))
-    {{session()->get('testing')}}
-@endif
+    @isset($start)
+    {{$start}}
+@endisset
+@isset($end){{$end}} @endisset
     <div class=" container-fluid     report--container">
         <div class="report--form--container">
-            <form action="{{route('export')}}" method="post" class="report--form">
+            <form action="{{route('export')}}" method="get" class="report--form">
                 @csrf
                 <div class="row">
                     <label for="startTime" class="col-sm-1 col-form-label col-form-label">Start Date</label>
                     <div class="col-sm-3">
-                        <input type="datetime-local" name="start_time" class="form-control form-control" id="startTime"  value=""
+                        <input type="datetime-local" name="startTime" class="form-control form-control" id="startTime"  value="@isset($time){{$time['start']}}@endisset"
                             placeholder="col-form-label-sm" required>
                     </div>
                     <label for="endTime" class="col-sm-1 col-form-label col-form-label">End Date</label>
                     <div class="col-sm-3">
-                        <input type="datetime-local" name="end_time"class="form-control form-control" id="endTime"
+                        <input type="datetime-local" name="endTime"class="form-control form-control" id="endTime" value="@isset($time){{$time['end']}}@endisset"
                             placeholder="col-form-label-sm" required>
                         </div>
                         <div class="col-2">
@@ -34,10 +35,8 @@
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                               <li><button name="action" value="csv" class="btn btn-white w-100" type="submit">CSV</button></li>
                               <li><button name="action" value="xlsx" class="btn btn-white w-100" type="submit">XLSX</button></li>
-                              <li><button name="action" value="tsv" class="btn btn-white w-100" type="submit">TSV</button></li>
-                              <li><button class="btn btn-white w-100" type="submit">ODS</button></li>
-                              <li><button class="btn btn-white w-100" type="submit">XLX</button></li>
-                              <li><button class="btn btn-white w-100" type="submit">HTML</button></li>
+                              <li><button name="action" value="html" class="btn btn-white w-100" type="submit">HTML</button></li>
+                              
                             </ul>
                           </div>
                         {{-- <button class="btn btn-success w-100 mx-auto ">Export</button> --}}
@@ -69,6 +68,20 @@
                         </th>
                     </thead>
                     <tbody>
+                        @isset($testing)
+                            
+                        @foreach ($testing as $key)
+                        <tr>
+                            <td>{{$key->name}}</td>
+                            <td> {{$key->mac_address}}</td>
+                                <td>{{$key->product}} </td>
+                                <td>{{$key->max}}</td>
+                                <td>{{$key->dl_capacity_throughput}}</td>
+                                <td>{{$key->created_at}}</td>
+                                
+                            </tr>
+                        @endforeach
+                        @endisset
 
                     </tbody>
                 </table>

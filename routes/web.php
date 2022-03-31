@@ -34,7 +34,7 @@ Route::middleware(['preventBackHistory'])->group(function () {
             Route::get('/accesspoints', [AccesspointController::class, 'index'])->name('accesspoint');
 
             Route::get('/reports', [ReportController::class, 'index'])->name('reports');
-            Route::post('/reports/export', [ReportController::class, 'export'])->name('export');
+            Route::get('/reports/range', [ReportController::class, 'export'])->name('export');
 
             
             Route::post('/accesspointgraph', [AccesspointController::class, 'view'])->name('accesspointgraph');

@@ -58,6 +58,8 @@ var dashBoardTable=$("#sortTable").DataTable({
     "ajax":{
         "type":"GET",
          "url": "/api/apstatistic",
+        //  processing:true,
+        //  serverSide:true,
          "dataSrc":function (json) { 
              console.log(json.data); 
              return json.data;
