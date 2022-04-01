@@ -64,6 +64,9 @@
                             Capacity Throughput
                         </th>
                         <th>
+                            Connected Sms
+                        </th>
+                        <th>
                             Time Stamp
                         </th>
                     </thead>
@@ -77,6 +80,7 @@
                                 <td>{{$key->product}} </td>
                                 <td>{{$key->max}}</td>
                                 <td>{{$key->dl_capacity_throughput}}</td>
+                                <td>{{$key->connected_sms}}</td>
                                 <td>{{$key->created_at}}</td>
                                 
                             </tr>

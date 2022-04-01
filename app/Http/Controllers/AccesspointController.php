@@ -19,17 +19,7 @@ class AccesspointController extends Controller
     //
     public function index()
     {   
-        $tring='2022-03-04T14:29';
-        dd(Carbon::parse($tring)->format('Y-m-d\TH:i'));
-        dd(Carbon::now()->endOfWeek(Carbon::THURSDAY));
-
-        dd(Carbon::now()->subWeek()->endOfWeek(Carbon::FRIDAY));
-
-        $data=[
-            'networks'=>Network::all('id','name'),
-            'towers'=>Tower::all('id','name','network_id'),
-            'accesspoints'=>AccessPoint::all('id','name','tower_id'),
-        ];    
+        $data=$this->formData();
         return view('auth.pages.accesspoint',compact('data'));
     }
     public function view(Request $request){
@@ -41,19 +31,27 @@ class AccesspointController extends Controller
                 'start_time'=>'required|before:tomorrow',
                 'end_time'=>'required|before:tomorrow'
             ]);
-            
-            $testing = new MaestroApiClass(Network::findOrFail($request->network)->maestro_id,
+            $apiCall = new MaestroApiClass(Network::findOrFail($request->network)->maestro_id,
             modifyUrl('/devices',AccessPoint::findOrFail($request->accesspoint)->mac_address).'/performance',
             array(
                 'start_time'=>formatTimeToString($request->start_time),
                 'stop_time'=>formatTimeToString($request->end_time)
                 )
             );
-            $dog=$testing->call_api();
-            prepareDataForGraph($dog);
-            // dd("hi");
-            // dd($testing->call_api());
-                // $tt= AccessPoint::find($request->accesspoint)->mac_address;
+            $results=$apiCall->call_api();
+            $result=prepareDataForGraph($results);
+            $data= $this->formData();
+            return view('auth.pages.accesspoint',compact('result'),compact('data'));
             return "go back, currently working on it";
         }
+    
+    public function formData(){
+        $data=[
+            'networks'=>Network::all('id','name'),
+            'towers'=>Tower::all('id','name','network_id'),
+            'accesspoints'=>AccessPoint::all('id','name','tower_id'),
+        ];    
+        return $data;
+    }
+
 }

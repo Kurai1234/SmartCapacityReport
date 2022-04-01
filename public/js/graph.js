@@ -1,6 +1,10 @@
 
-google.charts.load("visualization", "1", { packages: ["corechart", "line"] });
 
+
+
+
+
+google.charts.load("visualization", "1", { packages: ["corechart", "line"] });
 google.charts.setOnLoadCallback(drawDownLinkChart);
 google.charts.setOnLoadCallback(drawFrameUtilizationChart);
 google.charts.setOnLoadCallback(drawRetransmissionChart);
@@ -41,71 +45,72 @@ function drawDownLinkChart() {
     );
     chart.draw(data, option);
 }
-function drawFrameUtilizationChart() {
-    var data = new google.visualization.DataTable();
-    data.addColumn("number", "X");
-    data.addColumn("number", "Frame Utilization");
 
-    data.addRows([
-        [0, 0],
-        [1, 2],
-        [2, 3],
-    ]);
-    var option = {
-        hAxis: {
-            title: "Time",
-        },
-        vAxis: {
-            title: "Mpbs",
-        },
-        legend: {
-            position: "bottom",
-            textStyle: {
-                fontSize: 11,
-                bold: true,
-            },
-        },
-    };
-    var chart = new google.visualization.LineChart(
-        document.getElementById("frame--graph")
-    );
-    chart.draw(data, option);
-}
-function drawRetransmissionChart() {
-    var data = new google.visualization.DataTable();
-    data.addColumn("number", "X");
-    data.addColumn("number", "Downlink Retransmission");
-    data.addColumn("number", "Uplink Retransmission");
-    data.addRows([
-        [0, 0, 0],
-        [1, 2, 2],
-        [2, 3, 5],
-    ]);
+// function drawFrameUtilizationChart() {
+//     var data = new google.visualization.DataTable();
+//     data.addColumn("number", "X");
+//     data.addColumn("number", "Frame Utilization");
 
-    var option = {
-        hAxis: {
-            title: "Time",
-        },
-        vAxis: {
-            title: "Mpbs",
-        },
+//     data.addRows([
+//         [0, 0],
+//         [1, 2],
+//         [2, 3],
+//     ]);
+//     var option = {
+//         hAxis: {
+//             title: "Time",
+//         },
+//         vAxis: {
+//             title: "Mpbs",
+//         },
+//         legend: {
+//             position: "bottom",
+//             textStyle: {
+//                 fontSize: 11,
+//                 bold: true,
+//             },
+//         },
+//     };
+//     var chart = new google.visualization.LineChart(
+//         document.getElementById("frame--graph")
+//     );
+//     chart.draw(data, option);
+// }
+// function drawRetransmissionChart() {
+//     var data = new google.visualization.DataTable();
+//     data.addColumn("number", "X");
+//     data.addColumn("number", "Downlink Retransmission");
+//     data.addColumn("number", "Uplink Retransmission");
+//     data.addRows([
+//         [0, 0, 0],
+//         [1, 2, 2],
+//         [2, 3, 5],
+//     ]);
 
-        legend: {
-            position: "bottom",
-            textStyle: {
-                fontSize: 11,
-                bold: true,
-            },
-        },
-    };
-    var chart = new google.visualization.LineChart(
-        document.getElementById("retransmission--graph")
-    );
-    chart.draw(data, option);
-}
+//     var option = {
+//         hAxis: {
+//             title: "Time",
+//         },
+//         vAxis: {
+//             title: "Mpbs",
+//         },
 
-test1='2022-03-28T00:40:54-06:00';
-test2='2022-03-28T06:38:00+00:00';
+//         legend: {
+//             position: "bottom",
+//             textStyle: {
+//                 fontSize: 11,
+//                 bold: true,
+//             },
+//         },
+//     };
+//     var chart = new google.visualization.LineChart(
+//         document.getElementById("retransmission--graph")
+//     );
+//     chart.draw(data, option);
+// }
+
+// test1='2022-03-28T00:40:54-06:00';
+// test2='2022-03-28T06:38:00+00:00';
 
 function arrangeDate(date){
     return new Date(date);
@@ -113,15 +118,15 @@ function arrangeDate(date){
 
 
 
-$(window).resize(function () {
-    if (this.resizeTo) clearTimeout(this.resizeTo);
-    this.resizeTo = setTimeout(function () {
-        $(this).trigger("resizeEnd");
-    }, 500);
-});
+// $(window).resize(function () {
+//     if (this.resizeTo) clearTimeout(this.resizeTo);
+//     this.resizeTo = setTimeout(function () {
+//         $(this).trigger("resizeEnd");
+//     }, 500);
+// });
 
-$(window).on("resizeEnd", function () {
-    drawDownLinkChart();
-    drawFrameUtilizationChart();
-    drawRetransmissionChart();
-});
+// $(window).on("resizeEnd", function () {
+//     drawDownLinkChart();
+//     drawFrameUtilizationChart();
+//     drawRetransmissionChart();
+// });

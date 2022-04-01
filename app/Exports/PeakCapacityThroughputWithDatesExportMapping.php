@@ -37,7 +37,8 @@ class PeakCapacityThroughputWithDatesExportMapping implements FromCollection,Wit
             ->on('stats.max','access_point_statistics.dl_throughput');
         })->where('access_point_statistics.created_at','>=',$this->startTime)
         ->where('access_point_statistics.created_at','<=',$this->endTime)
-        ->orderBy('max','desc')->get();
+        ->orderBy('name','asc')
+        ->get();
         return $maxWithRelationsAndDates->unique('access_point_id');         
     }
     public function map($maxWithRelationsAndDates):array{
@@ -47,6 +48,7 @@ class PeakCapacityThroughputWithDatesExportMapping implements FromCollection,Wit
             $maxWithRelationsAndDates->product,
             round($maxWithRelationsAndDates->max,2),
             round($maxWithRelationsAndDates->dl_capacity_throughput,2),
+            $maxWithRelationsAndDates->connected_sms,
             $maxWithRelationsAndDates->created_at
         ];
     }
@@ -57,6 +59,7 @@ class PeakCapacityThroughputWithDatesExportMapping implements FromCollection,Wit
             'Product',
             'Peak Throughput',
             'Capacity Throughput of Device',
+            'connected sms',
             'TimeStamp'
         ];
     }

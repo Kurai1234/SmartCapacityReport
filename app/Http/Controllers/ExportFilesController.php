@@ -21,7 +21,7 @@ class ExportFilesController extends Controller
         // return back()->withSucess('Started');
         // (new PeakCapacityThroughputExportMapping)->queue('ues.xlsx');    
     }
-    public function exportPeaksCapacityWithDates(){
-        return Excel::download(new PeakCapacityThroughputWithDatesExportMapping,'testing.ods');
-    }
+    // public function exportPeaksCapacityWithDates(){ add constructor
+    //     return Excel::download(new PeakCapacityThroughputWithDatesExportMapping,'testing.ods');
+    // }
 }
