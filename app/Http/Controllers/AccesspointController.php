@@ -7,9 +7,6 @@ use App\Models\User;
 use App\Models\Tower;
 use App\Models\AccessPoint;
 use Illuminate\Http\Request;
-use AccessPointStatisticHelperClass;
-use App\Models\AccessPointStatistic;
-use App\Models\Maestro;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use MaestroApiClass;
 use Illuminate\Support\Facades\DB;
@@ -28,9 +25,12 @@ class AccesspointController extends Controller
                 'network'=>'required|max:255|not_in:Default',
                 'accesspoint'=>'required|max:255|not_in:Default',
                 'tower'=>'required|max:255|not_in:Default',
-                'start_time'=>'required|before:tomorrow',
-                'end_time'=>'required|before:tomorrow'
+                'start_time'=>'required|before:now',
+                'end_time'=>'required|before:tomorrow|after:start_time'
             ]);
+            if(Carbon::now()->format('Y/m/d H:i')<$request->end_time)
+            return redirect()->back()->withErrors('Date must be in the present');
+            
             $apiCall = new MaestroApiClass(Network::findOrFail($request->network)->maestro_id,
             modifyUrl('/devices',AccessPoint::findOrFail($request->accesspoint)->mac_address).'/performance',
             array(

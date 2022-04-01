@@ -53,17 +53,17 @@ if (!function_exists('formatTimeToString')) {
 if (!function_exists('prepareDataForGraph')) {
     function prepareDataForGraph($results)
     {   
-        // dd($results);
+        // dd($results[5]);
         // $tdate='2022-04-01T02:32:22-06:00';
         // $testing = Carbon::parse($tdate)->format('Y-m-d H:i:s');
         // dd($testing);
         (array)$date = $frame_utlization = $dl_throughput = $ul_throughput = $dl_retransmission = [];
-
+        // dd($results);
         foreach ($results as $key) {
             if (isset($key->radio)) {
                 array_push($date, $key->timestamp);
                 array_push($frame_utlization, $key->radio->dl_frame_utilization);
-                array_push($dl_retransmission, $key->radio->dl_retransmits_pct);
+                array_push($dl_retransmission,isset($key->radio->dl_retransmits_pct) ?  $key->radio->dl_retransmits_pct :0);
                 array_push($dl_throughput, round($key->radio->dl_throughput/1024,2));
                 array_push($ul_throughput, round($key->radio->ul_throughput/1024,2));
             }

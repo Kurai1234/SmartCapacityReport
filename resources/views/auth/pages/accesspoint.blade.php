@@ -31,7 +31,8 @@
                         <option> </option>
                         @foreach ($data['towers'] as $key)
                             @if (old('tower') == $key->id)
-                                <option id="{{ $key->network_id }}" value="{{ $key->id }}" selected>{{ $key->name }}
+                                <option id="{{ $key->network_id }}" value="{{ $key->id }}" selected>
+                                    {{ $key->name }}
                                 </option>
                             @else
                                 <option id="{{ $key->network_id }}" value="{{ $key->id }}">{{ $key->name }}
@@ -76,39 +77,88 @@
             </form>
 
         </div>
-        <div class="col-md-8">
-            {{-- <div id="dl--graph" class="charts"> --}}
-            {{-- </div> --}}
-            <canvas id="myChart2" width="100" height="30"></canvas>
+        <div class="col-md-8 py-4 canvas--containers">
+                <div class="canvas">
+                    <canvas id="canvas" width="100" height="31"></canvas>
+                </div>
+            
+            <div class="canvas">
+                <canvas id="canvas2" width="100" height="31"></canvas>
+            </div>
 
-            {{-- <div id="frame--graph" class="charts"> --}}
-            <canvas id="canvas" width="100" height="30"></canvas>
-
-            {{-- </div>/ --}}
-            {{-- <div id="retransmission--graph" class="charts"> --}}
-            <canvas id="myChart" width="100" height="30"></canvas>
-
+            <div class="canvas">
+                <canvas id="canvas3" width="100" height="31"></canvas>
+            </div>
         </div>
     </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"> </script>
     <script>
-        var app = <?php echo json_encode(isset($result)? $result:[]);?>;
-
-        var r = app.data.dl_retransmission;
+        var app = <?php echo json_encode(isset($result) ? $result : []); ?>;
+        var dl_retransmission = app.data.dl_retransmission;
         var date = app.data.dates;
-        console.log(app.data.dl_retransmission);
-        
-        const ctxx = document.getElementById('myChart2').getContext('2d');
+        var frame_utilization = app.data.frame_utilization;
+        var dl_throughput = app.data.throughput.dl_throughput;
+        var ul_throughput = app.data.throughput.ul_throughput;
+        console.log(app.data);
+
+        const ctxx = document.getElementById('canvas').getContext('2d');
         const myCharts = new Chart(ctxx, {
             type: 'line',
             data: {
-                labels:date                //  ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']
-                 ,
+                labels: date //  ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']
+                    ,
                 datasets: [{
-                    label: 'DownLink Throughput',
-                    data: r,
+                    label: 'Retransmissions Percentage',
+                    data: dl_retransmission,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1,
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+
+                        beginAtZero: true
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            display: false
+                        }
+                    }
+                },
+
+            }
+        });
+
+        const ctx = document.getElementById('canvas2').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: date //  ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']
+                    ,
+                datasets: [{
+                    label: 'Frame Utilizations',
+                    data: frame_utilization,
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
@@ -131,72 +181,90 @@
             options: {
                 scales: {
                     y: {
+
                         beginAtZero: true
                     },
-                    x:{
-                        ticks:{
-                            display:false
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            display: false
                         }
                     }
-                }
+                },
+
             }
         });
-        // const ctxxx = document.getElementById('myChart3').getContext('2d');
-        // const myCharts2 = new Chart(ctxxx, {
-        //     type: 'line',
-        //     data: {
-        //         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-        //         datasets: [{
-        //             label: '# of Votes',
-        //             data: [12, 19, 3, 5, 2, 3],
-        //             backgroundColor: [
-        //                 'rgba(255, 99, 132, 0.2)',
-        //                 'rgba(54, 162, 235, 0.2)',
-        //                 'rgba(255, 206, 86, 0.2)',
-        //                 'rgba(75, 192, 192, 0.2)',
-        //                 'rgba(153, 102, 255, 0.2)',
-        //                 'rgba(255, 159, 64, 0.2)'
-        //             ],
-        //             borderColor: [
-        //                 'rgba(255, 99, 132, 1)',
-        //                 'rgba(54, 162, 235, 1)',
-        //                 'rgba(255, 206, 86, 1)',
-        //                 'rgba(75, 192, 192, 1)',
-        //                 'rgba(153, 102, 255, 1)',
-        //                 'rgba(255, 159, 64, 1)'
-        //             ],
-        //             borderWidth: 1
-        //         },
-        //         {
-        //             label: '# of Votes',
-        //             data: [2, 9, 13, 15, 12, 7],
-        //             backgroundColor: [
-        //                 'rgba(255, 99, 132, 0.2)',
-        //                 'rgba(54, 162, 235, 0.2)',
-        //                 'rgba(255, 206, 86, 0.2)',
-        //                 'rgba(75, 192, 192, 0.2)',
-        //                 'rgba(153, 102, 255, 0.2)',
-        //                 'rgba(255, 159, 64, 0.2)'
-        //             ],
-        //             borderColor: [
-        //                 'rgba(255, 99, 132, 1)',
-        //                 'rgba(54, 162, 235, 1)',
-        //                 'rgba(255, 206, 86, 1)',
-        //                 'rgba(75, 192, 192, 1)',
-        //                 'rgba(153, 102, 255, 1)',
-        //                 'rgba(255, 159, 64, 1)'
-        //             ],
-        //             borderWidth: 1
-        //         }]
-        //     },
-        //     options: {
-        //         scales: {
-        //             y: {
-        //                 beginAtZero: true
-        //             }
-        //         }
-        //     }
-        // });
+
+        const ctxxx = document.getElementById('canvas3').getContext('2d');
+        const myChartw = new Chart(ctxxx, {
+            type: 'line',
+            data: {
+                labels: date //  ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']
+                    ,
+                datasets: [{
+                        label: 'Downlink Throughput',
+                        data: dl_throughput,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Uplink Throughput',
+                        data: ul_throughput,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    },
+                ]
+            },
+            options: {
+                scales: {
+                    y: {
+
+                        beginAtZero: true
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            display: false
+                        }
+                    }
+                },
+
+            }
+        });
     </script>
 
 
