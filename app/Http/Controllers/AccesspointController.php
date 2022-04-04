@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\WeeklyReport;
 use App\Models\Network;
 use App\Models\User;
 use App\Models\Tower;
@@ -10,12 +11,16 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use MaestroApiClass;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
 class AccesspointController extends Controller
 {
     //
     public function index()
     {   
+
+      
+        // Mail::to('testing1@gmail.com')->send( new WeeklyReport("hector",Carbon::today()->previous('Friday'),Carbon::now()));
         $data=$this->formData();
         return view('auth.pages.Accesspoints.accesspoint',compact('data'));
     }
