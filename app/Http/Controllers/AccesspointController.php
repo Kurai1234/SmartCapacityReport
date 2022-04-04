@@ -17,7 +17,7 @@ class AccesspointController extends Controller
     public function index()
     {   
         $data=$this->formData();
-        return view('auth.pages.accesspoint',compact('data'));
+        return view('auth.pages.Accesspoints.accesspoint',compact('data'));
     }
     public function view(Request $request){
 
@@ -43,7 +43,7 @@ class AccesspointController extends Controller
             // dd($result);
             $data= $this->formData();
          
-            return view('auth.pages.accesspoint',compact('result'),compact('data'));
+            return view('auth.pages.Accesspoints.accesspoint',compact('result'),compact('data'));
             return "go back, currently working on it";
         }
     

@@ -19,6 +19,7 @@ class AccessPointStatisticObserver
         Cache::forget('apstats');
         Cache::forget('apstatus');
         Cache::forget('pieinfo');
+        return;
     }
 
     /**

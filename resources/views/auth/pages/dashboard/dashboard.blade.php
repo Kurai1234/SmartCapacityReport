@@ -25,40 +25,38 @@
 
     </div>
 
-    <div class="row my-4  g-5 container-fluid dashboard--content">
-        <div class="col-lg-3 my-1 ">
-            <div class="row g-3">
-                <div class="col-lg-12 col-md-12  container piechart--container">
-                    <span>Access Points DL Capacity</span>
-                    <h6 class="dashboard--subtitle">Access Points Dl Capacity over 80%</h6>
-                    <div id="piechart" class="charts"> </div>
+    <div class="row my-4  dashboard--content">
+        <div class="col-lg-4 my-1 piechart--container ">
+                <span>Access Points DL Capacity</span>
+                <h6 class="dashboard--subtitle">Access Points Dl Capacity over 80%</h6>
+                {{-- <div id="piechart" class="charts"> </div> --}}
+                <div class="dashboard--canvas--container">
+                    <canvas class="dashboard--canvas" id="charts"> </canvas>
                 </div>
+        </div>
+        <div class="col-lg-8 my-1 offlinetable--main--container">
+            {{-- <div class="row "> --}}
+                <div class=" offlinetable--container">
+                    <span>Offline Ap's </span>
+                    <h6 class="dashboard--subtitle">Access points that are offline</h6>
+                    <div class="offline--aps--table">
+                        <table class="table table-borderless offline--table">
+                            <thead>
+                                <tr class="offline--aps--header">
+                                    <th>Name </th>
+                                    <th>Tower </th>
+                                    <th>Network</th>
+                                </tr>
+                            </thead>
+                            <tbody id="offline--aps--tbody">
 
-            </div>
-        </div>
-        <div class="col-lg-6 my-1">
-            <div class="row g-3">
-                <div class="col-lg-12 col-md-12 offlinetable--container">
-                        <span>Offline Ap's </span>
-                        <h6 class="dashboard--subtitle">Access points that are offline</h6>
-                        <div class="offline--aps--table">
-                          <table class="table table-borderless offline--table">
-                              <thead>
-                                  <tr class="offline--aps--header">
-                                      <th>Name </th>
-                                      <th>Tower </th>
-                                      <th>Network</th>
-                                  </tr>
-                              </thead>
-                              <tbody id="offline--aps--tbody">
-                                 
-                              </tbody>
-                          </table>
-                        </div>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
+            {{-- </div> --}}
         </div>
-        
+
     </div>
     <div class="dashboard--table table-responsive">
         <span>Live Feedback of Access Points Statistics</span>
@@ -86,7 +84,7 @@
     </div>
 
 
+    <script defer src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"> </script>
 
     <script defer type="text/javascript" src="{{ asset('js/dashboard_graphs.js') }}"> </script>
-
 @endsection
