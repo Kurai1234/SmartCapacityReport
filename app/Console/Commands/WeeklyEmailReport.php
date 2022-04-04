@@ -38,7 +38,6 @@ class WeeklyEmailReport extends Command
      */
     public function handle()
     {
-
          WeeklyMailReport::dispatch();
     }
 }

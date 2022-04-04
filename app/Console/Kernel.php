@@ -18,9 +18,8 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         // $schedule->command('statistic:update')->everyTenMinutes();
         $schedule->command('stats:populate')->everyTenMinutes();
-        $schedule->command('weeklymailreport:send');
+        $schedule->command('weeklymailreport:send')->weeklyOn(4,'9:00');
     }   
-
     /**
      * Register the commands for the application.
      *
