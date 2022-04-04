@@ -1,15 +1,20 @@
 @extends('layouts.auth-layout')
 
 @section('content')
-    <h4>Access Point</h4>
+    <h2>Access Point Graphs</h2>
+    <h6 class="text-muted">Display Graphically representation</h6>
     <div class="row container-fluid access--point--dashboard">
-        @if ($errors->any())
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        @endif
+
         <div class="col-md-4 filter--container">
             <h5 class="py-4">Filter Access Points</h5>
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </div>
+            @endif
+
             <form method="get" action="{{ route('accesspointgraph') }}">
                 @csrf
                 <div class="mb-3 pe-3">
@@ -78,10 +83,15 @@
 
         </div>
         <div class="col-md-8 py-4 canvas--containers">
-                <div class="canvas">
-                    <canvas id="canvas" width="100" height="31"></canvas>
-                </div>
-            
+            @isset($result)
+                <h5 class="text-center">{{ $result['name'] }}</h5>
+            @endisset
+            <div class="canvas">
+                <canvas id="canvas" width="100" height="31">
+                    <p>Graph awaiting Data</p>
+                </canvas>
+            </div>
+
             <div class="canvas">
                 <canvas id="canvas2" width="100" height="31"></canvas>
             </div>
@@ -96,12 +106,12 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"> </script>
     <script>
         var app = <?php echo json_encode(isset($result) ? $result : []); ?>;
-        var dl_retransmission = app.data.dl_retransmission;
-        var date = app.data.dates;
-        var frame_utilization = app.data.frame_utilization;
-        var dl_throughput = app.data.throughput.dl_throughput;
-        var ul_throughput = app.data.throughput.ul_throughput;
-        console.log(app.data);
+        var dl_retransmission = app.dl_retransmission;
+        var date = app.dates;
+        var frame_utilization = app.frame_utilization;
+        var dl_throughput = app.throughput.dl_throughput;
+        var ul_throughput = app.throughput.ul_throughput;
+        console.log(app);
 
         const ctxx = document.getElementById('canvas').getContext('2d');
         const myCharts = new Chart(ctxx, {
@@ -129,9 +139,11 @@
                         'rgba(255, 159, 64, 1)'
                     ],
                     borderWidth: 1,
+
                 }]
             },
             options: {
+
                 scales: {
                     y: {
 
@@ -146,6 +158,20 @@
                         }
                     }
                 },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                return context.parsed.y + ' %';
+                                return label;
+                            }
+                        }
+                    }
+                }
 
             }
         });
@@ -193,6 +219,20 @@
                         }
                     }
                 },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                return context.parsed.y + ' %';
+                                return label;
+                            }
+                        }
+                    }
+                }
 
             }
         });
@@ -208,19 +248,19 @@
                         data: dl_throughput,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
+                            // 'rgba(54, 162, 235, 0.2)',
+                            // 'rgba(255, 206, 86, 0.2)',
+                            // 'rgba(75, 192, 192, 0.2)',
+                            // 'rgba(153, 102, 255, 0.2)',
+                            // 'rgba(255, 159, 64, 0.2)'
                         ],
                         borderColor: [
                             'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
+                            // 'rgba(54, 162, 235, 1)',
+                            // 'rgba(255, 206, 86, 1)',
+                            // 'rgba(75, 192, 192, 1)',
+                            // 'rgba(153, 102, 255, 1)',
+                            // 'rgba(255, 159, 64, 1)'
                         ],
                         borderWidth: 1
                     },
@@ -228,20 +268,20 @@
                         label: 'Uplink Throughput',
                         data: ul_throughput,
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
+                            // 'rgba(255, 99, 132, 0.2)',
                             'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
+                            // 'rgba(255, 206, 86, 0.2)',
+                            // 'rgba(75, 192, 192, 0.2)',
+                            // 'rgba(153, 102, 255, 0.2)',
+                            // 'rgba(255, 159, 64, 0.2)'
                         ],
                         borderColor: [
-                            'rgba(255, 99, 132, 1)',
+                            // 'rgba(255, 99, 132, 1)',
                             'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
+                            // 'rgba(255, 206, 86, 1)',
+                            // 'rgba(75, 192, 192, 1)',
+                            // 'rgba(153, 102, 255, 1)',
+                            // 'rgba(255, 159, 64, 1)'
                         ],
                         borderWidth: 1
                     },
@@ -262,16 +302,22 @@
                         }
                     }
                 },
+                plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                return context.parsed.y + ' Mpbs';
+                                return label;
+                            }
+                        }
+                    }
+                }
 
             }
         });
     </script>
-
-
-    {{-- <script defer type="text/javascript" src="{{ asset('/js/graph.js') }}"> </script> --}}
-
-
-
-
-
 @endsection

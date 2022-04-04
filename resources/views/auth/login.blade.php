@@ -17,7 +17,7 @@
         <h4>Smart</h4>
         @if ($errors->any())
             @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
+                 <div class="alert alert-danger"><li>{{ $error }}</li> </div>
             @endforeach
         @endif
         <form method="POST" action="{{ route('login') }}" class="login--form--container" >

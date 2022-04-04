@@ -1,7 +1,8 @@
 @extends('layouts.auth-layout')
 
 @section('content')
-    <h4>Dashboard</h4>
+    <h2>Dashboard</h2>
+    <h6 class="text-muted">Monitoring System</h6>
     <div class="dashboard--ap--stats">
         <div class="online--ap">
             <span>online</span>
@@ -75,7 +76,6 @@
                     <th>UL Throughput </th>
                     <th>DL Throughput</th>
                     <th>Retransmission PcT</th>
-                
                 </tr>
             </thead>
             <tbody id="dashboard_table_body">

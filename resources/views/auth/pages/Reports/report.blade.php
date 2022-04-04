@@ -1,11 +1,8 @@
 @extends('layouts.auth-layout')
 
 @section('content')
-    <h1>Reports</h1>
-    @isset($start)
-    {{$start}}
-@endisset
-@isset($end){{$end}} @endisset
+    <h2>Reports</h2>
+    <h6 class="text-muted">View and Export Historical Records</h6>
     <div class=" container-fluid     report--container">
         <div class="report--form--container">
             <form action="{{route('export')}}" method="get" class="report--form">
@@ -23,11 +20,11 @@
                         </div>
                         <div class="col-2">
                         </div>
-                        <div class="col-sm-1">
+                        <div class="col-sm-1 report--button--container">
                             <button name="action" value="filter"class="btn btn-success w-100"> Filter </button>
                         </div>
                     
-                    <div class="col-sm-1">
+                    <div class="col-sm-1 report--button--container">
                         <div class="dropdown">
                             <button class="btn btn-outline-dark dropdown-toggle w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                               Export
@@ -51,22 +48,22 @@
                         <th>
                             Access Point Name
                         </th>
-                        <th>
+                        <th class="table--hide--column">
                             Mac Address
                         </th>
-                        <th>
+                        <th class="table--hide--column">
                             Product
                         </th>
-                        <th>
+                        <th >
                             Peak Throughput
                         </th>
-                        <th>
+                        <th class="table--hide--column">
                             Capacity Throughput
                         </th>
-                        <th>
+                        <th class="table--hide--column">
                             Connected Sms
                         </th>
-                        <th>
+                        <th class="table--hide--column">
                             Time Stamp
                         </th>
                     </thead>
@@ -76,12 +73,12 @@
                         @foreach ($testing as $key)
                         <tr>
                             <td>{{$key->name}}</td>
-                            <td> {{$key->mac_address}}</td>
-                                <td>{{$key->product}} </td>
+                            <td class="table--hide--column"> {{$key->mac_address}}</td>
+                                <td class="table--hide--column">{{$key->product}} </td>
                                 <td>{{$key->max}}</td>
-                                <td>{{$key->dl_capacity_throughput}}</td>
-                                <td>{{$key->connected_sms}}</td>
-                                <td>{{$key->created_at}}</td>
+                                <td class="table--hide--column">{{$key->dl_capacity_throughput}}</td>
+                                <td class="table--hide--column">{{$key->connected_sms}}</td>
+                                <td class="table--hide--column">{{$key->created_at}}</td>
                                 
                             </tr>
                         @endforeach

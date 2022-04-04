@@ -40,7 +40,9 @@ class AccesspointController extends Controller
             );
             $results=$apiCall->call_api();
             $result=prepareDataForGraph($results);
+            // dd($result);
             $data= $this->formData();
+         
             return view('auth.pages.accesspoint',compact('result'),compact('data'));
             return "go back, currently working on it";
         }

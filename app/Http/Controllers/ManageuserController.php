@@ -15,7 +15,6 @@ class ManageuserController extends Controller
         $this->authorize('manage-accounts');
         return view('auth.pages.Users.manageuser', ['users' => User::all()]);
     }
-
     public function edit($id)
     {
         $this->authorize('edit-accounts');
@@ -25,8 +24,8 @@ class ManageuserController extends Controller
     public function delete($id)
     {   
         $this->authorize('delete-accounts');
-        if (auth()->user()->id == $id) return redirect()->back()->with('message', 'Dont delete yourself silly');
-        if (User::count() < 4) return redirect()->back()->with('message', 'Your the last one dude, do not leave us');
+        if (auth()->user()->id == $id) return redirect()->back()->withErrors(['message'=> 'Dont delete yourself silly']);
+        if (User::count() < 4) return redirect()->back()->withErrors(['message' => 'Your the last one dude, do not leave us']);
         User::destroy($id);
         return redirect()->route('admin.manageuser');
     }

@@ -49,10 +49,32 @@ if (!function_exists('formatTimeToString')) {
     }
 }
 
+if (!function_exists('translateTimeToEnglish')) {
+    function translateTimeToEnglish($time)
+    {
+        // return $time;
+        $date = explode("T", $time);
+        if (str_contains($date[1], '-')) {
+            $prepare = explode("-", $date[1]);
+            $date[1] = Carbon::parse(date('H:i:s', strtotime($prepare[0]) + (strtotime($prepare[1]) - strtotime('00:00:00'))))->format('g:i A');
+            $date[0] = Carbon::parse($date[0])->format('M d Y');
+            return implode(" ", $date);
+        }
+        if (str_contains($date[1], '+')) {
+            $prepare = explode("+", $date[1]);
+            $date[1] = Carbon::parse(date('H:i:s', strtotime($prepare[0]) - (strtotime($prepare[1]) - strtotime('00:00:00'))))->format('g:i A');
+            $date[0] = Carbon::parse($date[0])->format('M d Y');
+            return implode(" ", $date);
+        }
+
+      return $time;
+    }
+}
+
 
 if (!function_exists('prepareDataForGraph')) {
     function prepareDataForGraph($results)
-    {   
+    {
         // dd($results[5]);
         // $tdate='2022-04-01T02:32:22-06:00';
         // $testing = Carbon::parse($tdate)->format('Y-m-d H:i:s');
@@ -61,22 +83,23 @@ if (!function_exists('prepareDataForGraph')) {
         // dd($results);
         foreach ($results as $key) {
             if (isset($key->radio)) {
-                array_push($date, $key->timestamp);
+                array_push($date, translateTimeToEnglish($key->timestamp));
                 array_push($frame_utlization, $key->radio->dl_frame_utilization);
-                array_push($dl_retransmission,isset($key->radio->dl_retransmits_pct) ?  $key->radio->dl_retransmits_pct :0);
-                array_push($dl_throughput, round($key->radio->dl_throughput/1024,2));
-                array_push($ul_throughput, round($key->radio->ul_throughput/1024,2));
+                array_push($dl_retransmission, isset($key->radio->dl_retransmits_pct) ?  round($key->radio->dl_retransmits_pct, 2) : 0);
+                array_push($dl_throughput, round($key->radio->dl_throughput / 1024, 2));
+                array_push($ul_throughput, round($key->radio->ul_throughput / 1024, 2));
             }
         }
         $preparedData = array(
-            'data' => array(
+            
+                'name'=>$results[0]->name,
                 'dates' => $date,
                 'frame_utilization' => $frame_utlization,
                 'dl_retransmission' => $dl_retransmission,
-                'throughput'=>['dl_throughput'=>$dl_throughput,'ul_throughput'=>$ul_throughput]
-            )
+                'throughput' => ['dl_throughput' => $dl_throughput, 'ul_throughput' => $ul_throughput]
+            
         );
-      return $preparedData;
+        return $preparedData;
     }
 }
 
