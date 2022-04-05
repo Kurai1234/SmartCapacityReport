@@ -33,24 +33,23 @@
                     <th class="table--hide--column">Email</th>
                     <th>Modify</th>
                 </tr>
-                {{-- fix --}}
             </thead>
             <tbody>
                 @foreach($users as $user)
                 <tr>
-                    <th>{{$user->id}}</th>
-                    <th >{{$user->name}}</th>
-                    <th class="table--hide--column">{{$user->user_name}}</th>
-                    <th class="table--hide--column">{{$user->is_admin?"Admin":"User"}}</th>
-                    <th class="table--hide--column">{{$user->email}}</th>
-                    <th><a class="btn btn-sm btn-primary" href="{{route('admin.edituser',$user->id)}}">Edit</a>
+                    <td>{{$user->id}}</td>
+                    <td >{{$user->name}}</td>
+                    <td class="table--hide--column">{{$user->user_name}}</td>
+                    <td class="table--hide--column">{{$user->is_admin?"Admin":"User"}}</td>
+                    <td class="table--hide--column">{{$user->email}}</td>
+                    <td><a class="btn btn-sm btn-primary" href="{{route('admin.edituser',$user->id)}}">Edit</a>
                   
                      <a class="btn btn-sm btn-danger"  href="{{ route('admin.deleteuser',$user->id)}}" onclick="event.preventDefault(); document.getElementById('delete-user-{{$user->id}}').submit()">Delete </a>
                         <form method="POST" action="{{ route('admin.deleteuser',$user->id)}}" id="delete-user-{{$user->id}}">
                             @csrf
                             @method('DELETE')
                         </form>
-                    </th>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

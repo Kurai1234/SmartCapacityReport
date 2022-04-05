@@ -5,10 +5,11 @@ namespace App\Exports;
 use App\Models\AccessPointStatistic;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-class PeakCapacityThroughputWithDatesExportMapping implements FromCollection,WithHeadings,WithMapping
+class PeakCapacityThroughputWithDatesExportMapping implements FromCollection,WithHeadings,WithMapping,ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection

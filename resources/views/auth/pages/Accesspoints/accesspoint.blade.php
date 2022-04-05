@@ -85,6 +85,7 @@
         <div class="col-md-8 py-4 canvas--containers">
             @isset($result)
                 <h5 class="text-center">{{ $result['name'] }}</h5>
+                <h6 class="text-center text-muted">{{$result['product']}} </h6> 
             @endisset
             <div class="canvas">
                 <canvas id="canvas" width="100" height="31">

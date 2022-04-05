@@ -16,6 +16,7 @@ class AccessPoint extends Model
         'tower_id',
         'type',
         'ip_address',
+        'tag'
     ];
 
     public function tower(){

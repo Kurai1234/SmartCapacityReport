@@ -19,8 +19,6 @@ class AccesspointController extends Controller
     public function index()
     {   
 
-      
-        // Mail::to('testing1@gmail.com')->send( new WeeklyReport("hector",Carbon::today()->previous('Friday'),Carbon::now()));
         $data=$this->formData();
         return view('auth.pages.Accesspoints.accesspoint',compact('data'));
     }
@@ -45,9 +43,7 @@ class AccesspointController extends Controller
             );
             $results=$apiCall->call_api();
             $result=prepareDataForGraph($results);
-            // dd($result);
             $data= $this->formData();
-         
             return view('auth.pages.Accesspoints.accesspoint',compact('result'),compact('data'));
             return "go back, currently working on it";
         }

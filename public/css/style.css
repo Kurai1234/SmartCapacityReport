@@ -566,9 +566,9 @@ text-align: center;}
     font-family: var(--ff-poppins);
 }
 
-.user--table td {
+/* .user--table td {
     width: 100%;
-}
+} */
 .user--table span{
     width: 100%;
     padding: .3rem .5rem;
@@ -695,3 +695,18 @@ outline: none;}
     margin: auto;
 }
 
+
+
+/* manage devices */
+
+.managedevice--container{
+    padding: 1rem;
+    box-shadow: 5px 4px 8px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    padding: 1rem 1rem;
+    background-color: #ffffff;
+}
+
+#device--table{
+    font-size: .9rem;
+}

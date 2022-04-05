@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ExportFilesController;
 use App\Http\Controllers\FirstLoginController;
+use App\Http\Controllers\ManageDeviceController;
 use App\Http\Controllers\ManageuserController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
@@ -33,11 +34,11 @@ Route::middleware(['preventBackHistory'])->group(function () {
             // Route::get('/livetabledata',[DashboardController::class,'livedata'])->name('dashboard.table');
             Route::get('/accesspoints', [AccesspointController::class, 'index'])->name('accesspoint');
             Route::get('/accesspointgraph/device', [AccesspointController::class, 'view'])->name('accesspointgraph');
-
             Route::get('/reports', [ReportController::class, 'index'])->name('reports');
             Route::get('/reports/range', [ReportController::class, 'export'])->name('export');
-
-            
+            Route::get('/devices',[ManageDeviceController::class,'index'])->name('devices');
+            Route::get('/devices/{id}',[ManageDeviceController::class,'edit'])->name('devices.edit');
+            Route::patch('/devices/{id}/update', [ManageDeviceController::class, 'update'])->name('devices.update');
             Route::middleware(['isAdmin'])->group(function () {
                 Route::get('/admin/manageusers', [ManageuserController::class, 'index'])->name('admin.manageuser');
                 Route::get('/admin/edituser/{id}/edit', [ManageuserController::class, 'edit'])->name('admin.edituser');

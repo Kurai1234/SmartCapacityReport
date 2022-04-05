@@ -75,16 +75,12 @@ if (!function_exists('translateTimeToEnglish')) {
 if (!function_exists('prepareDataForGraph')) {
     function prepareDataForGraph($results)
     {
-        // dd($results[5]);
-        // $tdate='2022-04-01T02:32:22-06:00';
-        // $testing = Carbon::parse($tdate)->format('Y-m-d H:i:s');
-        // dd($testing);
+        $product = ModelsAccessPoint::query()->where('name',$results[0]->name)->where('mac_address', $results[0]->mac)->firstOrFail()->product;
         (array)$date = $frame_utlization = $dl_throughput = $ul_throughput = $dl_retransmission = [];
-        // dd($results);
         foreach ($results as $key) {
             if (isset($key->radio)) {
                 array_push($date, translateTimeToEnglish($key->timestamp));
-                array_push($frame_utlization, $key->radio->dl_frame_utilization);
+                array_push($frame_utlization, round($key->radio->dl_frame_utilization),2);
                 array_push($dl_retransmission, isset($key->radio->dl_retransmits_pct) ?  round($key->radio->dl_retransmits_pct, 2) : 0);
                 array_push($dl_throughput, round($key->radio->dl_throughput / 1024, 2));
                 array_push($ul_throughput, round($key->radio->ul_throughput / 1024, 2));
@@ -93,6 +89,7 @@ if (!function_exists('prepareDataForGraph')) {
         $preparedData = array(
             
                 'name'=>$results[0]->name,
+                'product'=>$product,
                 'dates' => $date,
                 'frame_utilization' => $frame_utlization,
                 'dl_retransmission' => $dl_retransmission,
