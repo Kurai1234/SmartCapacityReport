@@ -16,8 +16,8 @@ const testingChart = new Chart(ctxx, {
                 label: "My First Dataset",
                 data: [1],
                 backgroundColor: [
-                    "rgb(255, 99, 132)",
                     "rgb(54, 162, 235)",
+                    "rgb(255, 99, 132)",
                 ],
                 hoverOffset: 4,
             },
@@ -111,11 +111,11 @@ var dashBoardTable = $("#sortTable").DataTable({
         },
         {
             data: "ul_throughput",
-            render: $.fn.dataTable.render.number(",", ".", 2, "", " mbps"),
+            render: $.fn.dataTable.render.number(",", ".", 2, "", " Mbps"),
         },
         {
             data: "dl_throughput",
-            render: $.fn.dataTable.render.number(",", ".", 2, "", " mbps"),
+            render: $.fn.dataTable.render.number(",", ".", 2, "", " Mbps"),
         },
         {
             data: "dl_retransmit_pcts",
