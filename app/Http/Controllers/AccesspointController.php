@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AccessPointStatisticsExportView;
 use App\Mail\WeeklyReport;
 use App\Models\Network;
 use App\Models\User;
@@ -13,6 +14,8 @@ use MaestroApiClass;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
+
 class AccesspointController extends Controller
 {
     //
@@ -41,6 +44,7 @@ class AccesspointController extends Controller
                 'stop_time'=>formatTimeToString($request->end_time)
                 )
             );
+        
             $results=$apiCall->call_api();
             $result=prepareDataForGraph($results);
             // dd($result);

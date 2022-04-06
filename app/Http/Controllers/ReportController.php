@@ -18,7 +18,6 @@ class ReportController extends Controller
     public function index()
     {
 
-        $testing = AccessPoint::all();
         return view('auth.pages.Reports.report');
     }
 
@@ -57,18 +56,17 @@ class ReportController extends Controller
         $maxWithRelations = DB::table('access_points')->select('name', 'mac_address', 'product', 'access_point_id', 'max')->joinSub($max, 'max_table', function ($join) {
             $join->on('access_points.id', 'max_table.access_point_id');
         });
-        $testing = DB::table('access_point_statistics')->joinSub($maxWithRelations, 'stats', function ($join) {
+        $peakData = DB::table('access_point_statistics')->joinSub($maxWithRelations, 'stats', function ($join) {
             $join->on('stats.access_point_id', '=', 'access_point_statistics.access_point_id')
                 ->on('stats.max', 'access_point_statistics.dl_throughput');
         })->where('access_point_statistics.created_at', '>=', Carbon::parse($start))
             ->where('access_point_statistics.created_at', '<=', Carbon::parse($end))
             ->orderBy('max', 'desc')->get();
-        // dd($testing);
         $time = [
             'start' => $start,
             'end' => $end
         ];
-        $testing =  $testing->unique('access_point_id');
-        return view('auth.pages.Reports.report', compact('testing'), compact('time'));
+        $peakData =  $peakData->unique('access_point_id');
+        return view('auth.pages.Reports.report', compact('peakData'), compact('time'));
     }
 }

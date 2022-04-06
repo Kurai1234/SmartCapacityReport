@@ -68,9 +68,9 @@
                         </th>
                     </thead>
                     <tbody>
-                        @isset($testing)
+                        @isset($peakData)
                             
-                        @foreach ($testing as $key)
+                        @foreach ($peakData as $key)
                         <tr>
                             <td>{{$key->name}}</td>
                             <td class="table--hide--column"> {{$key->mac_address}}</td>
@@ -79,7 +79,7 @@
                                 <td class="table--hide--column">{{$key->dl_capacity_throughput}}</td>
                                 <td class="table--hide--column">{{$key->connected_sms}}</td>
                                 <td class="table--hide--column">{{$key->created_at}}</td>
-                                
+
                             </tr>
                         @endforeach
                         @endisset
