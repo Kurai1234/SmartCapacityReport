@@ -88,13 +88,13 @@
                 <h6 class="text-center text-muted">{{ $result['product'] }} </h6>
             @endisset
             <div class="canvas">
-                <h6 id="retransmitMax" class="canvas--max--value">MAX: Apr 24,2020 7:00AM 54.6%</h6>
+                <h6 id="retransmitMax" class="canvas--max--value"></h6>
                 <canvas id="canvas" width="100" height="31">
                 </canvas>
             </div>
 
             <div class="canvas">
-                <h6 id="frameUtilizationMax" class="canvas--max--value">Apr 24,2020 7:00AM 54.6%</h6>
+                <h6 id="frameUtilizationMax" class="canvas--max--value"></h6>
                 <canvas id="canvas2" width="100" height="31"></canvas>
             </div>
 
@@ -184,7 +184,7 @@
                 }
             });
             max = Math.max(...myCharts.data.datasets[0].data);
-            document.getElementById('retransmitMax').innerText = 'MAX: ' + myCharts.data.labels[myCharts.data.datasets[0]
+            document.getElementById('retransmitMax').innerText = myCharts.data.labels[myCharts.data.datasets[0]
                 .data.indexOf(max)] + ' ' + max + '%';
         };
 
@@ -249,8 +249,9 @@
 
                 }
             });
+            console.log(myChart);
             max = Math.max(...myChart.data.datasets[0].data);
-            document.getElementById('frameUtilizationMax').innerText = 'MAX: ' + myChart.data.labels[myChart.data.datasets[
+            document.getElementById('frameUtilizationMax').innerText = myChart.data.labels[myChart.data.datasets[
                 0].data.indexOf(max)] + ' ' + max + '%';
 
 
