@@ -59,7 +59,7 @@ class Statistic implements ShouldQueue, ShouldBeUnique
                             $ignore = true;
                         }
                     }
-                    if ($ignore) {
+                    if (!$ignore) {
                         if (str_contains($access_point_info->product, '3000')) $maximum_mbps = 220;
                         if (str_contains($access_point_info->product, '1000')) $maximum_mbps = 120;
                         if (str_contains($access_point_info->product, '2000')) $maximum_mbps = 120;

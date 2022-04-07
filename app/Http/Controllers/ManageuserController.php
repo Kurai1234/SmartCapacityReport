@@ -26,7 +26,7 @@ class ManageuserController extends Controller
     {
         $this->authorize('delete-accounts');
         if (auth()->user()->id == $id) return redirect()->back()->withErrors(['message' => 'Dont delete yourself silly']);
-        if (User::count() < 4) return redirect()->back()->withErrors(['message' => 'Your the last one dude, do not leave us']);
+        if (User::count() < 2) return redirect()->back()->withErrors(['message' => 'Your the last one dude, do not leave us']);
         User::destroy($id);
         return redirect()->route('admin.manageuser');
     }

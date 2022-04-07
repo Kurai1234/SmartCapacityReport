@@ -51,6 +51,6 @@ class Network implements ShouldQueue
                 }
             }       
         }
-        return error_log("Network Inserted");  // returns after completed
+        return error_log("Network Inserted");  // returns after completed 
     }
 }

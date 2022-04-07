@@ -14,13 +14,12 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
 
 if (!function_exists('updateAccessPoints')) {
-    function updateAccessPoints($info_to_test, $maestro)
+    function updateAccessPoints($info_to_test, $maestroid)
     {
-        $test = 'ePMP 1000';
         $acceptableDevices = array('ePMP 3000', 'ePMP 2000', 'ePMP 1000');
         $isAccepted = false;
 
-        $new_access_point = new MaestroApiClass($maestro, modifyUrl('/devices', $info_to_test->mac), []);
+        $new_access_point = new MaestroApiClass($maestroid, modifyUrl('/devices', $info_to_test->mac), []);
 
         foreach ($new_access_point->call_api() as $accesspoint) {
 
@@ -44,6 +43,12 @@ if (!function_exists('updateAccessPoints')) {
             }
         }
         return error_log('Updated a device');
+    }
+}
+
+if(!function_exists('addNewTower')){
+    function addNewTower($towername,$maestroId){
+
     }
 }
 
