@@ -1,8 +1,8 @@
 <?php
 
 use PhpParser\Builder\Class_;
-
-use App\Jobs\AccessPoint;
+use App\Jobs\Network;
+use App\Jobs\Tower as JobTower;
 use App\Models\AccessPoint as ModelsAccessPoint;
 use App\Models\Maestro;
 use App\Models\Tower;
@@ -28,8 +28,12 @@ if (!function_exists('updateAccessPoints')) {
             }
 
             if ($isAccepted) {
-
                 $tower = Tower::query()->where('name', $accesspoint->tower)->first();
+                if($tower===null) {
+                    Network::dispatch();
+                    JobTower::dispatch();
+                    return error_log("failed to update");
+                }
                 ModelsAccessPoint::updateOrCreate(
                     ['ip_address' => $accesspoint->ip,],
                     [
@@ -41,16 +45,43 @@ if (!function_exists('updateAccessPoints')) {
                     ]
                 );
             }
+            $isAccepted=false;
         }
         return error_log('Updated a device');
     }
 }
 
-if(!function_exists('addNewTower')){
-    function addNewTower($towername,$maestroId){
+if (!function_exists('formatBackupTime')) {
+    function formatBackupTime($string)
+    {
+        // return $string;  
+        $time = array();
+        $dateTime = explode('-', explode('.', explode('/', $string)[1])[0]);
+        for ($i = 0; $i <= sizeof($dateTime) / 2; $i++) {
+            array_push($time, array_pop($dateTime));
+        }
+        $date = implode('/',$dateTime) .' '.  implode(':',array_reverse($time));
+        return Carbon::parse($date)->format('d M Y g:i:a');
+    }
+}
+
+
+
+if (!function_exists('addNewTower')) {
+    function addNewTower($towername, $maestroId)
+    {
 
     }
 }
+
+if (!function_exists('addNewNetwork')) {
+    function addNewNetwork($networName, $maestroId)
+    {
+
+    }
+}
+
+
 
 if (!function_exists('modifyUrl')) {
     function modifyUrl(string $url, string $mac)

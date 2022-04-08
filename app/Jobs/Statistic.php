@@ -81,8 +81,8 @@ class Statistic implements ShouldQueue, ShouldBeUnique
                         );
                         $insertion->save();
                     }
+                    $ignore = false;
                 }
-                $ignore=false;
             }
         }
         error_log("New Batch of information");
