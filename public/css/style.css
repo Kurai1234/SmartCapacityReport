@@ -712,3 +712,11 @@ body::-webkit-scrollbar-thumb {
 #ulthroughputMax {
     color: rgba(54, 162, 235, 1);
 }
+
+.backup--download--container{
+    width: 100%;
+}
+
+.backup--download--link svg{
+        width: 1rem;
+}
