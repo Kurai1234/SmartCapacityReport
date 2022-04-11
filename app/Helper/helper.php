@@ -24,28 +24,30 @@ if (!function_exists('updateAccessPoints')) {
         foreach ($new_access_point->call_api() as $accesspoint) {
 
             foreach ($acceptableDevices as $device) {
-                if (strcmp($accesspoint->product, $device) === 0) $isAccepted = true;
+                if (strcmp($accesspoint->product, $device) === 0) $isAccepted = !$isAccepted;
             }
 
             if ($isAccepted) {
                 $tower = Tower::query()->where('name', $accesspoint->tower)->first();
-                if($tower===null) {
+                if ($tower === null) {
                     Network::dispatch();
                     JobTower::dispatch();
                     return error_log("failed to update");
                 }
-                ModelsAccessPoint::updateOrCreate(
-                    ['ip_address' => $accesspoint->ip,],
+                $insertOrUpdate = ModelsAccessPoint::updateOrCreate(
+                    ['ip_address' => $accesspoint->ip],
                     [
                         'name' => $accesspoint->name,
                         'mac_address' => $accesspoint->mac,
                         'tower_id' => $tower->id,
                         'product' => $accesspoint->product,
-                        'type' => $accesspoint->type
+                        'type' => $accesspoint->type,
+
                     ]
                 );
+                if ($insertOrUpdate) error_log("updated or inserted");
+                $isAccepted = false;
             }
-            $isAccepted=false;
         }
         return error_log('Updated a device');
     }
@@ -60,26 +62,11 @@ if (!function_exists('formatBackupTime')) {
         for ($i = 0; $i <= sizeof($dateTime) / 2; $i++) {
             array_push($time, array_pop($dateTime));
         }
-        $date = implode('/',$dateTime) .' '.  implode(':',array_reverse($time));
+        $date = implode('/', $dateTime) . ' ' .  implode(':', array_reverse($time));
         return Carbon::parse($date)->format('d M Y g:i:a');
     }
 }
 
-
-
-if (!function_exists('addNewTower')) {
-    function addNewTower($towername, $maestroId)
-    {
-
-    }
-}
-
-if (!function_exists('addNewNetwork')) {
-    function addNewNetwork($networName, $maestroId)
-    {
-
-    }
-}
 
 
 

@@ -10,9 +10,12 @@ use Illuminate\Support\Facades\Artisan;
 class BackupdatabaseController extends Controller
 {
     //
-
+    
     public function index()
     {
+
+    
+
         $backUpList = array();
         $file_name = 'SmartMonitor/2022-04-07-13-19-36.zip';
         foreach (Storage::files('SmartMonitor') as $key => $item) {

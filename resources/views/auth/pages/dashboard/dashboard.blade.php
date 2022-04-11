@@ -37,7 +37,7 @@
         <div class="col-lg-8 my-1 offlinetable--main--container">
             {{-- <div class="row "> --}}
                 <div class=" offlinetable--container">
-                    <span>Offline Ap's </span>
+                    <span>Offline Access Points </span>
                     <h6 class="dashboard--subtitle">Access points that are offline</h6>
                     <div class="offline--aps--table">
                         <table class="table table-borderless offline--table">

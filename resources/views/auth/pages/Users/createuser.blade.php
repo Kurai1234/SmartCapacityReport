@@ -27,7 +27,7 @@
        
         <div class="form-group col-md-6">
             <label for="user_name">User</label>
-            <input type="text" required class="form-control" id="user_name" name="user_name" placeholder="User Name" value=" {{old('email','')}} " required>
+            <input type="text" required class="form-control" id="user_name" name="user_name" placeholder="UserName" value="{{old('user_name','')}}" required>
         </div>
         <div class="form-group col-md-6">
             <label for="email">Email</label>
@@ -41,7 +41,7 @@
         </div>
         <div class="form-group col-md-6">
             <label for="password_confirmation">Confirm Password</label>
-            <input type="password" required class="form-control" id="password_confirmation" name="password_confirmation" required>
+            <input type="password" required class="form-control" id="password_confirmation" name="password_confirmation"required>
         </div>
     </div>
     <div class="form-group col-md-6 my-3 ">
@@ -69,16 +69,16 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Create User</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Save Changes?
+                    Are you sure you want to create a user?
     
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                    <button type="submit" class="btn btn-success" name="updateUser">Save</button> </div>
+                    <button type="submit" class="btn btn-success" name="updateUser">Create User</button> </div>
             </div>
         </div>
     </div>    </form>

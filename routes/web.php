@@ -8,6 +8,9 @@ use App\Http\Controllers\ExportFilesController;
 use App\Http\Controllers\FirstLoginController;
 use App\Http\Controllers\ManageDeviceController;
 use App\Http\Controllers\ManageuserController;
+use App\Http\Controllers\api\v1\ApPieController;
+use App\Http\Controllers\api\v1\ApStatisticController;
+use App\Http\Controllers\api\v1\ApStatusController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +24,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::middleware(['auth', 'isLoggedIn'])->group(function () {
     Route::get('/exports/weekly', [ExportFilesController::class, 'export'])->name('weeklyexports');
     Route::get('/exports/weeklypeaks', [ExportFilesController::class, 'exportPeakCapacity'])->name('weeklypeakexports');
@@ -31,6 +33,14 @@ Route::middleware(['preventBackHistory'])->group(function () {
     Route::middleware(['isNotFirstLogin'])->group(function () {
         require __DIR__ . '/auth.php';
         Route::middleware(['auth', 'isLoggedIn'])->group(function () {
+
+            Route::get('/appieinfo',[ApPieController::class,'index']);
+            Route::get('/apstatistic',[ApStatisticController::class,'index']);
+            Route::get('/apstatus',[ApStatusController::class,'index']);
+
+
+
+
             Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
             // Route::get('/livetabledata',[DashboardController::class,'livedata'])->name('dashboard.table');
             Route::get('/accesspoints', [AccesspointController::class, 'index'])->name('accesspoint');

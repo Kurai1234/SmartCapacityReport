@@ -28,7 +28,7 @@ const testingChart = new Chart(ctxx, {
 function drawPieChart() {
     $.ajax({
         type: "GET",
-        url: "/api/appieinfo",
+        url: "/appieinfo",
         dataType: "json",
         success: function (response) {
             console.log(response);
@@ -91,7 +91,7 @@ function drawPieChart() {
 var dashBoardTable = $("#sortTable").DataTable({
     ajax: {
         type: "GET",
-        url: "/api/apstatistic",
+        url: "/apstatistic",
         //  processing:true,
         //  serverSide:true,
         dataSrc: function (json) {
@@ -134,7 +134,7 @@ var status_of_apis = function () {
     });
     $.ajax({
         type: "GET",
-        url: "/api/apstatus",
+        url: "/apstatus",
         dataType: "json",
         success: function (response) {
             Object.values(response.data.devices).forEach((device) => {

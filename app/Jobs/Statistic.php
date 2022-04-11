@@ -50,14 +50,15 @@ class Statistic implements ShouldQueue, ShouldBeUnique
                     try {
                         $access_point_info = AccessPoint::query()->where('name', '=', $statistic_data->name)->where('mac_address', '=', $statistic_data->mac)->firstOrFail();
                     } catch (ModelNotFoundException $e) {
-                        error_log($statistic_data->name);
+                        error_log($statistic_data->name.$statistic_data->mac);
+                        
                         updateAccessPoints($statistic_data, $maestro->id);
-                        try {
-                            $access_point_info = AccessPoint::query()->where('name', '=', $statistic_data->name)->where('mac_address', $statistic_data->mac)->firstOrFail();
-                        } catch (ModelNotFoundException $e) {
-                            error_log($statistic_data->name);
-                            $ignore = true;
-                        }
+                    }
+                    try {
+                        $access_point_info = AccessPoint::query()->where('name', '=', $statistic_data->name)->where('mac_address', $statistic_data->mac)->firstOrFail();
+                    } catch (ModelNotFoundException $e) {
+                        error_log($statistic_data->name."hi");
+                        $ignore = true;
                     }
                     if (!$ignore) {
                         if (str_contains($access_point_info->product, '3000')) $maximum_mbps = 220;
