@@ -28,6 +28,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('manage-accounts', function ($user) {
             return $user->is_admin == true;
         });
+        Gate::define('access-backup', function ($user) {
+            return $user->is_admin == true;
+        });
         Gate::define('create-accounts', function ($user) {
             return $user->is_admin == true;
         });

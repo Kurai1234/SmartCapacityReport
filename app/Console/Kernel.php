@@ -18,7 +18,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         // $schedule->command('statistic:update')->everyTenMinutes();
         $schedule->command('stats:populate')->everyTenMinutes();
-        $schedule->command('backup:clean')->dailyAt('1:00');
+        $schedule->command('backup:clean')->withoutOverlapping()->dailyAt('1:00');
         $schedule->command('weeklymailreport:send')->weeklyOn(4,'9:00');
     }   
     /**

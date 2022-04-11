@@ -13,24 +13,8 @@ class BackupdatabaseController extends Controller
 
     public function index()
     {
-       
         $backUpList = array();
         $file_name = 'SmartMonitor/2022-04-07-13-19-36.zip';
-        // // $file = Storage::disk('local')->get($file_name);
-        // // return  new HttpResponse($file,200);   
-        // // return $file;
-        // return Storage::download($file_name);
-        // dd(Storage::disk('local')->size($file_name));
-        // dd(Storage::disk('local')->url($file_name));
-        // return $file;
-        // foreach (Storage::files('SmartMonitor') as $item) {
-        //     dd(formatBackupTime($item));
-        //     array_push($backUpList,$item);
-        // }
-        // array_filter(Storage::files('SmartMonitor'), function ($item) {
-        //     // array_push($backUpList,$item);
-        //     dd(gettype($item));
-        // });
         foreach (Storage::files('SmartMonitor') as $key => $item) {
             $tempArray = array(
                 'id' => $key + 1,

@@ -138,7 +138,7 @@ body::-webkit-scrollbar-thumb {
     display: flex;
     align-items: center;
     text-decoration: none;
-    height: 5rem;
+    height: 4rem;
     color: var(--custom-primary-color);
     filter: grayscale(100%) opacity(0.7);
     transition: 600ms;
@@ -156,9 +156,14 @@ body::-webkit-scrollbar-thumb {
 }
 .nav--link svg {
     min-width: 1rem;
+    max-width: 2rem;
     margin: 0 1.5rem;
     color: var(--custom-primary-color);
     transition: 600ms;
+}
+.nav--link--svg{
+    max-width: 1rem;
+    
 }
 .nav--logo {
     font-weight: bold;
@@ -713,10 +718,14 @@ body::-webkit-scrollbar-thumb {
     color: rgba(54, 162, 235, 1);
 }
 
-.backup--download--container{
+.backup--download--container {
     width: 100%;
 }
 
-.backup--download--link svg{
-        width: 1rem;
+.backup--download--link svg {
+    width: 1.3rem;
+    color: green;
+}
+.backup--download--link svg:hover path {
+    color: #000000;
 }
