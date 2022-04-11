@@ -23,3 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Route::get('/apstatus',[ApStatusController::class,'index']);
 // Route::get('/appieinfo',[ApPieController::class,'index']);
 
+    

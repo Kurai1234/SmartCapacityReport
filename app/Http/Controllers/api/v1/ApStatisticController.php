@@ -17,19 +17,19 @@ use Illuminate\Support\Facades\Cache;
 class ApStatisticController extends Controller
 {
     //
-    public function index(){
-        // $data = AccessPointStatistic::with('accesspoint','accesspoint.tower','accesspoint.tower.network')->latest()->take(AccessPoint::count())->get();
-        // return response()->json(['data'=>$data]);
-        //return the collection and stores in cache for 5 minutes.
-        return ApStatisticResource::collection(
-            Cache::remember('apstats',60*10,function(){
-                return AccessPointStatistic::query()
-                ->with('accesspoint','accesspoint.tower','accesspoint.tower.network')
-                ->latest()
-                ->take(AccessPoint::count())
-                ->get();
-            })
-            );
-            
-    }
+        public function index(){
+        
+            //filter data through resource
+            return ApStatisticResource::collection(
+                //caches the data to avoid multiple queries
+                Cache::remember('apstats',60*10,function(){
+                    return AccessPointStatistic::query()
+                    ->with('accesspoint','accesspoint.tower','accesspoint.tower.network')
+                    ->latest()
+                    ->take(AccessPoint::count())
+                    ->get();
+                })
+                );
+                
+        }
 }

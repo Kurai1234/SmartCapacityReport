@@ -18,6 +18,7 @@ class ManageDeviceController extends Controller
 
     public function edit($id)
     {
+
         return view(
             'auth.pages.Devices.editdevice',
             ['device' =>  AccessPoint::with('tower:id,name,network_id', 'tower.network:id,name')->findOrFail($id)]
@@ -25,6 +26,7 @@ class ManageDeviceController extends Controller
     }
 
     public function update(Request $request, $id){
+        $this->authorize('edit-device');
         $request->validate([
             'name'=>'required',
             'product'=>'required',
@@ -38,7 +40,5 @@ class ManageDeviceController extends Controller
         $accesspoint->tag = $request->tag;
         $accesspoint->save();
         return redirect()->route('devices')->with('message','Updated Successful');
-
-
     }
 }

@@ -30,14 +30,14 @@ class MaestroApiClass
     private function get_Client_ID()
     {
         //returns the proper client id for server
-        if ($this->maestroId == 1) return env('CLIENT_ID_SECOND');
-        if ($this->maestroId == 2) return env('CLIENT_ID_FIRST');
+        if ($this->maestroId == 1) return config('app.CLIENT_ID_SECOND');
+        if ($this->maestroId == 2) return config('app.CLIENT_ID_FIRST');
     }
     private function get_Client_Secret()
     {
         //returns the proper client secret
-        if ($this->maestroId == 1) return env('CLIENT_SECRET_SECOND');
-        if ($this->maestroId == 2) return env('CLIENT_SECRET_FIRST');
+        if ($this->maestroId == 1) return config('app.CLIENT_SECRET_SECOND');
+        if ($this->maestroId == 2) return config('app.CLIENT_SECRET_FIRST');
     }
     private function set_filter(array $array)
     {

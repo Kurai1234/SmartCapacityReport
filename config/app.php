@@ -13,6 +13,8 @@ return [
     |
     */
 
+
+
     'name' => env('APP_NAME', 'Laravel'),
 
     /*
@@ -81,6 +83,21 @@ return [
     */
 
     'locale' => 'en',
+
+     /*
+    |--------------------------------------------------------------------------
+    | .ENV variables
+    |--------------------------------------------------------------------------
+    |These variables are pulled from enviroment, to be used in production.
+
+    | 
+    |
+    */
+    'CLIENT_ID_FIRST' => env('CLIENT_ID_FIRST',''),
+    'CLIENT_SECRET_FIRST'=>env('CLIENT_SECRET_FIRST',''),
+    'CLIENT_ID_SECOND'=>env('CLIENT_ID_SECOND'),
+    'CLIENT_SECRET_SECOND'=>env('CLIENT_SECRET_SECOND',''),
+
 
     /*
     |--------------------------------------------------------------------------

@@ -43,6 +43,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('resetpassword', function ($user) {
             return $user->is_admin == true;
         });
+        Gate::define('edit-device', function ($user) {
+            return $user->is_admin == true;
+        });
         
         //
     }

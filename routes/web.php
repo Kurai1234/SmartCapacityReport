@@ -39,8 +39,6 @@ Route::middleware(['preventBackHistory'])->group(function () {
             Route::get('/apstatus',[ApStatusController::class,'index']);
 
 
-
-
             Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
             // Route::get('/livetabledata',[DashboardController::class,'livedata'])->name('dashboard.table');
             Route::get('/accesspoints', [AccesspointController::class, 'index'])->name('accesspoint');
@@ -50,11 +48,10 @@ Route::middleware(['preventBackHistory'])->group(function () {
             Route::get('/devices', [ManageDeviceController::class, 'index'])->name('devices');
             Route::get('/devices/{id}', [ManageDeviceController::class, 'edit'])->name('devices.edit');
             Route::patch('/devices/{id}/update', [ManageDeviceController::class, 'update'])->name('devices.update');
-
             Route::prefix('admin')->middleware(['isAdmin'])->group(function () {
-                Route::get('backup', [BackupdatabaseController::class, 'index'])->name('backup');
-                Route::get('backup/dbdump', [BackupdatabaseController::class, 'forceBackUp'])->name('backup.dbdump');
-                Route::get('backup/{file}', [BackupdatabaseController::class, 'download'])->name('backup.download');
+                Route::get('backups', [BackupdatabaseController::class, 'index'])->name('backup');
+                Route::get('backups/dbdump', [BackupdatabaseController::class, 'forceBackUp'])->name('backup.dbdump');
+                Route::get('backups/{file}', [BackupdatabaseController::class, 'download'])->name('backup.download');
                 Route::get('manageusers', [ManageuserController::class, 'index'])->name('admin.manageuser');
                 Route::get('edituser/{id}/edit', [ManageuserController::class, 'edit'])->name('admin.edituser');
                 Route::get('createuser', [ManageuserController::class, 'createUser'])->name('admin.createuser');
