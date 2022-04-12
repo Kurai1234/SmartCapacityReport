@@ -2,15 +2,16 @@
 
     <div class="form-group col-md-6">
         <label for="name">Full Name</label>
-        <input type="text" required class="form-control" id="name" name="name" placeholder="Name" value="{{old('name')}}@isset($user){{$user->name}}@endisset" required>
-    </div>
+        <input type="text" required class="form-control" id="name" name="name" placeholder="Name" value="{{old('name')? old('name'):isset($user->name)? $user->name:''}}" required>
+    </div>                                                                                       
+   
     <div class="form-group col-md-6">
         <label for="user_name">User</label>
-        <input type="text" required class="form-control" id="user_name" name="user_name" placeholder="User Name" value="{{old('user_name')}}@isset($user){{$user->user_name}}@endisset" required>
+        <input type="text" required class="form-control" id="user_name" name="user_name" placeholder="User Name" value="{{old('user_name')? old('user_name'):isset($user->user_name)? $user->user_name:''}}" required>
     </div>
     <div class="form-group col-md-6">
         <label for="email">Email</label>
-        <input type="email" required class="form-control" id="email" name="email" placeholder="Email" value=" {{old('email')}}@isset($user){{$user->email}}@endisset" required>
+        <input type="email" required class="form-control" id="email" name="email" placeholder="Email" value=" {{old('email')? old('email'):isset($user->email)? $user->email:''}}" required>
     </div>
 
     @isset($create)
@@ -24,8 +25,6 @@
         <input type="password" required class="form-control" id="password_confirmation" name="password_confirmation" required>
     </div>
     @endisset
-
-
 
 </div>
 <div class="form-group col-md-6 my-3 ">
@@ -53,7 +52,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

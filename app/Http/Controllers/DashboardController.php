@@ -14,18 +14,8 @@ class DashboardController extends Controller
     //
 
     public function index(){
-        // $testing = AccessPointStatistic::orderby('dl_throughput','desc')->take(5)->get();
-        // dd(User::with('roles')->find(auth::id()));
-        // dd(auth()->user());
-        return view('auth.pages.dashboard');
+        return view('auth.pages.Dashboard.dashboard');
     }
 
-    // public function livedata(){
-    //     $total = count(AccessPoint::all());
-    //     $data = AccessPointStatistic::with('accesspoint','accesspoint.tower','accesspoint.tower.network')->orderby('id','desc')->take($total)->get();
-
-    //     // dd($data);
-
-    //     return response()->json(['data'=>$data]);
-    //     }
+    
 }

@@ -16,9 +16,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('statistic:update')->everyFiveMinutes();
-    }
-
+        // $schedule->command('statistic:update')->everyTenMinutes();
+        $schedule->command('stats:populate')->everyTenMinutes();
+        $schedule->command('backup:clean')->withoutOverlapping()->dailyAt('1:00');
+        $schedule->command('weeklymailreport:send')->weeklyOn(4,'9:00');
+    }   
     /**
      * Register the commands for the application.
      *
@@ -27,7 +29,6 @@ class Kernel extends ConsoleKernel
     protected function commands()
     {
         $this->load(__DIR__.'/Commands');
-
         require base_path('routes/console.php');
     }
 }

@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Jobs;
-
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -13,6 +12,7 @@ use App\Models\AccessPoint as ModelsAccessPoint;
 use App\Models\Maestro;
 use App\Models\Tower;
 use Error;
+use MaestroApiClass;
 
 class AccessPoint implements ShouldQueue
 {
@@ -36,43 +36,27 @@ class AccessPoint implements ShouldQueue
      */
     public function handle()
     {
-        $maestro_ip = Maestro::all();
-        // $towers_info = Tower::with('network')->get();
-        foreach ($maestro_ip as $key) {
-            $accesspoints = new AccessPointStatisticHelperClass($key->url, env('CLIENT_ID_SECOND'), env('CLIENT_SECRET_SECOND'), '/devices');
-            $filter = array(
-                'type' => 'epmp',
-            );
-            $accesspoints->set_url_query($filter);
-            $accesspoints->call_api();
-            $reponse_data = $accesspoints->get_response_data();
-            $complied_data = array();
-            foreach ($reponse_data as $key) {
-                if (str_contains($key->network, 'ePMP')) {
-                    if (str_contains($key->product, '2000') || str_contains($key->product, '3000') || str_contains($key->product, '1000')) {
-                        array_push($complied_data, $key);
+        foreach (Maestro::all() as $maestro) { // retrieves all maestro to loop
+            $call_api = new MaestroApiClass($maestro->id, '/devices', array('type' => 'epmp')); //creates a class instance of the api call
+            foreach ($call_api->call_api() as $accesspoint) { //loops through the response
+                if (str_contains($accesspoint->network, 'ePMP')) {  //checks if the network is a epmp type
+                    //checks if the product is a ap by the type of product
+                    if (str_contains($accesspoint->product, '2000') || str_contains($accesspoint->product, '3000') || str_contains($accesspoint->product, '1000')) {
+                        $towers_info = Tower::with('network')->where('name',$accesspoint->tower)->first(); // finds its tower id
+                        ModelsAccessPoint::updateOrCreate([ //creates or update a accesspoint depending if the ip address exist
+                            'ip_address'=>$accesspoint->ip,
+                        ],[
+                            'name' => $accesspoint->name,
+                            'mac_address' => $accesspoint->mac,
+                            'product' => $accesspoint->product,
+                            'tower_id' => $towers_info->id,
+                            'type' => $accesspoint->type,
+                            'ip_address' => $accesspoint->ip,
+                        ]);
                     }
                 }
             }
-            foreach ($complied_data as $model) {
-                if (!ModelsAccessPoint::where('mac_address', $model->mac)->exists()) {
-                    $towers_info= Tower::with('network')->where('name','=',$model->tower)->first();
-                    // dd($towers_info->id);
-                    $insertion = new ModelsAccessPoint();
-                    $insertion->name=$model->name;
-                    $insertion->mac_address=$model->mac;
-                    $insertion->product=$model->product;
-                    $insertion->tower_id=$towers_info->id;
-                    $insertion->type=$model->type;
-                    $insertion->ip_address=$model->ip;
-                    $insertion->save();
-                }
-            }
-
-            error_log('Insertiong completed');
         }
-       
-        return;
-       
+        return error_log('Insertion completed'); // ends and return message         
     }
 }

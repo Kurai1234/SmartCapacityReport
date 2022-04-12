@@ -55,7 +55,7 @@ class RegisteredUserController extends Controller
         }
         else
         {
-            return redirect()->back()->withErrors("Input valid Information");
+            return redirect()->back()->withErrors("Input valid Information")->withInput();
         }
         // Auth::login($user);
 

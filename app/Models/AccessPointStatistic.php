@@ -21,6 +21,7 @@ class AccessPointStatistic extends Model
             'status',
             'connected_sms',
             'reboot',
+            'dl_capacity_throughput',
             'frame_utilization',
         
     ];

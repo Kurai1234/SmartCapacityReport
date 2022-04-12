@@ -16,10 +16,11 @@ class AccessPoint extends Model
         'tower_id',
         'type',
         'ip_address',
+        'tag'
     ];
 
     public function tower(){
-        return $this->belongsTo(tower::class);
+        return $this->belongsTo(Tower::class);
     }
     public function accesspointstatistics(){
         return $this->hasMany(AccessPointStatistic::class);

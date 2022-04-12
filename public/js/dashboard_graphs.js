@@ -1,104 +1,132 @@
+var interval = 1000 * 60 * 2;
 google.charts.load("visualization", "1", { packages: ["corechart", "line"] });
-google.charts.setOnLoadCallback(drawchart);
+// google.charts.setOnLoadCallback(drawchart);
 $.ajaxSetup({
     headers: {
         "X-CSRF-TOKEN": $('meta[name="crsf-token"]').attr("content"),
     },
 });
-
-function drawchart() {
-    var data = google.visualization.arrayToDataTable([
-        ["Status", "Numbers of Access Points"],
-        ["Critical", 10],
-        ["OK", 100],
-    ]);
-
-    var option = {
-        pieHole: 0.3,
-        fontName: "Arial",
-        legend: {
-            position: "bottom",
-            textStyle: {
-                fontSize: 11,
-                bold: true,
+const ctxx = document.getElementById("charts").getContext("2d");
+const testingChart = new Chart(ctxx, {
+    type: "doughnut",
+    data: {
+        labels:['empty'],
+        datasets: [
+            {
+                label: "My First Dataset",
+                data: [1],
+                backgroundColor: [
+                    "rgb(54, 162, 235)",
+                    "rgb(255, 99, 132)",
+                ],
+                hoverOffset: 4,
             },
-        },
-        backgroundColor: {
-            fill: "none",
-        },
-        chartArea: {
-            width: "100%",
-            height: "80%",
-        },
-        tooltip: {
-            showColorCode: true,
+        ],
+    },
+});
 
-            textStyle: {
-                bold: true,
-            },
+function drawPieChart() {
+    $.ajax({
+        type: "GET",
+        url: "/appieinfo",
+        dataType: "json",
+        success: function (response) {
+            console.log(response);
+            testingChart.data.labels=response[0];
+            testingChart.data.datasets[0].data=response[1];
+            testingChart.update();
         },
-
-        slices: { 0: { color: "#D74C4C" }, 1: { color: "#68DC93" } },
-        pieStartAngle: 200,
-    };
-
-    var chart = new google.visualization.PieChart(
-        document.getElementById("piechart")
-    );
-    chart.draw(data, option);
+    });
 }
 
-var dashBoardTable=$("#sortTable").DataTable({
-    "ajax":{
-        "type":"GET",
-         "url": "/api/liveapdata",
-         "dataSrc":function (json) { 
-             console.log(json.data);
-             return json.data;
-         }
-    },
-    
-    "columns":[
-            
-            {"data":"accesspoint.name"},
-            {"data":"accesspoint.product"},
-            {"data":"accesspoint.tower.network.name"},
-
-            {"data":"accesspoint.tower.name"},
-            {"data":"connected_sms"},
-            {"data":"dl_capacity_throughput",render: $.fn.dataTable.render.number(',','.',2,''," %")},
-
-            {"data":"dl_throughput",render:$.fn.dataTable.render.number(',','.',3,''," mbps")},
-            {"data":"dl_retransmit_pcts",render:$.fn.dataTable.render.number(',','.',2,''," %")},
-
-    ]
- });
-
-
-
-
-
-
-
-
-// var update_ap_data_table = function () {
-//     $.ajaxSetup({
-//         headers: {
-//             "X-CSRF-TOKEN": $('meta[name="crsf-token"]').attr("content"),
-//         },
-//     });
-//     $.ajax({
+           
+// function drawchart() {
+//    var datatest= $.ajax({
 //         type: "GET",
-//         url: "/api/liveapdata",
-//         cache:false,
+//         url: "/api/appieinfo",
 //         dataType: "json",
-//         success: function (response) {
-//             // console.log(response.data[0]);
-        
+//         async:false,
+//     }).responseText;
+//     // console.log("dog");
+//     var data = google.visualization.arrayToDataTable(
+
+//         JSON.parse(datatest)
+//         );
+//     var option = {
+//         pieHole: 0.3,
+//         fontName: "Arial",
+//         width:'300',
+//         legend: {
+//             position: "bottom",
+//             textStyle: {
+//                 fontSize: 11,
+//                 bold: true,
+//             },
 //         },
-//     });
-// };
+//         backgroundColor: {
+//             fill: "none",
+//         },
+//         chartArea: {
+//             width: "100%",
+//             height: "70%",
+//         },
+//         tooltip: {
+//             showColorCode: true,
+
+//                 textStyle: {
+//                 bold: true,
+//             },
+//         },
+
+//         slices: { 0: { color: "#D74C4C" }, 1: { color: "#68DC93" } },
+//         pieStartAngle: 200,
+//     };
+
+//     var chart = new google.visualization.PieChart(
+//         document.getElementById("piechart")
+//     );
+//     chart.draw(data, option);
+// }
+
+var dashBoardTable = $("#sortTable").DataTable({
+    ajax: {
+        type: "GET",
+        url: "/apstatistic",
+        //  processing:true,
+        //  serverSide:true,
+        dataSrc: function (json) {
+            console.log(json.data);
+            return json.data;
+        },
+    },
+    columns: [
+        { data: "accesspoint.name" },
+        { data: "accesspoint.product" },
+        { data: "accesspoint.tower.network.name" },
+        { data: "accesspoint.tower.name" },
+        { data: "connected_sms" },
+        {
+            data: "dl_capacity_throughput",
+            render: $.fn.dataTable.render.number(",", ".", 2, "", " %"),
+        },
+        {
+            data: "ul_throughput",
+            render: $.fn.dataTable.render.number(",", ".", 2, "", " Mbps"),
+        },
+        {
+            data: "dl_throughput",
+            render: $.fn.dataTable.render.number(",", ".", 2, "", " Mbps"),
+        },
+        {
+            data: "dl_retransmit_pcts",
+            render: $.fn.dataTable.render.number(",", ".", 2, "", " %"),
+        },
+    ],
+});
+
 var status_of_apis = function () {
+    document.getElementById("offline--aps--tbody").innerHTML = "";
+
     $.ajaxSetup({
         headers: {
             "X-CSRF-TOKEN": $('meta[name="crsf-token"]').attr("content"),
@@ -106,39 +134,45 @@ var status_of_apis = function () {
     });
     $.ajax({
         type: "GET",
-        url: "/api/apstatus",
+        url: "/apstatus",
         dataType: "json",
         success: function (response) {
-            // console.log(response.data);
+            Object.values(response.data.devices).forEach((device) => {
+                document.getElementById(
+                    "offline--aps--tbody"
+                ).innerHTML += `<td>${device.accesspoint.name} </td>
+                <td>${device.accesspoint.tower.name} </td>
+                <td>${device.accesspoint.tower.network.name} </td>`;
+                // console.log(device);
+            });
             document.getElementById("ap--online--count").innerText =
-                response.data.online;
+                response.data.status.online;
             document.getElementById("ap--boarding--count").innerText =
-                response.data.boarding;
+                response.data.status.boarding;
             document.getElementById("ap--offline--count").innerText =
-                response.data.offline;
+                response.data.status.offline;
         },
     });
 };
 
-
-
-
-
-var interval = 1000 * 60 * 2;
-setInterval(status_of_apis, interval);
-setInterval(function(){
+setInterval(function () {
     dashBoardTable.ajax.reload();
-},interval)
+    status_of_apis();
+    drawPieChart();
+    // drawchart();
+}, interval);
+
 $(window).resize(function () {
-    drawchart();
+    if (this.resizeTo) clearTimeout(this.resizeTo);
+    this.resizeTo = setTimeout(function () {
+        $(this).trigger("resizeEnd");
+    }, 500);
 });
 
-// window.onload=(event)=>{
+$(window).on("resizeEnd", function () {
+    // drawchart();
+});
 $(document).ready(function () {
-    // update_ap_data_table();
-    // dashBoardTable();
     status_of_apis();
-
-
-
-}, 500);
+    drawPieChart();
+});
