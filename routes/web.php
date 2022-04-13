@@ -8,9 +8,9 @@ use App\Http\Controllers\ExportFilesController;
 use App\Http\Controllers\FirstLoginController;
 use App\Http\Controllers\ManageDeviceController;
 use App\Http\Controllers\ManageuserController;
-use App\Http\Controllers\api\v1\ApPieController;
-use App\Http\Controllers\api\v1\ApStatisticController;
-use App\Http\Controllers\api\v1\ApStatusController;
+use App\Http\Controllers\Dashboard\ApPieController;
+use App\Http\Controllers\Dashboard\ApStatisticController;
+use App\Http\Controllers\Dashboard\ApStatusController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 

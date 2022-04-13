@@ -1,6 +1,6 @@
 <?php
 
-use PhpParser\Builder\Class_;
+// use PhpParser\Builder\Class_;
 use App\Jobs\Network;
 use App\Jobs\Tower as JobTower;
 use App\Models\AccessPoint as ModelsAccessPoint;
@@ -57,9 +57,6 @@ if (!function_exists('formatBackupTime')) {
         return Carbon::parse($date)->format('d M Y g:i:a');
     }
 }
-
-
-
 
 if (!function_exists('modifyUrl')) {
     function modifyUrl(string $url, string $mac)
@@ -125,11 +122,30 @@ if (!function_exists('prepareDataForGraph')) {
     }
 }
 
-if(!function_exists('getMpbsCapacity')){
-    function getMpbsCapacity($product){
+if (!function_exists('getMpbsCapacity')) {
+    function getMpbsCapacity($product)
+    {
         if (str_contains($product, '3000')) return 220;
         if (str_contains($product, '1000')) return 120;
         if (str_contains($product, '2000')) return 120;
-       return 100;
+        return 100;
     }
 }
+
+if (!function_exists('convertToMb')) {
+    function convertToMb($value)
+    {
+        return round(($value / 1024), 2);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+?>

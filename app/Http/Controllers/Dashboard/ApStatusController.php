@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\api\v1;
+namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\AccessPointStatistic;
@@ -30,10 +30,8 @@ class ApStatusController extends Controller
                     //returns total number of online access points
                     'online' => count($collection->where('status', 'online')),
                     //returns total number of boarding access points
-
                     'boarding' => count($collection->where('status', 'boarding')),
                     //returns total number of offline access points
-
                     'offline' => count($collection->where('status', 'offline')),
                 ),
                 'devices' =>

@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\AccessPoint;
 use Illuminate\Http\Request;
-use App\Exports\AccessPointStatisticExport;
-use App\Exports\PeakCapacityThroughputExportMapping;
+// use App\Exports\AccessPointStatisticExport;
+// use App\Exports\PeakCapacityThroughputExportMapping;
 use App\Exports\PeakCapacityThroughputWithDatesExportMapping;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
@@ -17,6 +17,9 @@ class ReportController extends Controller
     //
     public function index()
     {
+
+        $query ="SELECT * from access_points WHERE product = :product LIMIT :num";
+         dd(DB::select(DB::raw($query),['ePMP 3000','10']));
         //display the report page
         return view('auth.pages.Reports.report');
     }

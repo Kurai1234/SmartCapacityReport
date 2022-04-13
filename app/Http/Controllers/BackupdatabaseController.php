@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Storage;
 class BackupdatabaseController extends Controller
 {
     //
-
     public function index()
     {   //Creates a list of all backed up files
         $backUpList = array();

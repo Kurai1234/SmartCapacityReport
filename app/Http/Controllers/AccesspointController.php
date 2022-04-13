@@ -41,7 +41,7 @@ class AccesspointController extends Controller
         //second validation to above errors in the api
         if (Carbon::now()->format('Y/m/d H:i') < $request->end_time)
             return redirect()->back()->withErrors('Date must be in the present');
-            //creates a api instance
+        //creates a api instance
         $apiCall = new MaestroApiClass(
             Network::findOrFail($request->network)->maestro_id,
             modifyUrl('/devices', AccessPoint::findOrFail($request->accesspoint)->mac_address) . '/performance',

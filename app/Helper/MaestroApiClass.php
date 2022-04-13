@@ -1,9 +1,9 @@
 <?php
 
-use PhpParser\Builder\Class_;
+// use PhpParser\Builder\Class_;
 use App\Models\Maestro;
 use GuzzleHttp\Client;
-use Ramsey\Uuid\Type\Integer;
+// use Ramsey\Uuid\Type\Integer;
 
 class MaestroApiClass
 {
@@ -112,7 +112,6 @@ class MaestroApiClass
         }
 
         $this->paging = $api_data->paging->total;
-
         //also returns data
         return $this->response_data = $api_data->data;
     }
@@ -131,3 +130,8 @@ class MaestroApiClass
         error_log('bye world');
     }
 }
+
+
+
+
+?>
