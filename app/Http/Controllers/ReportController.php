@@ -28,9 +28,10 @@ class ReportController extends Controller
             'startTime' => 'required|date',
             'endTime' => 'required|date|after_or_equal:startTime'
         ]);
-        //switch statement to filter the options of submit types
-        switch ($request->action) {
 
+        //switch statement to filter the options of submit types
+        // dd(Carbon::parse($request->startTime),Carbon::parse($request->endTime));
+        switch ($request->action) {
                 //calls the filter function
             case 'filter':
                 return $this->mySql($request->startTime, $request->endTime);
@@ -56,7 +57,6 @@ class ReportController extends Controller
 
     public function mySql($start, $end)
     {
-
         //select max dl_throughput for each access_point from access_point_statistics table
         $max = DB::table('access_point_statistics')
             ->select(DB::raw('access_point_id,MAX(dl_throughput) as max'))

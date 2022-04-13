@@ -12,7 +12,6 @@ class BackupdatabaseController extends Controller
 
     public function index()
     {   //Creates a list of all backed up files
-
         $backUpList = array();
         //Loops through all the files in storage
         foreach (Storage::files('SmartMonitor') as $key => $item) {
@@ -28,13 +27,6 @@ class BackupdatabaseController extends Controller
         }
         //returns backUpList to view
         return view('auth.pages.BackupViews.backupdb', compact('backUpList'));
-    }
-
-    public function forceBackUp()
-    {
-        // thinking about doing this
-        // Artisan::call('backup:run');
-        return redirect()->back()->with('message', 'Backup in Process');
     }
     public function download($name)
     {

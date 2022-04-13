@@ -4,35 +4,26 @@ use PhpParser\Builder\Class_;
 use App\Jobs\Network;
 use App\Jobs\Tower as JobTower;
 use App\Models\AccessPoint as ModelsAccessPoint;
-use App\Models\Maestro;
 use App\Models\Tower;
 use Carbon\Carbon;
-// use AccessPointStatisticHelperClass;
-
-// use App\Models\AccessPoint;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\BadResponseException;
 
 if (!function_exists('updateAccessPoints')) {
     function updateAccessPoints($info_to_test, $maestroid)
     {
         $acceptableDevices = array('ePMP 3000', 'ePMP 2000', 'ePMP 1000');
         $isAccepted = false;
-
         $new_access_point = new MaestroApiClass($maestroid, modifyUrl('/devices', $info_to_test->mac), []);
-
         foreach ($new_access_point->call_api() as $accesspoint) {
 
             foreach ($acceptableDevices as $device) {
                 if (strcmp($accesspoint->product, $device) === 0) $isAccepted = !$isAccepted;
             }
-
             if ($isAccepted) {
                 $tower = Tower::query()->where('name', $accesspoint->tower)->first();
                 if ($tower === null) {
                     Network::dispatch();
                     JobTower::dispatch();
-                    return error_log("failed to update");
+                    return;
                 }
                 $insertOrUpdate = ModelsAccessPoint::updateOrCreate(
                     ['ip_address' => $accesspoint->ip],
@@ -49,14 +40,14 @@ if (!function_exists('updateAccessPoints')) {
                 $isAccepted = false;
             }
         }
-        return error_log('Updated a device');
+        return;
     }
 }
 
 if (!function_exists('formatBackupTime')) {
     function formatBackupTime($string)
     {
-        // return $string;  
+        // return $string;
         $time = array();
         $dateTime = explode('-', explode('.', explode('/', $string)[1])[0]);
         for ($i = 0; $i <= sizeof($dateTime) / 2; $i++) {
@@ -102,7 +93,6 @@ if (!function_exists('translateTimeToEnglish')) {
             $date[0] = Carbon::parse($date[0])->format('M d Y');
             return implode(" ", $date);
         }
-
         return $time;
     }
 }
@@ -123,7 +113,6 @@ if (!function_exists('prepareDataForGraph')) {
             }
         }
         $preparedData = array(
-
             'name' => $results[0]->name,
             'product' => $product,
             'dates' => $date,
@@ -136,7 +125,11 @@ if (!function_exists('prepareDataForGraph')) {
     }
 }
 
-function hectorDextorBextor()
-{
-    return "Hectormexkor";
+if(!function_exists('getMpbsCapacity')){
+    function getMpbsCapacity($product){
+        if (str_contains($product, '3000')) return 220;
+        if (str_contains($product, '1000')) return 120;
+        if (str_contains($product, '2000')) return 120;
+       return 100;
+    }
 }
