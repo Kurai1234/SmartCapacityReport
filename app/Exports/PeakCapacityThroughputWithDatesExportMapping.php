@@ -38,9 +38,10 @@ class PeakCapacityThroughputWithDatesExportMapping implements FromCollection,Wit
             ->on('stats.max','access_point_statistics.dl_throughput');
         })->where('access_point_statistics.created_at','>=',$this->startTime)
         ->where('access_point_statistics.created_at','<=',$this->endTime)
+        ->select("id","connected_sms","stats.access_point_id","created_at","product","mac_address","name","max","dl_capacity_throughput")
         ->orderBy('name','asc')
         ->get();
-        return $maxWithRelationsAndDates->unique('access_point_id');         
+        return $maxWithRelationsAndDates->unique('access_point_id');
     }
     public function map($maxWithRelationsAndDates):array{
         return [
