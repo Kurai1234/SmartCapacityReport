@@ -18,7 +18,6 @@ class ManageDeviceController extends Controller
 
     public function edit($id)
     {
-
         return view(
             'auth.pages.Devices.editdevice',
             ['device' =>  AccessPoint::with('tower:id,name,network_id', 'tower.network:id,name')->findOrFail($id)]

@@ -18,7 +18,7 @@ class ApStatisticController extends Controller
 {
     //
         public function index(){
-        
+
             //filter data through resource
             return ApStatisticResource::collection(
                 //caches the data to avoid multiple queries
@@ -30,6 +30,6 @@ class ApStatisticController extends Controller
                     ->get();
                 })
                 );
-                
+
         }
 }
