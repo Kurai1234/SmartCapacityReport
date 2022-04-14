@@ -34,7 +34,6 @@
         },
         "files":[
             "app/Helper/Helper.php",
-            "app/Helper/AccessPointStatisticClass.php",
             "app/Helper/MaestroApiClass.php",
             "app/Helper/ReportQuery.php"
 

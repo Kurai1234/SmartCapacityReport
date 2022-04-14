@@ -59,8 +59,8 @@ class AccessPointStatsExport implements FromView, Responsable
                 break;
                 //sends download of file
             default:
-                $this->fileName = Carbon::now() . '.csv';
-                $this->writerType = Excel::CSV;
+                $this->fileName = Carbon::now() . '.xlsx';
+                $this->writerType = Excel::XLSX;
                 return;
         }
     }
