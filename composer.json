@@ -26,16 +26,18 @@
         "phpunit/phpunit": "^9.5.10"
     },
     "autoload": {
-        
+
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
         },
         "files":[
-            "app/Helper/helper.php",
+            "app/Helper/Helper.php",
             "app/Helper/AccessPointStatisticClass.php",
-            "app/Helper/MaestroApiClass.php"
+            "app/Helper/MaestroApiClass.php",
+            "app/Helper/ReportQuery.php"
+
         ]
     },
     "autoload-dev": {

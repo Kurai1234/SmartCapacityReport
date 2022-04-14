@@ -23,7 +23,7 @@
                         <div class="col-sm-1 report--button--container">
                             <button name="action" value="filter"class="btn btn-success w-100"> Filter </button>
                         </div>
-                    
+
                     <div class="col-sm-1 report--button--container">
                         <div class="dropdown">
                             <button class="btn btn-outline-dark dropdown-toggle w-100" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -33,15 +33,15 @@
                               <li><button name="action" value="csv" class="btn btn-white w-100" type="submit">CSV</button></li>
                               <li><button name="action" value="xlsx" class="btn btn-white w-100" type="submit">XLSX</button></li>
                               <li><button name="action" value="html" class="btn btn-white w-100" type="submit">HTML</button></li>
-                              
+
                             </ul>
                           </div>
                         {{-- <button class="btn btn-success w-100 mx-auto ">Export</button> --}}
                     </div>
-                    
+
                 </div>
             </form>
-            
+
             <div class="report--datatable table-responsive">
                 <table id="reportTable" class="table .table-striped report--table">
                     <thead>
@@ -69,13 +69,13 @@
                     </thead>
                     <tbody>
                         @isset($peakData)
-                            
+
                         @foreach ($peakData as $key)
                         <tr>
                             <td>{{$key->name}}</td>
                             <td class="table--hide--column"> {{$key->mac_address}}</td>
                                 <td class="table--hide--column">{{$key->product}} </td>
-                                <td>{{$key->max}}</td>
+                                <td>{{$key->peak}}</td>
                                 <td class="table--hide--column">{{$key->dl_capacity_throughput}}</td>
                                 <td class="table--hide--column">{{$key->connected_sms}}</td>
                                 <td class="table--hide--column">{{$key->created_at}}</td>
