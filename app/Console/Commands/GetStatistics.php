@@ -12,7 +12,7 @@ class GetStatistics extends Command
      *
      * @var string
      */
-    protected $signature = 'statistic:update';
+    protected $signature = '';
 
     /**
      * The console command description.
@@ -38,6 +38,7 @@ class GetStatistics extends Command
      */
     public function handle()
     {
-        RetrieveAccessPointsStatistic::dispatch();
+        //not working
+        // RetrieveAccessPointsStatistic::dispatch();
     }
 }

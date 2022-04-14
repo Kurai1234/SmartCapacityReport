@@ -41,6 +41,33 @@ class RetrieveAccessPointsStatistic implements ShouldQueue, ShouldBeUnique
      */
     public function handle()
     {
+
+
+        // Not working
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         foreach(Maestro::all() as $maestro){
             $api_call = new MaestroApiClass($maestro->id,'/devices/statistics',array('mode'=>'ap'));
             foreach($api_call->call_api() as $statistic_data){
@@ -75,6 +102,6 @@ class RetrieveAccessPointsStatistic implements ShouldQueue, ShouldBeUnique
         }
         error_log("New Batch of information");
         return;
-       
+
     }
 }
