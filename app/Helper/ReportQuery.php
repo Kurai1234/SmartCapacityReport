@@ -26,14 +26,15 @@ class ReportQuery
                     )x  on (x.access_point_id = y.id)
             )y on y.access_point_id = z.access_point_id AND y.peak = z.dl_throughput
             WHERE z.created_at >= :start2 AND z.created_at <= :end2
+            ORDER BY y.name
             ";
         $total =   DB::select(DB::raw($sql), $params);
         $temp = array_unique(array_column($total, 'access_point_id'));
-        $t = array_intersect_key($total, $temp);
+        $data = array_intersect_key($total, $temp);
         // foreach ($t as $a) {
         //     if ($a->name === "SPO_North-AP-2") dd($a);
         // }
 
-        return $t;
+        return $data;
     }
 }

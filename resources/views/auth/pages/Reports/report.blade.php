@@ -43,7 +43,7 @@
             </form>
 
             <div class="report--datatable table-responsive">
-                <table id="reportTable" class="table .table-striped report--table">
+                <table id="reportTable" class="table table-striped report--table">
                     <thead>
                         <th>
                             Access Point Name

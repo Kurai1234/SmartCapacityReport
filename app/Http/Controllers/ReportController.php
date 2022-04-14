@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 // use App\Exports\AccessPointStatisticExport;
 // use App\Exports\PeakCapacityThroughputExportMapping;
 use App\Exports\PeakCapacityThroughputWithDatesExportMapping;
+use App\Exports\AccessPointStatsExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
 use MaestroApiClass;
@@ -37,7 +38,8 @@ class ReportController extends Controller
                 break;
                 //sends download of file
             case 'csv':
-                return Excel::download(new PeakCapacityThroughputWithDatesExportMapping($request->startTime, $request->endTime), $request->startTime . '_' . $request->endTime . '.csv');
+                // return Excel::download(new AccessPointStatsExport([$request->startTime, $request->endTime]), $request->startTime . '_' . $request->endTime . '.csv');
+                return new AccessPointStatsExport([$request->startTime, $request->endTime],'csv');
                 break;
                 //sends download of file
             case 'xlsx':
@@ -45,10 +47,9 @@ class ReportController extends Controller
                 break;
                 //sends download of file
             case 'html':
-                return Excel::download(new PeakCapacityThroughputWithDatesExportMapping($request->startTime, $request->endTime), $request->startTime . '_' . $request->endTime . '.html');
+                return new AccessPointStatsExport([$request->startTime, $request->endTime],'html');
                 break;
                 //sends download of file
-
             default:
                 return redirect()->back();
         }
