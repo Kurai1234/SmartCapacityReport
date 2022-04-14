@@ -39,8 +39,7 @@ class Statistic implements ShouldQueue, ShouldBeUnique
     {
         //set ignore to false
         foreach (Maestro::all() as $maestro) {
-            $api_call = new MaestroApiClass($maestro->id, '/devices/statistics', array('mode' => 'ap'));
-            foreach ($api_call->call_api() as $statistic_data) {
+            foreach ((new MaestroApiClass($maestro->id, '/devices/statistics', array('mode' => 'ap')))->call_api() as $statistic_data) {
                 $ignore = false;
                 if (str_contains($statistic_data->network, "ePMP")) {
                     try {

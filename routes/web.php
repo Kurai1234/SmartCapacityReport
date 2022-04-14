@@ -24,11 +24,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::middleware(['auth', 'isLoggedIn'])->group(function () {
-    Route::get('/exports/weekly', [ExportFilesController::class, 'export'])->name('weeklyexports');
-    Route::get('/exports/weeklypeaks', [ExportFilesController::class, 'exportPeakCapacity'])->name('weeklypeakexports');
-    Route::get('exports/peaksdate', [ExportFilesController::class, 'exportPeaksCapacityWithDates'])->name('weeklypeaksexportswithdates');
-});
+// Route::middleware(['auth', 'isLoggedIn'])->group(function () {
+//     Route::get('/exports/weekly', [ExportFilesController::class, 'export'])->name('weeklyexports');
+//     Route::get('/exports/weeklypeaks', [ExportFilesController::class, 'exportPeakCapacity'])->name('weeklypeakexports');
+//     Route::get('exports/peaksdate', [ExportFilesController::class, 'exportPeaksCapacityWithDates'])->name('weeklypeaksexportswithdates');
+// });
 Route::middleware(['preventBackHistory'])->group(function () {
     Route::middleware(['isNotFirstLogin'])->group(function () {
         require __DIR__ . '/auth.php';

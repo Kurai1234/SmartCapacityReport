@@ -84,8 +84,8 @@ class ManageuserController extends Controller
             }
         }
         //if counter is above 0, then users are redirected back
-        if ($counter >0)   return redirect()->back()->withInput()->withErrors(['message' => 'username taken']);      
-        if ($email >0)   return redirect()->back()->withInput()->withErrors(['message' => 'Email Taken']);      
+        if ($counter)   return redirect()->back()->withInput()->withErrors(['message' => 'username taken']);
+        if ($email)   return redirect()->back()->withInput()->withErrors(['message' => 'Email Taken']);
 
         //updates user info
         if ($request->has('updateUser')) {

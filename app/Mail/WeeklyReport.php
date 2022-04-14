@@ -22,10 +22,10 @@ class WeeklyReport extends Mailable
      *
      * @return void
      */
-    public function __construct($username,$start_time,$end_time)
+    public function __construct($username, $start_time, $end_time)
     {
-        $this->username =$username;
-        $this->start_time =$start_time;
+        $this->username = $username;
+        $this->start_time = $start_time;
         $this->end_time = $end_time;
         //
     }
@@ -38,15 +38,14 @@ class WeeklyReport extends Mailable
     public function build()
     {
         return $this->markdown('emails.weekly.report')
-        ->attach(
-            Excel::download(
-
-                new AccessPointStatsExport([$this->start_time, $this->end_time],'')
-
-            )->getFile(), ['as'=>'WeeklyReport'.Carbon::now().'.xlsx']
-        )
-        ->with([
-            'username'=>$this->username,
-        ]);
+            ->attach(
+                Excel::download(
+                    new AccessPointStatsExport([$this->start_time, $this->end_time], '')
+                )->getFile(),
+                ['as' => 'WeeklyReport' . Carbon::now() . '.xlsx']
+            )
+            ->with([
+                'username' => $this->username,
+            ]);
     }
 }

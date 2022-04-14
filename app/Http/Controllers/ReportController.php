@@ -21,7 +21,6 @@ class ReportController extends Controller
     {
         return view('auth.pages.Reports.report');
     }
-
     public function export(Request $request)
     {
         //validates the request time
@@ -38,12 +37,10 @@ class ReportController extends Controller
                 break;
                 //sends download of file
             case 'csv':
-                // return Excel::download(new AccessPointStatsExport([$request->startTime, $request->endTime]), $request->startTime . '_' . $request->endTime . '.csv');
                 return new AccessPointStatsExport([$request->startTime, $request->endTime],'csv');
                 break;
                 //sends download of file
             case 'xlsx':
-                // return Excel::download(new PeakCapacityThroughputWithDatesExportMapping($request->startTime, $request->endTime), $request->startTime . '_' . $request->endTime . '.xlsx');
                 return new AccessPointStatsExport([$request->startTime, $request->endTime],'xlsx');
                 break;
                 //sends download of file
@@ -55,7 +52,6 @@ class ReportController extends Controller
                 return redirect()->back();
         }
     }
-
     public function mySql($start, $end)
     {
         $peakData=ReportQuery::perform([Carbon::parse($start),Carbon::parse($end)]);
