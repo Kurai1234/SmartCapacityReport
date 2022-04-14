@@ -3,6 +3,7 @@
 namespace App\Mail;
 
 use App\Exports\PeakCapacityThroughputWithDatesExportMapping;
+use App\Exports\AccessPointStatsExport;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -39,8 +40,9 @@ class WeeklyReport extends Mailable
         return $this->markdown('emails.weekly.report')
         ->attach(
             Excel::download(
-            new PeakCapacityThroughputWithDatesExportMapping($this->start_time,$this->end_time),
-            'WeeklyReport'.Carbon::now().'.xlsx'
+
+                new AccessPointStatsExport([$this->start_time, $this->end_time],'')
+
             )->getFile(), ['as'=>'WeeklyReport'.Carbon::now().'.xlsx']
         )
         ->with([
