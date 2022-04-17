@@ -2,12 +2,21 @@
 
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class ReportQuery.
+ * Peak Throughput from a datetime range
+ * @package Illuminate\Support\Facades\DB
+ *
+ */
 class ReportQuery
 {
-
-    public static function perform(array $params)
+    /**
+     * @param array $array accepts 2 Datetime Element in a  Array
+     * @return object
+     */
+    public static function perform(array $array)
     {
-        $params = array_merge($params, $params);
+        $array = array_merge($array, $array);
         $sql = "
         SELECT  z.id, z.connected_sms, z.created_at, y.*,z.dl_capacity_throughput
         FROM access_point_statistics z
@@ -28,12 +37,9 @@ class ReportQuery
             WHERE z.created_at >= :start2 AND z.created_at <= :end2
             ORDER BY y.name
             ";
-        $total =   DB::select(DB::raw($sql), $params);
-        $temp = array_unique(array_column($total, 'access_point_id'));
-        $data = array_intersect_key($total, $temp);
-        // foreach ($t as $a) {
-        //     if ($a->name === "SPO_North-AP-2") dd($a);
-        // }
+        $result =   DB::select(DB::raw($sql), $array);
+        $temp = array_unique(array_column($result, 'access_point_id'));
+        $data = array_intersect_key($result, $temp);
 
         return $data;
     }

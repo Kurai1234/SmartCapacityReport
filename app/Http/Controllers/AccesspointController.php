@@ -39,21 +39,18 @@ class AccesspointController extends Controller
             'end_time' => 'required|before:tomorrow|after:start_time'
         ]);
         //second validation to above errors in the api
-        if (Carbon::now()->format('Y/m/d H:i') < $request->end_time)
-            return redirect()->back()->withErrors('Date must be in the present');
+        if (Carbon::now()->format('Y/m/d H:i') < $request->end_time) return redirect()->back()->withErrors('Date must be in the present');
         //creates a api instance
-        $apiCall = new MaestroApiClass(
+
+        //prepares the data for graphing
+        $result = prepareDataForGraph((new MaestroApiClass(
             Network::findOrFail($request->network)->maestro_id,
             modifyUrl('/devices', AccessPoint::findOrFail($request->accesspoint)->mac_address) . '/performance',
             array(
                 'start_time' => formatTimeToString($request->start_time),
                 'stop_time' => formatTimeToString($request->end_time)
             )
-        );
-        //gets the data from the api
-        $results = $apiCall->call_api();
-        //prepares the data for graphing
-        $result = prepareDataForGraph($results);
+        ))->call_api());
         //gets all data
         $data = $this->formData();
         //returns data for graphs and also data for option dom element.
@@ -62,11 +59,11 @@ class AccesspointController extends Controller
 
     public function formData()
     {
-        $data = [
+     return  [
             'networks' => Network::all('id', 'name'),
             'towers' => Tower::all('id', 'name', 'network_id'),
             'accesspoints' => AccessPoint::all('id', 'name', 'tower_id'),
         ];
-        return $data;
+
     }
 }

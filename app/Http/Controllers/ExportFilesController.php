@@ -12,8 +12,6 @@ class ExportFilesController extends Controller
 {
     //
     // TO BE REMOVED
-
-
     public function export(){
         return Excel::download(new AccessPointStatisticExport,'testing.xlsx');
         // Carbon::now()->startOfWeek()->toDateTimeString().Carbon::now()->endOfWeek()->toDateTimeString().

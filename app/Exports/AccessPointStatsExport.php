@@ -33,9 +33,8 @@ class AccessPointStatsExport implements FromView, Responsable
 
     public function view(): View
     {
-        $data = ReportQuery::perform($this->params);
         return view('auth.pages.Export.ApStatisticExport', [
-            'peakData' => $data
+            'peakData' => ReportQuery::perform($this->params)
         ]);
     }
 
@@ -64,5 +63,4 @@ class AccessPointStatsExport implements FromView, Responsable
                 return;
         }
     }
-
 }

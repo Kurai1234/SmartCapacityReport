@@ -7,7 +7,14 @@ use App\Models\AccessPoint as ModelsAccessPoint;
 use App\Models\Tower;
 use Carbon\Carbon;
 
+
+
 if (!function_exists('updateAccessPoints')) {
+    /**
+     * @param object $info_to_test accepts a single API return object
+     * @param int $maestroid  accepts a integer
+     * @return void
+     */
     function updateAccessPoints($info_to_test, $maestroid)
     {
         $acceptableDevices = array('ePMP 3000', 'ePMP 2000', 'ePMP 1000');
@@ -44,7 +51,13 @@ if (!function_exists('updateAccessPoints')) {
     }
 }
 
+
 if (!function_exists('formatBackupTime')) {
+    /**
+     * @param string $string accepts backup file name.
+     * @return string  returns a Datetime string in Alphabetic Date, 12 hour format.
+     * @example 24 April, 2022 12:00am.
+     */
     function formatBackupTime($string)
     {
         // return $string;
@@ -58,7 +71,14 @@ if (!function_exists('formatBackupTime')) {
     }
 }
 
+
+
 if (!function_exists('modifyUrl')) {
+    /**
+     * @param string $url Accepts a Url to be used in a API Call to Maestro
+     * @param string $mac Accepts the string mac address for a device
+     * @return string returns the url encoded with the mac address attached
+     */
     function modifyUrl(string $url, string $mac)
     {
         if (substr($url, -1) != '/') $url .= '/';
@@ -67,6 +87,10 @@ if (!function_exists('modifyUrl')) {
 }
 
 if (!function_exists('formatTimeToString')) {
+    /**
+     * @param string $time Transform datetime from the DOM datetime format
+     * @return string returns a datetimestring that acceptable to use for api call
+     */
     function formatTimeToString($time)
     {
         return implode(" ", explode("T", implode("/", explode("-", $time)))); //formats the time to be acceptable for the api call
@@ -74,6 +98,10 @@ if (!function_exists('formatTimeToString')) {
 }
 
 if (!function_exists('translateTimeToEnglish')) {
+    /**
+     * @param string $time Accepts a string in time format from the resulting API call to maestro performance api
+     * @return string Returns a Alphabetical Date Time for readability
+     */
     function translateTimeToEnglish($time)
     {
         // return $time;
@@ -96,6 +124,10 @@ if (!function_exists('translateTimeToEnglish')) {
 
 
 if (!function_exists('prepareDataForGraph')) {
+    /**
+     * @param object $results Acceepts the response data from the maestro api call
+     * @return array Returns the data in array format, much easier to process when graphing the data
+     */
     function prepareDataForGraph($results)
     {
         $product = ModelsAccessPoint::query()->where('name', $results[0]->name)->where('mac_address', $results[0]->mac)->firstOrFail()->product;
@@ -104,7 +136,7 @@ if (!function_exists('prepareDataForGraph')) {
             if (isset($key->radio)) {
                 array_push($date, translateTimeToEnglish($key->timestamp));
                 array_push($frame_utlization, round($key->radio->dl_frame_utilization), 2);
-                array_push($dl_retransmission, isset($key->radio->dl_retransmits_pct) ?  round($key->radio->dl_retransmits_pct, 2) : 0);
+                array_push($dl_retransmission, round($key->radio->dl_retransmits_pct, 2) ?? 0);
                 array_push($dl_throughput, round($key->radio->dl_throughput / 1024, 2));
                 array_push($ul_throughput, round($key->radio->ul_throughput / 1024, 2));
             }
@@ -123,7 +155,11 @@ if (!function_exists('prepareDataForGraph')) {
 }
 
 if (!function_exists('getMpbsCapacity')) {
-    function getMpbsCapacity($product)
+    /**
+     * @param string $product Accepts product name from API response
+     * @return int Return Device Mpbs Capacity
+     */
+    function getMpbsCapacity(string $product)
     {
         if (str_contains($product, '3000')) return 220;
         if (str_contains($product, '1000')) return 120;
@@ -133,19 +169,13 @@ if (!function_exists('getMpbsCapacity')) {
 }
 
 if (!function_exists('convertToMb')) {
-    function convertToMb($value)
+    /**
+     * @param int $value Accepts Kilobytes
+     * @return int Returns data in Megabytes
+     *
+     */
+    function convertToMb( int $value)
     {
         return round(($value / 1024), 2);
     }
 }
-
-
-
-
-
-
-
-
-
-
-?>

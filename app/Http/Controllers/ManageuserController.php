@@ -66,19 +66,17 @@ class ManageuserController extends Controller
         //checks if users has permission to edit account
         $this->authorize('edit-accounts');
         //set counter.
-        $counter=0;
-        $email=0;
+        $counter=$email=0;
+
 
         //checks if email is already taken
-        $user_name = User::where('user_name', $request->user_name)->get();
-        $email_list = User::where('email', $request->email)->get();
-        foreach($email_list as $user){
+        foreach(User::where('email', $request->email)->get() as $user){
             if($user->id !=$id){
                 ++$email;
             }
         }
         //checks if user_name is already taken
-        foreach($user_name as $user){
+        foreach(User::where('user_name', $request->user_name)->get() as $user){
             if($user->id !=$id){
                 ++$counter;
             }
