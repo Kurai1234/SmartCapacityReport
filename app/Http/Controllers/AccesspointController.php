@@ -59,11 +59,10 @@ class AccesspointController extends Controller
 
     public function formData()
     {
-     return  [
+        return  [
             'networks' => Network::all('id', 'name'),
             'towers' => Tower::all('id', 'name', 'network_id'),
             'accesspoints' => AccessPoint::all('id', 'name', 'tower_id'),
         ];
-
     }
 }

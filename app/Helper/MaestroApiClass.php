@@ -36,33 +36,24 @@ class MaestroApiClass
     {
         //builds the api call'
         $this->maestroId = $id;
+        $this->set_Client_Info();
         $this->maestroUrl = Maestro::query()->where('id', $id)->firstOrFail()->url;
-        $this->clientId = $this->get_Client_Id();
-        $this->clientSecret = $this->get_Client_Secret();
         $this->urlQuery = $urlQuery;
         $this->filter = !empty($filters) ? $this->set_filter($filters) : '';
     }
 
-    /**
-     * @return string API Id
-     */
-
-
-    private function get_Client_ID()
+    private function set_Client_Info()
     {
-        //returns the proper client id for server
-        if ($this->maestroId == 1) return config('app.CLIENT_ID_SECOND');
-        if ($this->maestroId == 2) return config('app.CLIENT_ID_FIRST');
+        if ($this->maestroId == 1) {
+            $this->clientId = config('app.CLIENT_ID_SECOND');
+            $this->clientSecret = config('app.CLIENT_SECRET_SECOND');
+        }
+        if ($this->maestroId == 2) {
+            $this->clientId = config('app.CLIENT_ID_FIRST');
+            $this->clientSecret = config('app.CLIENT_SECRET_FIRST');
+        }
     }
-    /**
-     * @return string api secret
-     */
-    private function get_Client_Secret()
-    {
-        //returns the proper client secret
-        if ($this->maestroId == 1) return config('app.CLIENT_SECRET_SECOND');
-        if ($this->maestroId == 2) return config('app.CLIENT_SECRET_FIRST');
-    }
+
     /**
      * @return array a set of filters
      */
@@ -93,11 +84,7 @@ class MaestroApiClass
                 'client_secret' => $this->clientSecret
             ]
         ]);
-        $data = json_decode($response->getBody()->getContents());
-        $token = $data->access_token;
-        $this->token = $token;
-        //returns the $token
-        return $token;
+        return $this->token = json_decode($response->getBody()->getContents())->access_token;
     }
 
     function call_api()

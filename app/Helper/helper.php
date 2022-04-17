@@ -19,12 +19,8 @@ if (!function_exists('updateAccessPoints')) {
     {
         $acceptableDevices = array('ePMP 3000', 'ePMP 2000', 'ePMP 1000');
         $isAccepted = false;
-        $new_access_point = new MaestroApiClass($maestroid, modifyUrl('/devices', $info_to_test->mac), []);
-        foreach ($new_access_point->call_api() as $accesspoint) {
-
-            foreach ($acceptableDevices as $device) {
-                if (strcmp($accesspoint->product, $device) === 0) $isAccepted = !$isAccepted;
-            }
+        foreach ((new MaestroApiClass($maestroid, modifyUrl('/devices', $info_to_test->mac), []))->call_api() as $accesspoint) {
+            if (in_array($accesspoint->product, $acceptableDevices)) $isAccepted = !$isAccepted;
             if ($isAccepted) {
                 $tower = Tower::query()->where('name', $accesspoint->tower)->first();
                 if ($tower === null) {
@@ -66,8 +62,7 @@ if (!function_exists('formatBackupTime')) {
         for ($i = 0; $i <= sizeof($dateTime) / 2; $i++) {
             array_push($time, array_pop($dateTime));
         }
-        $date = implode('/', $dateTime) . ' ' .  implode(':', array_reverse($time));
-        return Carbon::parse($date)->format('d M Y g:i:a');
+        return Carbon::parse(implode('/', $dateTime) . ' ' .  implode(':', array_reverse($time)))->format('d M Y g:i:a');
     }
 }
 
@@ -141,7 +136,7 @@ if (!function_exists('prepareDataForGraph')) {
                 array_push($ul_throughput, round($key->radio->ul_throughput / 1024, 2));
             }
         }
-        $preparedData = array(
+        return array(
             'name' => $results[0]->name,
             'product' => $product,
             'dates' => $date,
@@ -150,7 +145,7 @@ if (!function_exists('prepareDataForGraph')) {
             'throughput' => ['dl_throughput' => $dl_throughput, 'ul_throughput' => $ul_throughput]
 
         );
-        return $preparedData;
+        // return $preparedData;
     }
 }
 
@@ -164,7 +159,7 @@ if (!function_exists('getMpbsCapacity')) {
         if (str_contains($product, '3000')) return 220;
         if (str_contains($product, '1000')) return 120;
         if (str_contains($product, '2000')) return 120;
-        return 100;
+        return 120;
     }
 }
 
@@ -174,7 +169,7 @@ if (!function_exists('convertToMb')) {
      * @return int Returns data in Megabytes
      *
      */
-    function convertToMb( int $value)
+    function convertToMb(int $value)
     {
         return round(($value / 1024), 2);
     }

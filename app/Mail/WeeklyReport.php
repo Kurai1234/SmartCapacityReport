@@ -29,7 +29,6 @@ class WeeklyReport extends Mailable
         $this->end_time = $end_time;
         //
     }
-
     /**
      * Build the message.
      *

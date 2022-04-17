@@ -39,8 +39,6 @@ class ReportQuery
             ";
         $result =   DB::select(DB::raw($sql), $array);
         $temp = array_unique(array_column($result, 'access_point_id'));
-        $data = array_intersect_key($result, $temp);
-
-        return $data;
+        return array_intersect_key($result, $temp);
     }
 }
