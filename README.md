@@ -4,7 +4,7 @@
 * Composer
 * MySQL
 * GIT
-* 
+* APACHE2(linux), XAMPP(windows)
 
 ### Installation
 To set the project up, follow the instruction below.
