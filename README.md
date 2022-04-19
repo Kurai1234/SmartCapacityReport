@@ -67,13 +67,46 @@ $ php artisan accesspoint:populate
 $ php artisan queue:work
 $ php artisan scheduler:work
 ```
-12. Any information, contact me for more info.
-
-
-
-
-
-
+12. Configure Spatie backup.php file, located under the config file
+```
+ 'mail' => [
+            'to' => ['uremail`],
+            'from' => [
+                'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
+                'name' => env('MAIL_FROM_NAME', 'Example'),
+            ],
+        ],
 
 ```
+13. Configure database.php file for MySQL dump.
+```
+ 'mysql' => [
+            'driver' => 'mysql',
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => env('DB_DATABASE', 'forge'),
+            'username' => env('DB_USERNAME', 'forge'),
+            'password' => env('DB_PASSWORD', ''),
+            'unix_socket' => env('DB_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+            'dump' => [
+                'dump_binary_path' => 'C:/xampp/mysql/bin/', // only the path, so without `mysqldump` or `pg_dump` this is for windows using xampp
+                // 'dump_command_path' =>'', //for linux
+
+             ],
+            'options' => extension_loaded('pdo_mysql') ? array_filter([
+                PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
+            ]) : [],
+        ],
+```
+14. Any information, contact me for more info.
+
+
+
 
