@@ -55,7 +55,7 @@ CLIENT_ID_SECOND= maestro .21
 CLIENT_SECRET_SECOND= maestro .21
 ````
 
-10. Fill the database, using the following commands.
+10. Fill the database, using the following commands. Run queue:work for these commands to work, and also make sure to configure the API keys with a stable connection to the Network of maestro
 ```
 $ php artisan db:seed --class=MaestroSeeder
 $ php artisan network:populate
