@@ -45,7 +45,6 @@ DB_PASSWORD=
 # MAIL_PASSWORD=password from mailtrap
 # MAIL_ENCRYPTION=tls
 # MAIL_FROM_ADDRESS=testing@gmail.com
-# test
 ```
 9. Configure the API KEYS, contact me for the API keys if none is available.
 ```
