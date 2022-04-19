@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\AccessPoint;
 use Illuminate\Http\Request;
-use App\Exports\AccessPointStatisticExport;
-use App\Exports\PeakCapacityThroughputExportMapping;
+// use App\Exports\AccessPointStatisticExport;
+// use App\Exports\PeakCapacityThroughputExportMapping;
 use App\Exports\PeakCapacityThroughputWithDatesExportMapping;
+use App\Exports\AccessPointStatsExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
-
+use MaestroApiClass;
+use ReportQuery;
 use Carbon\Carbon;
 
 class ReportController extends Controller
@@ -17,56 +19,47 @@ class ReportController extends Controller
     //
     public function index()
     {
-
         return view('auth.pages.Reports.report');
     }
-
     public function export(Request $request)
     {
+        //validates the request time
         $request->validate([
             'startTime' => 'required|date',
             'endTime' => 'required|date|after_or_equal:startTime'
         ]);
+
+        //switch statement to filter the options of submit types
         switch ($request->action) {
+                //calls the filter function
             case 'filter':
                 return $this->mySql($request->startTime, $request->endTime);
-
                 break;
+                //sends download of file
             case 'csv':
-                return Excel::download(new PeakCapacityThroughputWithDatesExportMapping($request->startTime,$request->endTime), $request->startTime.'_'.$request->endTime.'.csv');
+                return new AccessPointStatsExport([$request->startTime, $request->endTime],'csv');
                 break;
+                //sends download of file
             case 'xlsx':
-                return Excel::download(new PeakCapacityThroughputWithDatesExportMapping($request->startTime,$request->endTime), $request->startTime.'_'.$request->endTime.'.xlsx');
+                return new AccessPointStatsExport([$request->startTime, $request->endTime],'xlsx');
                 break;
+                //sends download of file
             case 'html':
-                return Excel::download(new PeakCapacityThroughputWithDatesExportMapping($request->startTime,$request->endTime), $request->startTime.'_'.$request->endTime.'.html');
+                return new AccessPointStatsExport([$request->startTime, $request->endTime],'html');
                 break;
+                //sends download of file
             default:
                 return redirect()->back();
         }
     }
     public function mySql($start, $end)
     {
-
-        $max = DB::table('access_point_statistics')
-            ->select(DB::raw('access_point_id,MAX(dl_throughput) as max'))
-            ->groupBy('access_point_id')
-            ->where('access_point_statistics.created_at', '>=', Carbon::parse($start))
-            ->where('access_point_statistics.created_at', '<=', Carbon::parse($end));
-        $maxWithRelations = DB::table('access_points')->select('name', 'mac_address', 'product', 'access_point_id', 'max')->joinSub($max, 'max_table', function ($join) {
-            $join->on('access_points.id', 'max_table.access_point_id');
-        });
-        $peakData = DB::table('access_point_statistics')->joinSub($maxWithRelations, 'stats', function ($join) {
-            $join->on('stats.access_point_id', '=', 'access_point_statistics.access_point_id')
-                ->on('stats.max', 'access_point_statistics.dl_throughput');
-        })->where('access_point_statistics.created_at', '>=', Carbon::parse($start))
-            ->where('access_point_statistics.created_at', '<=', Carbon::parse($end))
-            ->orderBy('max', 'desc')->get();
+        $peakData=ReportQuery::perform([Carbon::parse($start),Carbon::parse($end)]);
         $time = [
             'start' => $start,
             'end' => $end
         ];
-        $peakData =  $peakData->unique('access_point_id');
+        //returns data to page.
         return view('auth.pages.Reports.report', compact('peakData'), compact('time'));
     }
 }

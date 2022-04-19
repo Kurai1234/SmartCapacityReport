@@ -163,7 +163,7 @@ body::-webkit-scrollbar-thumb {
 }
 .nav--link--svg{
     max-width: 1rem;
-    
+
 }
 .nav--logo {
     font-weight: bold;
@@ -236,7 +236,7 @@ body::-webkit-scrollbar-thumb {
     }
     /* .sidebar--navbar:hover .nav--logo{
         border-bottom: 1px solid var(--custom--secondary-heavy-color);
-        
+
     } */
     .nav--link svg {
         max-width: 2rem;
@@ -729,3 +729,4 @@ body::-webkit-scrollbar-thumb {
 .backup--download--link svg:hover path {
     color: #000000;
 }
+

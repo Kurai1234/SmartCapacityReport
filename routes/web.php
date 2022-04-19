@@ -8,9 +8,9 @@ use App\Http\Controllers\ExportFilesController;
 use App\Http\Controllers\FirstLoginController;
 use App\Http\Controllers\ManageDeviceController;
 use App\Http\Controllers\ManageuserController;
-use App\Http\Controllers\api\v1\ApPieController;
-use App\Http\Controllers\api\v1\ApStatisticController;
-use App\Http\Controllers\api\v1\ApStatusController;
+use App\Http\Controllers\Dashboard\ApPieController;
+use App\Http\Controllers\Dashboard\ApStatisticController;
+use App\Http\Controllers\Dashboard\ApStatusController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,11 +24,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::middleware(['auth', 'isLoggedIn'])->group(function () {
-    Route::get('/exports/weekly', [ExportFilesController::class, 'export'])->name('weeklyexports');
-    Route::get('/exports/weeklypeaks', [ExportFilesController::class, 'exportPeakCapacity'])->name('weeklypeakexports');
-    Route::get('exports/peaksdate', [ExportFilesController::class, 'exportPeaksCapacityWithDates'])->name('weeklypeaksexportswithdates');
-});
+// Route::middleware(['auth', 'isLoggedIn'])->group(function () {
+//     Route::get('/exports/weekly', [ExportFilesController::class, 'export'])->name('weeklyexports');
+//     Route::get('/exports/weeklypeaks', [ExportFilesController::class, 'exportPeakCapacity'])->name('weeklypeakexports');
+//     Route::get('exports/peaksdate', [ExportFilesController::class, 'exportPeaksCapacityWithDates'])->name('weeklypeaksexportswithdates');
+// });
 Route::middleware(['preventBackHistory'])->group(function () {
     Route::middleware(['isNotFirstLogin'])->group(function () {
         require __DIR__ . '/auth.php';
@@ -37,8 +37,6 @@ Route::middleware(['preventBackHistory'])->group(function () {
             Route::get('/appieinfo',[ApPieController::class,'index']);
             Route::get('/apstatistic',[ApStatisticController::class,'index']);
             Route::get('/apstatus',[ApStatusController::class,'index']);
-
-
 
 
             Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
@@ -50,11 +48,9 @@ Route::middleware(['preventBackHistory'])->group(function () {
             Route::get('/devices', [ManageDeviceController::class, 'index'])->name('devices');
             Route::get('/devices/{id}', [ManageDeviceController::class, 'edit'])->name('devices.edit');
             Route::patch('/devices/{id}/update', [ManageDeviceController::class, 'update'])->name('devices.update');
-
             Route::prefix('admin')->middleware(['isAdmin'])->group(function () {
-                Route::get('backup', [BackupdatabaseController::class, 'index'])->name('backup');
-                Route::get('backup/dbdump', [BackupdatabaseController::class, 'forceBackUp'])->name('backup.dbdump');
-                Route::get('backup/{file}', [BackupdatabaseController::class, 'download'])->name('backup.download');
+                Route::get('backups', [BackupdatabaseController::class, 'index'])->name('backup');
+                Route::get('backups/{file}', [BackupdatabaseController::class, 'download'])->name('backup.download');
                 Route::get('manageusers', [ManageuserController::class, 'index'])->name('admin.manageuser');
                 Route::get('edituser/{id}/edit', [ManageuserController::class, 'edit'])->name('admin.edituser');
                 Route::get('createuser', [ManageuserController::class, 'createUser'])->name('admin.createuser');
@@ -64,7 +60,6 @@ Route::middleware(['preventBackHistory'])->group(function () {
             });
         });
     });
-
 
     Route::middleware('isFirstLogin')->group(function () {
         // Route::get('register', [RegisteredUserController::class, 'create'])

@@ -1,9 +1,15 @@
 <?php
 
-use PhpParser\Builder\Class_;
 use App\Models\Maestro;
 use GuzzleHttp\Client;
-use Ramsey\Uuid\Type\Integer;
+
+
+/**
+ * Class MaestroApiClass.
+ * Reusable Maestro API call class.
+ * @package Maestro
+ * @package Client
+ */
 
 class MaestroApiClass
 {
@@ -17,33 +23,46 @@ class MaestroApiClass
     private string $clientId;
     private string $clientSecret;
     private string $token;
+
+
+    /**
+     *
+     * @param int $id Accepts an maestro id
+     * @param string $urlQuery accepts a filter url to attach to api call
+     * @param array $filters additional filters can be attached to array and passed
+     * @return object
+     */
     public function __construct(int $id, string $urlQuery, array $filters)
     {
         //builds the api call'
         $this->maestroId = $id;
+        $this->set_Client_Info();
         $this->maestroUrl = Maestro::query()->where('id', $id)->firstOrFail()->url;
-        $this->clientId = $this->get_Client_Id();
-        $this->clientSecret = $this->get_Client_Secret();
         $this->urlQuery = $urlQuery;
         $this->filter = !empty($filters) ? $this->set_filter($filters) : '';
     }
-    private function get_Client_ID()
+
+    private function set_Client_Info()
     {
-        //returns the proper client id for server
-        if ($this->maestroId == 1) return env('CLIENT_ID_SECOND');
-        if ($this->maestroId == 2) return env('CLIENT_ID_FIRST');
+        if ($this->maestroId == 1) {
+            $this->clientId = config('app.CLIENT_ID_SECOND');
+            $this->clientSecret = config('app.CLIENT_SECRET_SECOND');
+        }
+        if ($this->maestroId == 2) {
+            $this->clientId = config('app.CLIENT_ID_FIRST');
+            $this->clientSecret = config('app.CLIENT_SECRET_FIRST');
+        }
     }
-    private function get_Client_Secret()
-    {
-        //returns the proper client secret
-        if ($this->maestroId == 1) return env('CLIENT_SECRET_SECOND');
-        if ($this->maestroId == 2) return env('CLIENT_SECRET_FIRST');
-    }
+
+    /**
+     * @return array a set of filters
+     */
     private function set_filter(array $array)
     {
         //builds the filter for the api, its optional
         return  $this->filter = http_build_query($array);
     }
+
     public function get_filter()
     {
         //return filter to check for errors
@@ -65,11 +84,7 @@ class MaestroApiClass
                 'client_secret' => $this->clientSecret
             ]
         ]);
-        $data = json_decode($response->getBody()->getContents());
-        $token = $data->access_token;
-        $this->token=$token;
-        //returns the $token
-        return $token;
+        return $this->token = json_decode($response->getBody()->getContents())->access_token;
     }
 
     function call_api()
@@ -112,7 +127,6 @@ class MaestroApiClass
         }
 
         $this->paging = $api_data->paging->total;
-
         //also returns data
         return $this->response_data = $api_data->data;
     }

@@ -62,7 +62,7 @@
         <span>Live Feedback of Access Points Statistics</span>
         <h6 class="dashboard--subtitle text-center">AP's under distress are displayed Live</h6>
 
-        <table class="table" id="sortTable">
+        <table class="table table-striped table-hover " id="sortTable">
             <thead>
                 <tr>
                     <th>Name</th>

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 class ExportFilesController extends Controller
 {
     //
+    // TO BE REMOVED
     public function export(){
         return Excel::download(new AccessPointStatisticExport,'testing.xlsx');
         // Carbon::now()->startOfWeek()->toDateTimeString().Carbon::now()->endOfWeek()->toDateTimeString().
@@ -19,7 +20,7 @@ class ExportFilesController extends Controller
         return Excel::download(new PeakCapacityThroughputExportMapping,Carbon::now()->startOfWeek()->toDateTimeString().'_'.Carbon::now()->endOfWeek()->toDateTimeString().'.xlsx');
     //    (new PeakCapacityThroughputExportMapping)->store(Carbon::now()->startOfWeek()->toDateTimeString().'_'.Carbon::now()->endOfWeek()->toDateTimeString().'.xlsx');
         // return back()->withSucess('Started');
-        // (new PeakCapacityThroughputExportMapping)->queue('ues.xlsx');    
+        // (new PeakCapacityThroughputExportMapping)->queue('ues.xlsx');
     }
     // public function exportPeaksCapacityWithDates(){ add constructor
     //     return Excel::download(new PeakCapacityThroughputWithDatesExportMapping,'testing.ods');

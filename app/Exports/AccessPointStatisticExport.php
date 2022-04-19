@@ -18,7 +18,7 @@ class AccessPointStatisticExport implements FromCollection, WithMapping, WithHea
     public function collection()
     {
        return AccessPointStatistic::with('accesspoint')->where('created_at','>=',Carbon::now()->startOfWeek()->toDateTimeString())->where('created_at','<=',Carbon::now()->endOfWeek())->get();
-        
+
     }
 
     public function map($accesspointstatistic): array{

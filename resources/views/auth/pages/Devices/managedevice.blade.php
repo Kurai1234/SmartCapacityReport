@@ -10,7 +10,7 @@
     @endif
     <div class="managedevice--container">
         <div class=" device--datatable table-responsive">
-            <table id="device--table" class="table">
+            <table id="device--table " class="table table-striped">
                 <thead>
                     <th>Name</th>
                     <th class="table--hide--column">Tower</th>

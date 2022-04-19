@@ -14,6 +14,7 @@ class DashboardController extends Controller
     //
 
     public function index(){
+        //display dashboard
         return view('auth.pages.Dashboard.dashboard');
     }
 

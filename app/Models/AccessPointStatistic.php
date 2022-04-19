@@ -22,11 +22,9 @@ class AccessPointStatistic extends Model
             'connected_sms',
             'reboot',
             'dl_capacity_throughput',
-            'frame_utilization',
-        
     ];
     public function accesspoint(){
         return $this->belongsTo(AccessPoint::class,'access_point_id');
     }
-    
+
 }

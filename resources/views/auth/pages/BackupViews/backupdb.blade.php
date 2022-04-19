@@ -17,7 +17,7 @@
     @endif
     <div class="managedevice--container">
         <div class=" device--datatable table-responsive">
-            <table class="table text-center" id="sortTable">
+            <table class="table text-center table-striped" id="sortTable">
                 <thead>
                     <tr>
                         <th>Id</th>
