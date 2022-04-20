@@ -22,28 +22,9 @@ use Maatwebsite\Excel\Facades\Excel;
 class AccesspointController extends Controller
 {
     //
-
-    public function searchAccessPoint($name, $mac)
-    {
-        try {
-            return $this->searchQuery($name, $mac);
-        } catch (ModelNotFoundException $e) {
-            return False;
-        }
-    }
-
-    public function searchQuery($name, $mac)
-    {
-        return AccessPoint::query()->where('name', '=', $name)->where('mac_address', '=', $mac)->firstOrFail();
-    }
-
-
     public function index()
     {
-        $dog = $this->searchAccessPoint('Krem Radio AP2', '00:04:56:D3:C5:F3');
-
-        if ($dog) dd($dog);
-        if ($dog === false) dd($dog);
+        
         //returns All data
         $data = $this->formData();
         return view('auth.pages.Accesspoints.accesspoint', compact('data'));
