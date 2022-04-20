@@ -30,6 +30,27 @@ class Statistic implements ShouldQueue, ShouldBeUnique
         //
     }
 
+    public function searchAccessPoint($data, $maestroId)
+    {
+        try {
+            return $this->searchQuery($data->name, $data->mac);
+            // $access_point_info = $this->searchAccessPoint($statistic_data->name,$statistic_data->mac);
+        } catch (ModelNotFoundException $e) {
+            // error_log($statistic_data->name . $statistic_data->mac);
+            updateAccessPoints($data, $maestroId);
+        }
+        try {
+            return $this->searchQuery($data->name, $data->mac);
+        } catch (ModelNotFoundException $e) {
+            // error_log($statistic_data->name . "hi");
+            return false;
+        }
+    }
+    
+    public function searchQuery($name, $mac)
+    {
+        return AccessPoint::query()->where('name', '=', $name)->where('mac_address', '=', $mac)->firstOrFail();
+    }
     /**
      * Execute the job.
      *
@@ -40,21 +61,9 @@ class Statistic implements ShouldQueue, ShouldBeUnique
         //set ignore to false
         foreach (Maestro::all() as $maestro) {
             foreach ((new MaestroApiClass($maestro->id, '/devices/statistics', array('mode' => 'ap')))->call_api() as $statistic_data) {
-                $ignore = false;
                 if (str_contains($statistic_data->network, "ePMP")) {
-                    try {
-                        $access_point_info = AccessPoint::query()->where('name', '=', $statistic_data->name)->where('mac_address', '=', $statistic_data->mac)->firstOrFail();
-                    } catch (ModelNotFoundException $e) {
-                        // error_log($statistic_data->name . $statistic_data->mac);
-                        updateAccessPoints($statistic_data, $maestro->id);
-                    }
-                    try {
-                        $access_point_info = AccessPoint::query()->where('name', '=', $statistic_data->name)->where('mac_address', $statistic_data->mac)->firstOrFail();
-                    } catch (ModelNotFoundException $e) {
-                        // error_log($statistic_data->name . "hi");
-                        $ignore = true;
-                    }
-                    if (!$ignore) {
+                    $access_point_info = $this->searchAccessPoint($statistic_data, $maestro->id);
+                    if ($access_point_info) {
                         AccessPointStatistic::create([
                             'access_point_id' => $access_point_info->id,
                             'mode' => $statistic_data->mode ?? '',

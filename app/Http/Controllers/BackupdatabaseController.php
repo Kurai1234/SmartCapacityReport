@@ -11,7 +11,7 @@ class BackupdatabaseController extends Controller
     //
     public function index()
     {   //Creates a list of all backed up files
-        
+
         $backUpList = array();
         //Loops through all the files in storage
         foreach (Storage::files(config('app.name')) as $key => $item) {
@@ -31,7 +31,7 @@ class BackupdatabaseController extends Controller
     public function download($name)
     {
         //gets file path
-        $file = config('app.name').'/' . $name;
+        $file = config('app.name') . '/' . $name;
         //check if file exist
         if (!Storage::disk('local')->exists($file)) return redirect()->back()->withErrors(["msg" => "Backup " . $name . " doesn't Exist"]);
         //returns if file is found

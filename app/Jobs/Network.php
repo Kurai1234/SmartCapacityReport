@@ -40,16 +40,15 @@ class Network implements ShouldQueue
 
         //loops through all maestro urls
         foreach (Maestro::all() as $key) {
-            $api_call = new MaestroApiClass($key->id, '/networks', []); //create a maestro api call object 
-            foreach ($api_call->call_api() as $network) { //loops through all return data
+            foreach ((new MaestroApiClass($key->id, '/networks', []))->call_api() as $network) { //loops through all return data
                 if (str_contains($network->name, 'ePMP')) { //filters data by name
                     ModelsNetwork::updateOrCreate([  //check if exits
-                        'name'=>$network->name
-                    ],[
-                        'maestro_id'=>$key->id
+                        'name' => $network->name
+                    ], [
+                        'maestro_id' => $key->id
                     ]);
                 }
-            }       
+            }
         }
         return error_log("Network Inserted");  // returns after completed 
     }
