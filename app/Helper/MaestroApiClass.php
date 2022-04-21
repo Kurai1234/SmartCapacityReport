@@ -142,6 +142,5 @@ class MaestroApiClass
     }
     public function __destruct()
     {
-        error_log('bye world');
     }
 }

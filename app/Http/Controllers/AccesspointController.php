@@ -15,7 +15,7 @@ class AccesspointController extends Controller
     //
     public function index()
     {
-        
+
         //returns All data
         $data = $this->formData();
         return view('auth.pages.Accesspoints.accesspoint', compact('data'));

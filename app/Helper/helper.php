@@ -99,6 +99,7 @@ if (!function_exists('translateTimeToEnglish')) {
      */
     function translateTimeToEnglish($time)
     {
+        if(empty($time)) return;
         // return $time;
         $date = explode("T", $time);
         if (str_contains($date[1], '-')) {
