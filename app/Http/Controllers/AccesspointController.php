@@ -2,22 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\AccessPointStatisticsExportView;
-use App\Mail\WeeklyReport;
 use App\Models\Network;
-use App\Models\User;
 use App\Models\Tower;
 use App\Models\AccessPoint;
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use MaestroApiClass;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
-use Facade\FlareClient\Http\Response;
-use Illuminate\Http\Response as HttpResponse;
-use Illuminate\Support\Facades\Storage;
-use Maatwebsite\Excel\Facades\Excel;
+
 
 class AccesspointController extends Controller
 {
