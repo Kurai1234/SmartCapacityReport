@@ -161,9 +161,8 @@ body::-webkit-scrollbar-thumb {
     color: var(--custom-primary-color);
     transition: 600ms;
 }
-.nav--link--svg{
+.nav--link--svg {
     max-width: 1rem;
-
 }
 .nav--logo {
     font-weight: bold;
@@ -730,3 +729,9 @@ body::-webkit-scrollbar-thumb {
     color: #000000;
 }
 
+.reset--page {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
