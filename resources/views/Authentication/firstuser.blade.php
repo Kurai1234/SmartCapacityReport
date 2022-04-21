@@ -17,7 +17,7 @@
     </div>
     @endif
         <span class="card-title m-auto f--title">Smart</span>
-        <h6 class="card-subtitle m-auto my-2 text-muted">Card subtitle</h6>
+        <h6 class="card-subtitle m-auto my-2 text-muted">Register your Account</h6>
 
 
         <div class="card-body">

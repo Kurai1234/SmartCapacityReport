@@ -28,7 +28,7 @@
     <div class="row my-4  dashboard--content">
         <div class="col-lg-4 my-1 piechart--container ">
                 <span>Access Points DL Capacity</span>
-                <h6 class="dashboard--subtitle">Access Points Dl Capacity over 80%</h6>
+                <h6 class="dashboard--subtitle">Access Points DL Capacity over 80%</h6>
                 {{-- <div id="piechart" class="charts"> </div> --}}
                 <div class="dashboard--canvas--container">
                     <canvas class="dashboard--canvas" id="charts"> </canvas>
@@ -38,7 +38,7 @@
             {{-- <div class="row "> --}}
                 <div class=" offlinetable--container">
                     <span>Offline Access Points </span>
-                    <h6 class="dashboard--subtitle">Access points that are offline</h6>
+                    <h6 class="dashboard--subtitle">Displays Access points that are offline</h6>
                     <div class="offline--aps--table">
                         <table class="table table-borderless offline--table">
                             <thead>

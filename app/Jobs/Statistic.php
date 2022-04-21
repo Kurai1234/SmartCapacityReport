@@ -46,7 +46,7 @@ class Statistic implements ShouldQueue, ShouldBeUnique
             return false;
         }
     }
-    
+
     public function searchQuery($name, $mac)
     {
         return AccessPoint::query()->where('name', '=', $name)->where('mac_address', '=', $mac)->firstOrFail();
@@ -69,14 +69,14 @@ class Statistic implements ShouldQueue, ShouldBeUnique
                             'mode' => $statistic_data->mode ?? '',
                             'dl_retransmit' => $statistic_data->radio->dl_retransmits ?? 0,
                             'dl_retransmit_pcts' => $statistic_data->radio->dl_retransmits_pct ?? 0,
-                            'dl_pkts' => convertToMb($statistic_data->radio->dl_pkts) ?? 0,
-                            'ul_pkts' => convertToMb($statistic_data->radio->ul_pkts) ?? 0,
-                            'dl_throughput' => convertToMb($statistic_data->radio->dl_throughput) ?? 0,
-                            'ul_throughput' => convertToMb($statistic_data->radio->ul_throughput) ?? 0,
+                            'dl_pkts' => convertToMb($statistic_data->radio->dl_pkts ?? 0),
+                            'ul_pkts' => convertToMb($statistic_data->radio->ul_pkts ?? 0) ,
+                            'dl_throughput' => convertToMb($statistic_data->radio->dl_throughput?? 0) ,
+                            'ul_throughput' => convertToMb($statistic_data->radio->ul_throughput ?? 0) ,
                             'status' => $statistic_data->status ?? "offline",
                             'connected_sms' => $statistic_data->connected_sms ?? 0,
                             'reboot' => $statistic_data->reboots ?? 0,
-                            'dl_capacity_throughput' => round(((convertToMb($statistic_data->radio->dl_throughput) * 100) / getMpbsCapacity($access_point_info->product)), 2) ?? 0,
+                            'dl_capacity_throughput' => round(((convertToMb($statistic_data->radio->dl_throughput ??0) * 100) / getMpbsCapacity($access_point_info->product ??0)), 2) ,
                         ]);
                     }
                 }
