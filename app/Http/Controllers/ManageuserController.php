@@ -21,7 +21,7 @@ class ManageuserController extends Controller
         //checks if user are allowed to edit accounts
         $this->authorize('edit-accounts');
         //returns request user information
-        return view('auth.pages.Users.edituser', ['user' => User::find($id)]);
+        return view('auth.pages.Users.edituser', ['user' => User::findOrFail($id)]);
     }
 
     public function delete($id)
