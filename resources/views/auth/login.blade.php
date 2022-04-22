@@ -26,7 +26,7 @@
             <div>
                 {{-- <label for="email">{{ __('Email') }} </label> --}}
 
-                <input id="email" class="block mt-1 w-full" type="email" name="email" value="{{old('email')}}" placeholder="Email" required
+                <input id="login" class="block mt-1 w-full" type="text" name="login" value="{{old('login')}}" placeholder="UserName/Email" required
                     autofocus />
             </div>
 

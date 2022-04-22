@@ -28,7 +28,7 @@
     <tbody>
             @foreach ($peakData as $key)
                 <tr>
-                    <td colspan="2">{{ $key->name }}</td>
+                    <td>{{ $key->name }}</td>
                     <td> {{ $key->mac_address }}</td>
                     <td>{{ $key->product }} </td>
                     <td>{{ $key->peak }}</td>
