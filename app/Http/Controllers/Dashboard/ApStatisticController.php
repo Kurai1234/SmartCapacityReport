@@ -23,11 +23,18 @@ class ApStatisticController extends Controller
             return ApStatisticResource::collection(
                 //caches the data to avoid multiple queries
                 Cache::remember('apstats',60*10,function(){
-                    return AccessPointStatistic::query()
+                    $data = AccessPointStatistic::query()
                     ->with('accesspoint','accesspoint.tower','accesspoint.tower.network')
                     ->latest()
                     ->take(AccessPoint::count())
                     ->get();
+
+                    if(!$data){
+                        abort(404, 'Data base is empty');
+                    }
+                    return $data;
+
+
                 })
                 );
 
