@@ -17,26 +17,24 @@ use Illuminate\Support\Facades\Cache;
 class ApStatisticController extends Controller
 {
     //
-        public function index(){
+    public function index()
+    {
 
-            //filter data through resource
-            return ApStatisticResource::collection(
-                //caches the data to avoid multiple queries
-                Cache::remember('apstats',60*10,function(){
-                    $data = AccessPointStatistic::query()
-                    ->with('accesspoint','accesspoint.tower','accesspoint.tower.network')
+        //filter data through resource
+        return ApStatisticResource::collection(
+            //caches the data to avoid multiple queries
+            Cache::remember('apstats', 60 * 10, function () {
+                $data = AccessPointStatistic::query()
+                    ->with('accesspoint', 'accesspoint.tower', 'accesspoint.tower.network')
                     ->latest()
                     ->take(AccessPoint::count())
                     ->get();
 
-                    if(!$data){
-                        abort(404, 'Data base is empty');
-                    }
-                    return $data;
-
-
-                })
-                );
-
-        }
+                if (!$data) {
+                    abort(404, 'Data base is empty');
+                }
+                return $data;
+            })
+        );
+    }
 }

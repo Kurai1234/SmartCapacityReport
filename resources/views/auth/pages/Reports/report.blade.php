@@ -1,6 +1,7 @@
 @extends('layouts.auth-layout')
 
 @section('content')
+
     <h2>Reports</h2>
     <h6 class="text-muted">View and Export Historical Records</h6>
     <div class=" container-fluid     report--container">
@@ -11,13 +12,13 @@
                     <label for="startTime" class="col-sm-1 col-form-label col-form-label">Start Date</label>
                     <div class="col-sm-3">
                         <input type="datetime-local" name="startTime" class="form-control form-control" id="startTime"
-                            value="@isset($time) {{ $time['start'] }} @endisset"
+                            value="@isset($time){{$time['start']}}@endisset"
                             placeholder="col-form-label-sm" required>
                     </div>
                     <label for="endTime" class="col-sm-1 col-form-label col-form-label">End Date</label>
                     <div class="col-sm-3">
                         <input type="datetime-local" name="endTime" class="form-control form-control" id="endTime"
-                            value="@isset($time) {{ $time['end'] }} @endisset"
+                            value="@isset($time){{$time['end']}}@endisset"
                             placeholder="col-form-label-sm" required>
                     </div>
                     <div class="col-2">

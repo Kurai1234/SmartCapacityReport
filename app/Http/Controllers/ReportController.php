@@ -37,15 +37,15 @@ class ReportController extends Controller
                 break;
                 //sends download of file
             case 'csv':
-                return new AccessPointStatsExport([$request->startTime, $request->endTime],'csv');
+                return new AccessPointStatsExport([$request->startTime, $request->endTime], 'csv');
                 break;
                 //sends download of file
             case 'xlsx':
-                return new AccessPointStatsExport([$request->startTime, $request->endTime],'xlsx');
+                return new AccessPointStatsExport([$request->startTime, $request->endTime], 'xlsx');
                 break;
                 //sends download of file
             case 'html':
-                return new AccessPointStatsExport([$request->startTime, $request->endTime],'html');
+                return new AccessPointStatsExport([$request->startTime, $request->endTime], 'html');
                 break;
                 //sends download of file
             default:
@@ -54,7 +54,7 @@ class ReportController extends Controller
     }
     public function mySql($start, $end)
     {
-        $peakData=ReportQuery::perform([Carbon::parse($start),Carbon::parse($end)]);
+        $peakData = ReportQuery::perform([Carbon::parse($start), Carbon::parse($end)]);
         $time = [
             'start' => $start,
             'end' => $end
