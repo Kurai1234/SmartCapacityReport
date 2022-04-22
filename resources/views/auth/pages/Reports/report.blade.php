@@ -1,7 +1,7 @@
 @extends('layouts.auth-layout')
 
 @section('content')
-
+    
     <h2>Reports</h2>
     <h6 class="text-muted">View and Export Historical Records</h6>
     <div class=" container-fluid     report--container">
