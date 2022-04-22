@@ -26,7 +26,7 @@ class MaestroApiClass
 
 
     /**
-     *
+     * Constructs a object of the MaestroAPIClass
      * @param int $id Accepts an maestro id
      * @param string $urlQuery accepts a filter url to attach to api call
      * @param array $filters additional filters can be attached to array and passed
@@ -42,6 +42,11 @@ class MaestroApiClass
         $this->filter = !empty($filters) ? $this->set_filter($filters) : '';
     }
 
+    /**
+     * Assigns the correct API Credentials for the API call. 
+     * @return void
+     */
+
     private function set_Client_Info()
     {
         if ($this->maestroId == 1) {
@@ -55,7 +60,8 @@ class MaestroApiClass
     }
 
     /**
-     * @return array a set of filters
+     * Filters additional queries
+     * @return array 
      */
     private function set_filter(array $array)
     {
@@ -63,16 +69,33 @@ class MaestroApiClass
         return  $this->filter = http_build_query($array);
     }
 
+
+    /**
+     * returns filters in HTTP encoded string
+     * @return string
+     */
     public function get_filter()
     {
         //return filter to check for errors
         return $this->filter;
     }
+
+
+    /**
+     * 
+     * Return the url
+     * @return string
+     */
     function get_Url()
     {
         //returns url called
         return $this->maestroUrl;
     }
+
+    /**
+     * Return the API bearer token
+     * @return string
+     */
     public function get_token()
     {
         // Request a token from the api
@@ -87,6 +110,10 @@ class MaestroApiClass
         return $this->token = json_decode($response->getBody()->getContents())->access_token;
     }
 
+    /**
+     * Calls the API instance
+     * @return Object
+     */
     function call_api()
     {
         //set client to false to access the api
@@ -130,16 +157,31 @@ class MaestroApiClass
         //also returns data
         return $this->response_data = $api_data->data;
     }
+
+    /**
+     * returns the API DATA
+     * @return object
+     */
+
     function get_response_data()
     {
         //returns the api data in array
         return $this->response_data;
     }
+
+    /**
+     * Returns the total amount of objects returned by the API call
+     * @return int
+     */
     function get_paging()
     {
         //returns the api paging
         return $this->paging;
     }
+    /**
+     * Destructor
+     * @return void
+     */
     public function __destruct()
     {
     }

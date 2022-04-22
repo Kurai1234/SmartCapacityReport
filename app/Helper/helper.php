@@ -11,15 +11,16 @@ use Carbon\Carbon;
 
 if (!function_exists('updateAccessPoints')) {
     /**
-     * @param object $info_to_test accepts a single API return object
-     * @param int $maestroid  accepts a integer
+     * Updates Access Points
+     * @param object $info_to_test 
+     * @param int $maestroid 
      * @return void
      */
     function updateAccessPoints($info_to_test, $maestroid)
     {
         $acceptableDevices = array('ePMP 3000', 'ePMP 2000', 'ePMP 1000');
-        $isAccepted = false;
         foreach ((new MaestroApiClass($maestroid, modifyUrl('/devices', $info_to_test->mac), []))->call_api() as $accesspoint) {
+            $isAccepted = false;
             if (in_array($accesspoint->product, $acceptableDevices)) $isAccepted = !$isAccepted;
             if ($isAccepted) {
                 $tower = Tower::query()->where('name', $accesspoint->tower)->first();
@@ -40,7 +41,6 @@ if (!function_exists('updateAccessPoints')) {
                     ]
                 );
                 if ($insertOrUpdate) error_log("updated or inserted");
-                $isAccepted = false;
             }
         }
         return;
@@ -99,7 +99,7 @@ if (!function_exists('translateTimeToEnglish')) {
      */
     function translateTimeToEnglish($time)
     {
-        if(empty($time)) return;
+        if (empty($time)) return;
         // return $time;
         $date = explode("T", $time);
         if (str_contains($date[1], '-')) {
@@ -115,38 +115,6 @@ if (!function_exists('translateTimeToEnglish')) {
             return implode(" ", $date);
         }
         return $time;
-    }
-}
-
-
-if (!function_exists('prepareDataForGraph')) {
-    /**
-     * @param object $results Acceepts the response data from the maestro api call
-     * @return array Returns the data in array format, much easier to process when graphing the data
-     */
-    function prepareDataForGraph($results)
-    {
-        $product = ModelsAccessPoint::query()->where('name', $results[0]->name)->where('mac_address', $results[0]->mac)->firstOrFail()->product;
-        (array)$date = $frame_utlization = $dl_throughput = $ul_throughput = $dl_retransmission = [];
-        foreach ($results as $key) {
-            if (isset($key->radio)) {
-                array_push($date, translateTimeToEnglish($key->timestamp));
-                array_push($frame_utlization, round($key->radio->dl_frame_utilization), 2);
-                array_push($dl_retransmission, round($key->radio->dl_retransmits_pct, 2) ?? 0);
-                array_push($dl_throughput, round($key->radio->dl_throughput / 1024, 2));
-                array_push($ul_throughput, round($key->radio->ul_throughput / 1024, 2));
-            }
-        }
-        return array(
-            'name' => $results[0]->name,
-            'product' => $product,
-            'dates' => $date,
-            'frame_utilization' => $frame_utlization,
-            'dl_retransmission' => $dl_retransmission,
-            'throughput' => ['dl_throughput' => $dl_throughput, 'ul_throughput' => $ul_throughput]
-
-        );
-        // return $preparedData;
     }
 }
 
