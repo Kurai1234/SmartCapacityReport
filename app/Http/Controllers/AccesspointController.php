@@ -15,11 +15,15 @@ class AccesspointController extends Controller
     //
     public function index()
     {
-
         //returns All data
         $data = $this->formData();
         return view('auth.pages.Accesspoints.accesspoint', compact('data'));
     }
+
+    /**
+     * Returns page with graph.
+     * @return void 
+     */
     public function view(Request $request)
     {
         //validates the request
@@ -48,7 +52,10 @@ class AccesspointController extends Controller
         //returns data for graphs and also data for option dom element.
         return view('auth.pages.Accesspoints.accesspoint', compact('result'), compact('data'));
     }
-
+    /**
+     * Gets Data to allow user to filter Access Points
+     * @return array
+     */
     public function formData()
     {
         return  [
@@ -57,7 +64,7 @@ class AccesspointController extends Controller
             'accesspoints' => AccessPoint::all('id', 'name', 'tower_id'),
         ];
     }
-      /**
+    /**
      * @param object $results Acceepts the response data from the maestro api call
      * @return array Returns the data in array format, much easier to process when graphing the data
      */
