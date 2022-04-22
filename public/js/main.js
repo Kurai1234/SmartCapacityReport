@@ -1,7 +1,6 @@
-
 $(function () {
-    $('#towers option').hide();
-    $('#accesspoints option').hide();
+    $("#towers option").hide();
+    $("#accesspoints option").hide();
     $("#networks").on("change", function () {
         network = $(this).val();
         $("#towers option").each(function () {
@@ -18,6 +17,9 @@ $(function () {
         });
     });
 
-
-
+    $("#clear").on("click", function () {
+        $("#networks").val(0);
+        $("#accesspoints").val(0);
+        $("#towers").val(0);
+    });
 });

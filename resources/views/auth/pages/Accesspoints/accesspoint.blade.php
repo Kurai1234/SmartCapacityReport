@@ -76,7 +76,7 @@
 
                 <div class="mb-3 pe-3 text-center">
                     <button type="submit" class="btn btn-success mx-2">Display</button>
-                    <button type="button" class="btn btn-light">Clear</button>
+                    <button type="button" id="clear" class="btn btn-light">Clear</button>
                 </div>
 
             </form>
@@ -99,7 +99,8 @@
             </div>
 
             <div class="canvas">
-                <h6 id="throughputMax" class="canvas--max--value"><span id="dlthroughputMax"> </span> <span id="ulthroughputMax"> </span></h6>
+                <h6 id="throughputMax" class="canvas--max--value"><span id="dlthroughputMax"> </span> <span
+                        id="ulthroughputMax"> </span></h6>
                 <canvas id="canvas3" width="100" height="31"></canvas>
             </div>
         </div>
@@ -348,7 +349,7 @@
                 .data.indexOf(dlmax)] + ' ' + dlmax + '%';
             document.getElementById('ulthroughputMax').innerText = 'UL: ' + myChartw.data.labels[myChartw.data.datasets[1]
                 .data.indexOf(ulmax)] + ' ' + ulmax + '%';
-            
+
         };
     </script>
 @endsection

@@ -13,7 +13,6 @@ use GuzzleHttp\Client;
 
 class MaestroApiClass
 {
-    // public $maestroId;
     public int $paging;
     public array $responseData;
     public string $maestroUrl;
