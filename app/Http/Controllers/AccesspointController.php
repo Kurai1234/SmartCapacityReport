@@ -6,18 +6,17 @@ use App\Jobs\Maestro;
 use App\Models\Network;
 use App\Models\Tower;
 use App\Models\AccessPoint;
+use App\Models\AccessPointStatistic;
 use Illuminate\Http\Request;
 use MaestroApiClass;
 use Carbon\Carbon;
-
+use ReportQuery;
 
 class AccesspointController extends Controller
 {
     //
     public function index()
     {
-        // $test = (new MaestroApiClass(1,"/devices/statistics",array('mode' => 'ap')))->call_api();
-        // dd($test);
         //returns All data
         $data = $this->formData();
         return view('auth.pages.Accesspoints.accesspoint', compact('data'));
@@ -56,7 +55,7 @@ class AccesspointController extends Controller
         //returns data for graphs and also data for option dom element.
         return view('auth.pages.Accesspoints.accesspoint', compact('result'), compact('data'));
     }
-    
+
     /**
      * Gets Data to allow user to filter Access Points
      * @return array
@@ -95,6 +94,5 @@ class AccesspointController extends Controller
             'throughput' => ['dl_throughput' => $dl_throughput, 'ul_throughput' => $ul_throughput]
 
         );
-        // return $preparedData;
     }
 }

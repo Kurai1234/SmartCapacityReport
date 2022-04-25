@@ -24,11 +24,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-// Route::middleware(['auth', 'isLoggedIn'])->group(function () {
-//     Route::get('/exports/weekly', [ExportFilesController::class, 'export'])->name('weeklyexports');
-//     Route::get('/exports/weeklypeaks', [ExportFilesController::class, 'exportPeakCapacity'])->name('weeklypeakexports');
-//     Route::get('exports/peaksdate', [ExportFilesController::class, 'exportPeaksCapacityWithDates'])->name('weeklypeaksexportswithdates');
-// });
+
 Route::middleware(['preventBackHistory'])->group(function () {
     Route::middleware(['isNotFirstLogin'])->group(function () {
         require __DIR__ . '/auth.php';
@@ -45,6 +41,8 @@ Route::middleware(['preventBackHistory'])->group(function () {
             Route::get('/accesspointgraph/device', [AccesspointController::class, 'view'])->name('accesspointgraph');
             Route::get('/reports', [ReportController::class, 'index'])->name('reports');
             Route::get('/reports/range', [ReportController::class, 'export'])->name('export');
+
+
             Route::get('/devices', [ManageDeviceController::class, 'index'])->name('devices');
             Route::get('/devices/{id}', [ManageDeviceController::class, 'edit'])->name('devices.edit');
             Route::patch('/devices/{id}/update', [ManageDeviceController::class, 'update'])->name('devices.update');

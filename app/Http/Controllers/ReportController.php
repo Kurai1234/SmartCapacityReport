@@ -62,4 +62,5 @@ class ReportController extends Controller
         //returns data to page.
         return view('auth.pages.Reports.report', compact('peakData'), compact('time'));
     }
+
 }
