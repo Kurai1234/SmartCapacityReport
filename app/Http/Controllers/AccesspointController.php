@@ -16,8 +16,8 @@ class AccesspointController extends Controller
     //
     public function index()
     {
-        $test = (new MaestroApiClass(1,"/devices/statistics",array('mode' => 'ap')))->call_api();
-        dd($test);
+        // $test = (new MaestroApiClass(1,"/devices/statistics",array('mode' => 'ap')))->call_api();
+        // dd($test);
         //returns All data
         $data = $this->formData();
         return view('auth.pages.Accesspoints.accesspoint', compact('data'));
@@ -40,16 +40,17 @@ class AccesspointController extends Controller
         //second validation to above errors in the api
         if (Carbon::now()->format('Y/m/d H:i') < $request->end_time) return redirect()->back()->withErrors('Date must be in the present');
         //creates a api instance
-
-        //prepares the data for graphing
-        $result = $this->prepareDataForGraph((new MaestroApiClass(
+        $api_response = (new MaestroApiClass(
             Network::findOrFail($request->network)->maestro_id,
             modifyUrl('/devices', AccessPoint::findOrFail($request->accesspoint)->mac_address) . '/performance',
             array(
                 'start_time' => formatTimeToString($request->start_time),
                 'stop_time' => formatTimeToString($request->end_time)
             )
-        ))->call_api());
+        ))->call_api();
+        //prepares the data for graphing
+        if(!$api_response) return redirect()->back()->withErrors('Connection to Maestro has failed, Contact your admin');
+        $result = $this->prepareDataForGraph($api_response);
         //gets all data
         $data = $this->formData();
         //returns data for graphs and also data for option dom element.

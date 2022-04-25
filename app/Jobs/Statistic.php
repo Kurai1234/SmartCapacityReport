@@ -60,7 +60,9 @@ class Statistic implements ShouldQueue, ShouldBeUnique
     {
         //set ignore to false
         foreach (Maestro::all() as $maestro) {
-            foreach ((new MaestroApiClass($maestro->id, '/devices/statistics', array('mode' => 'ap')))->call_api() as $statistic_data) {
+            $api_response = (new MaestroApiClass($maestro->id, '/devices/statistics', array('mode' => 'ap')))->call_api();
+            if($api_response){
+            foreach ( $api_response as $statistic_data) {
                 if (str_contains($statistic_data->network, "ePMP")) {
                     $access_point_info = $this->searchAccessPoint($statistic_data, $maestro->id);
                     if ($access_point_info) {
@@ -81,6 +83,7 @@ class Statistic implements ShouldQueue, ShouldBeUnique
                     }
                 }
             }
+        }
         }
         // error_log("New Batch of information");
         return;

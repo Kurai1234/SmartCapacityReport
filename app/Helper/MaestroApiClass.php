@@ -2,8 +2,8 @@
 
 use App\Models\Maestro;
 use GuzzleHttp\Client;
-
-
+use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Support\Facades\Log;
 /**
  * Class MaestroApiClass.
  * Reusable Maestro API call class.
@@ -38,6 +38,7 @@ class MaestroApiClass
         $this->set_Client_Info();
         $this->maestroUrl = Maestro::query()->where('id', $id)->firstOrFail()->url;
         $this->urlQuery = $urlQuery;
+        $this->get_token();
         $this->filter = !empty($filters) ? $this->set_filter($filters) : '';
     }
 
@@ -98,16 +99,23 @@ class MaestroApiClass
      */
     public function get_token()
     {
-        // Request a token from the api
+        // Request a token from the 
+        try{
         $token_request = new Client(['verify' => false]);
         $response = $token_request->post($this->maestroUrl . '/access/token', [
             'form_params' => [
                 'grant_type' => 'client_credentials',
                 'client_id' => $this->clientId,
                 'client_secret' => $this->clientSecret
-            ]
+            ],
+            "timeout"=>config('app.API_TIME_OUT')
         ]);
         return $this->token = json_decode($response->getBody()->getContents())->access_token;
+    }
+        catch(GuzzleException $e){
+            Log::critical($e);
+           return $this->token=false;   
+        }
     }
 
     /**
@@ -116,12 +124,14 @@ class MaestroApiClass
      */
     function call_api()
     {
+        if(!$this->token) return false;
         //set client to false to access the api
         $api_request = new Client(['verify' => false]);
+    
         //calls api
         $api_raw_response = $api_request->get($this->maestroUrl . $this->urlQuery . '?' . $this->filter, [
             'headers' => [
-                'Authorization' => 'Bearer ' . $this->get_token(),
+                'Authorization' => 'Bearer ' . $this->token,
             ]
         ]);
         //gets the actually data from the response

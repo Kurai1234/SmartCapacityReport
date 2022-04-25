@@ -97,7 +97,7 @@ return [
     'CLIENT_SECRET_FIRST'=>env('CLIENT_SECRET_FIRST',''),
     'CLIENT_ID_SECOND'=>env('CLIENT_ID_SECOND'),
     'CLIENT_SECRET_SECOND'=>env('CLIENT_SECRET_SECOND',''),
-
+    'API_TIME_OUT'=>env('API_TIME_OUT',10),
 
     /*
     |--------------------------------------------------------------------------
