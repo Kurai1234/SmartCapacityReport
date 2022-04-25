@@ -22,6 +22,7 @@ class ApStatisticResource extends JsonResource
             'dl_throughput'=>$this->dl_throughput,
             'dl_retransmit_pcts'=>$this->dl_retransmit_pcts,
             'status'=>$this->status,
+            'lan_speed_status'=>$this->lan_speed_status,
             'accesspoint'=> AccessPointResource::make($this->whenLoaded('accesspoint'))
 
         ];

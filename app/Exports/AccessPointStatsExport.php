@@ -5,7 +5,6 @@ namespace App\Exports;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Excel;
-use Maatwebsite\Excel\Concerns\WithColumnWidths;
 use Illuminate\Contracts\Support\Responsable;
 use Maatwebsite\Excel\Concerns\Exportable;
 use ReportQuery;
@@ -37,7 +36,6 @@ class AccessPointStatsExport implements FromView, Responsable
             'peakData' => ReportQuery::perform($this->params)
         ]);
     }
-
     public function verifyFormat($format)
     {
         switch ($format) {

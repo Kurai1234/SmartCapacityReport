@@ -69,11 +69,12 @@
                     <th>Product</th>
                     <th>Network</th>
                     <th>Tower</th>
-                    <th>Connected SM's</th>
-                    <th>DL Capacity Throughput</th>
+                    <th>SM's</th>
+                    <th>DL Capacity</th>
                     <th>UL Throughput </th>
                     <th>DL Throughput</th>
-                    <th>Retransmission PcT</th>
+                    <th>Retransmission %</th>
+                    <th>Lan Speed</th>
                 </tr>
             </thead>
             <tbody id="dashboard_table_body">

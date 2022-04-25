@@ -121,6 +121,9 @@ var dashBoardTable = $("#sortTable").DataTable({
             data: "dl_retransmit_pcts",
             render: $.fn.dataTable.render.number(",", ".", 2, "", " %"),
         },
+        {
+            data:"lan_speed_status"
+        }
     ],
 });
 

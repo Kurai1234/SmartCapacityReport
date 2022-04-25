@@ -78,6 +78,7 @@ class Statistic implements ShouldQueue, ShouldBeUnique
                             'status' => $statistic_data->status ?? "offline",
                             'connected_sms' => $statistic_data->connected_sms ?? 0,
                             'reboot' => $statistic_data->reboots ?? 0,
+                            'lan_speed_status'=> $statistic_data->lan_speed_status?? " ",
                             'dl_capacity_throughput' => round(((convertToMb($statistic_data->radio->dl_throughput ?? 0) * 100) / getMpbsCapacity($access_point_info->product ?? 0)), 2),
                         ]);
                     }
