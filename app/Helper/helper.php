@@ -19,7 +19,9 @@ if (!function_exists('updateAccessPoints')) {
     function updateAccessPoints($info_to_test, $maestroid)
     {
         $acceptableDevices = array('ePMP 3000', 'ePMP 2000', 'ePMP 1000');
-        foreach ((new MaestroApiClass($maestroid, modifyUrl('/devices', $info_to_test->mac), []))->call_api() as $accesspoint) {
+        $api_response = (new MaestroApiClass($maestroid, modifyUrl('/devices', $info_to_test->mac), []))->call_api();
+        if (!$api_response) return;
+        foreach ($api_response as $accesspoint) {
             $isAccepted = false;
             if (in_array($accesspoint->product, $acceptableDevices)) $isAccepted = !$isAccepted;
             if ($isAccepted) {

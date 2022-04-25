@@ -49,13 +49,14 @@ class AccesspointController extends Controller
             )
         ))->call_api();
         //prepares the data for graphing
-        if(!$api_response) return redirect()->back()->withErrors('Connection to Maestro has failed, Contact your admin');
+        if (!$api_response) return redirect()->back()->withErrors('Connection to Maestro has failed, Contact your admin');
         $result = $this->prepareDataForGraph($api_response);
         //gets all data
         $data = $this->formData();
         //returns data for graphs and also data for option dom element.
         return view('auth.pages.Accesspoints.accesspoint', compact('result'), compact('data'));
     }
+    
     /**
      * Gets Data to allow user to filter Access Points
      * @return array
