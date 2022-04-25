@@ -56,6 +56,7 @@ class MaestroApiClass
             $this->clientId = config('app.CLIENT_ID_FIRST');
             $this->clientSecret = config('app.CLIENT_SECRET_FIRST');
         }
+        
     }
 
     /**

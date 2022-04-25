@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\Maestro;
 use App\Models\Network;
 use App\Models\Tower;
 use App\Models\AccessPoint;
@@ -15,6 +16,8 @@ class AccesspointController extends Controller
     //
     public function index()
     {
+        $test = (new MaestroApiClass(1,"/devices/statistics",array('mode' => 'ap')))->call_api();
+        dd($test);
         //returns All data
         $data = $this->formData();
         return view('auth.pages.Accesspoints.accesspoint', compact('data'));
