@@ -40,21 +40,20 @@ class AccessPoint implements ShouldQueue
         foreach (Maestro::all() as $maestro) { // retrieves all maestro to loop
             //creates a class instance of the api call
             foreach ((new MaestroApiClass($maestro->id, '/devices', array('type' => 'epmp')))->call_api() as $accesspoint) { //loops through the response
-                if (str_contains($accesspoint->network, 'ePMP')) {  //checks if the network is a epmp type
+                if (isAcceptableNetwork($accesspoint->network) && isAcceptableDevice($accesspoint->product)) {  //checks if the network is a epmp type
                     //checks if the product is a ap by the type of product
-                    if (str_contains($accesspoint->product, '2000') || str_contains($accesspoint->product, '3000') || str_contains($accesspoint->product, '1000')) {
-                        $towers_info = Tower::with('network')->where('name', $accesspoint->tower)->first(); // finds its tower id
-                        ModelsAccessPoint::updateOrCreate([ //creates or update a accesspoint depending if the ip address exist
-                            'ip_address' => $accesspoint->ip,
-                        ], [
-                            'name' => $accesspoint->name,
-                            'mac_address' => $accesspoint->mac,
-                            'product' => $accesspoint->product,
-                            'tower_id' => $towers_info->id,
-                            'type' => $accesspoint->type,
-                            'ip_address' => $accesspoint->ip,
-                        ]);
-                    }
+                    $towers_info = Tower::with('network')->where('name', $accesspoint->tower)->first(); // finds its tower id
+                    ModelsAccessPoint::updateOrCreate([ //creates or update a accesspoint depending if the ip address exist
+                        'ip_address' => $accesspoint->ip,
+                    ], [
+                        'name' => $accesspoint->name,
+                        'mac_address' => $accesspoint->mac,
+                        'product' => $accesspoint->product,
+                        'tower_id' => $towers_info->id,
+                        'type' => $accesspoint->type,
+                        'ip_address' => $accesspoint->ip,
+                        'isActive'=>true
+                    ]);
                 }
             }
         }

@@ -723,10 +723,10 @@ body::-webkit-scrollbar-thumb {
 
 .backup--download--link svg {
     width: 1.3rem;
-    color: green;
+    color: #0d6efd;
 }
 .backup--download--link svg:hover path {
-    color: #000000;
+    color: #2f208f;
 }
 
 .reset--page {

@@ -17,9 +17,7 @@ class AccesspointController extends Controller
     //
     public function index()
     {
-        $api_response = (new MaestroApiClass(1, '/devices/statistics', array('mode' => 'ap')))->call_api();
-        dd($api_response);
-        //returns All data
+            //returns All data
         $data = $this->formData();
         return view('auth.pages.Accesspoints.accesspoint', compact('data'));
     }

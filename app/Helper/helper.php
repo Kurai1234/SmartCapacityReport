@@ -39,7 +39,7 @@ if (!function_exists('updateAccessPoints')) {
                         'tower_id' => $tower->id,
                         'product' => $accesspoint->product,
                         'type' => $accesspoint->type,
-
+                        'isActive'=>true,
                     ]
                 );
                 if ($insertOrUpdate) error_log("updated or inserted");
@@ -133,6 +133,32 @@ if (!function_exists('getMpbsCapacity')) {
         return 120;
     }
 }
+
+if (!function_exists('isAcceptableDevice')) {
+    /**
+     * @param string $deviceproduct
+     * @return boolean Returns if accepted
+     */
+    function isAcceptableDevice($deviceProduct)
+    {
+        if (
+            str_contains($deviceProduct, '2000') ||
+            str_contains($deviceProduct, '3000') ||
+            str_contains($deviceProduct, '1000')
+        ) return true;
+
+        return false;
+    }
+}
+
+if (!function_exists('isAcceptableNetwork')) {
+    function isAcceptableNetwork($deviceNetwork)
+    {
+        if (str_contains($deviceNetwork, 'ePMP')) return true;
+        return false;
+    }
+}
+
 
 if (!function_exists('convertToMb')) {
     /**

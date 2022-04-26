@@ -27,7 +27,7 @@ class ApStatisticController extends Controller
                 $data = AccessPointStatistic::query()
                     ->with('accesspoint', 'accesspoint.tower', 'accesspoint.tower.network')
                     ->latest()
-                    ->take(AccessPoint::count())
+                    ->take(AccessPoint::active())
                     ->get();
 
                 if (!$data) {

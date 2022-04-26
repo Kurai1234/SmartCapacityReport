@@ -22,7 +22,7 @@ class ApStatusController extends Controller
                 ->with('accesspoint:id,name,tower_id', 'accesspoint.tower:id,name,network_id', 'accesspoint.tower.network:id,name')
                 //takes the latest amount of data.
                 ->latest()
-                ->take(AccessPoint::count())
+                ->take(AccessPoint::active())
                 ->get();
             //creates a array to store a brief summary of results.
             $data = array(

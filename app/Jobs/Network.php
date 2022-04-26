@@ -41,7 +41,7 @@ class Network implements ShouldQueue
         //loops through all maestro urls
         foreach (Maestro::all() as $key) {
             foreach ((new MaestroApiClass($key->id, '/networks', []))->call_api() as $network) { //loops through all return data
-                if (str_contains($network->name, 'ePMP')) { //filters data by name
+                if (isAcceptableNetwork($network->name)) { //filters data by name
                     ModelsNetwork::updateOrCreate([  //check if exits
                         'name' => $network->name
                     ], [

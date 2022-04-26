@@ -61,32 +61,31 @@ class Statistic implements ShouldQueue, ShouldBeUnique
         //set ignore to false
         foreach (Maestro::all() as $maestro) {
             $api_response = (new MaestroApiClass($maestro->id, '/devices/statistics', array('mode' => 'ap')))->call_api();
-            if($api_response){
-            foreach ( $api_response as $statistic_data) {
-                if (str_contains($statistic_data->network, "ePMP")) {
-                    $access_point_info = $this->searchAccessPoint($statistic_data, $maestro->id);
-                    if ($access_point_info) {
-                        AccessPointStatistic::create([
-                            'access_point_id' => $access_point_info->id,
-                            'mode' => $statistic_data->mode ?? '',
-                            'dl_retransmit' => $statistic_data->radio->dl_retransmits ?? 0,
-                            'dl_retransmit_pcts' => $statistic_data->radio->dl_retransmits_pct ?? 0,
-                            'dl_pkts' => convertToMb($statistic_data->radio->dl_pkts ?? 0),
-                            'ul_pkts' => convertToMb($statistic_data->radio->ul_pkts ?? 0),
-                            'dl_throughput' => convertToMb($statistic_data->radio->dl_throughput ?? 0),
-                            'ul_throughput' => convertToMb($statistic_data->radio->ul_throughput ?? 0),
-                            'status' => $statistic_data->status ?? "offline",
-                            'connected_sms' => $statistic_data->connected_sms ?? 0,
-                            'reboot' => $statistic_data->reboots ?? 0,
-                            'lan_speed_status'=> $statistic_data->lan_speed_status?? " ",
-                            'dl_capacity_throughput' => round(((convertToMb($statistic_data->radio->dl_throughput ?? 0) * 100) / getMpbsCapacity($access_point_info->product ?? 0)), 2),
-                        ]);
+            if ($api_response) {
+                foreach ($api_response as $statistic_data) {
+                    if (isAcceptableNetwork($statistic_data->network)) {
+                        $access_point_info = $this->searchAccessPoint($statistic_data, $maestro->id);
+                        if ($access_point_info) {
+                            AccessPointStatistic::create([
+                                'access_point_id' => $access_point_info->id,
+                                'mode' => $statistic_data->mode ?? '',
+                                'dl_retransmit' => $statistic_data->radio->dl_retransmits ?? 0,
+                                'dl_retransmit_pcts' => $statistic_data->radio->dl_retransmits_pct ?? 0,
+                                'dl_pkts' => convertToMb($statistic_data->radio->dl_pkts ?? 0),
+                                'ul_pkts' => convertToMb($statistic_data->radio->ul_pkts ?? 0),
+                                'dl_throughput' => convertToMb($statistic_data->radio->dl_throughput ?? 0),
+                                'ul_throughput' => convertToMb($statistic_data->radio->ul_throughput ?? 0),
+                                'status' => $statistic_data->status ?? "offline",
+                                'connected_sms' => $statistic_data->connected_sms ?? 0,
+                                'reboot' => $statistic_data->reboots ?? 0,
+                                'lan_speed_status' => $statistic_data->lan_speed_status ?? " ",
+                                'dl_capacity_throughput' => round(((convertToMb($statistic_data->radio->dl_throughput ?? 0) * 100) / getMpbsCapacity($access_point_info->product ?? 0)), 2),
+                            ]);
+                        }
                     }
                 }
             }
         }
-        }
-        // error_log("New Batch of information");
         return;
         //
     }
