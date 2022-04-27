@@ -735,3 +735,34 @@ body::-webkit-scrollbar-thumb {
     justify-content: center;
     align-items: center;
 }
+
+.label--div{
+    display: inline-block;
+    line-height: 1.6;
+    height: calc(100% +100%);
+    color:white;
+    font-weight: 600;
+    padding: .3rem 1rem;
+    margin: auto;
+    background-color: #4EAE55;
+    border-radius: 3px;
+}
+
+.user--label--superadmin{
+background-color: #EE4032;
+}
+
+.user--lablel--admin{
+background-color: #2392EF;
+}
+
+
+
+
+.label--div:hover{
+    cursor: pointer;
+}
+
+.table--hide--column{
+    padding: 0;
+}
