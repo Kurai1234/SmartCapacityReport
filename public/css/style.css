@@ -79,7 +79,7 @@ body::-webkit-scrollbar-thumb {
     -webkit-appearance: none;
     border: none;
     color: var(--custom-primary-color);
-    width: min(220px,100%);
+    width: min(220px, 100%);
     outline: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 }
@@ -334,12 +334,12 @@ body::-webkit-scrollbar-thumb {
     margin-bottom: 10px;
     position: relative;
     overflow-y: scroll;
-    /* overflow-x: hidden; */
+    scrollbar-color: var(--custom-secondary-color) var(--custom-primary-color);
+    scrollbar-width: thin;
     -webkit-overflow-scrolling: touch;
 }
 .offline--aps--header {
     background-color: #d74c4c;
-
     color: white;
 }
 .offline--aps--table table {
@@ -351,8 +351,6 @@ body::-webkit-scrollbar-thumb {
 .offline--aps--table table td.text {
     overflow: hidden;
     display: inline-block;
-    /* word-break: break-word; */
-    /* width: 100%; */
     text-overflow: ellipsis;
     white-space: nowrap;
 }
@@ -736,33 +734,31 @@ body::-webkit-scrollbar-thumb {
     align-items: center;
 }
 
-.label--div{
+.label--div {
     display: inline-block;
+
     line-height: 1.6;
     height: calc(100% +100%);
-    color:white;
+    color: white;
     font-weight: 600;
-    padding: .3rem 1rem;
+    padding: 0.3rem 1rem;
     margin: auto;
-    background-color: #4EAE55;
+    background-color: #4eae55;
     border-radius: 3px;
 }
 
-.user--label--superadmin{
-background-color: #EE4032;
+.user--label--superadmin {
+    background-color: #ee4032;
 }
 
-.user--lablel--admin{
-background-color: #2392EF;
+.user--lablel--admin {
+    background-color: #2392ef;
 }
 
-
-
-
-.label--div:hover{
+.label--div:hover {
     cursor: pointer;
 }
 
-.table--hide--column{
+.table--hide--column {
     padding: 0;
 }
