@@ -12,6 +12,7 @@ class BackupdatabaseController extends Controller
     public function index()
     {   //Creates a list of all backed up files
 
+        $this->authorize('access-backup');
         $backUpList = array();
         //Loops through all the files in storage
         foreach (Storage::files(config('app.name')) as $key => $item) {
@@ -30,6 +31,8 @@ class BackupdatabaseController extends Controller
     }
     public function download($name)
     {
+        $this->authorize('access-backup');
+
         //gets file path
         $file = config('app.name') . '/' . $name;
         //check if file exist

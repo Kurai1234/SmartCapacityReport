@@ -79,7 +79,7 @@ body::-webkit-scrollbar-thumb {
     -webkit-appearance: none;
     border: none;
     color: var(--custom-primary-color);
-
+    width: min(220px,100%);
     outline: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.5);
 }

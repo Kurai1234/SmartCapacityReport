@@ -33,28 +33,26 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'user_name'=>['required','string','max:255','unique:users'],
+            'user_name' => ['required', 'string', 'max:255', 'unique:users'],
+            'roles' =>   ['required', 'exists:App\Models\Role,id'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'user_name'=>$request->user_name,
-            'is_admin'=>$request->is_admin==NULL?false:true,
+            'user_name' => $request->user_name,
             'password' => Hash::make($request->password),
+            'role_id' => intval($request->roles)
         ]);
 
         event(new Registered($user));
-        if($user)
-        {
-            return redirect()->route('admin.manageuser')->with('message','User signed up');
-
-        }
-        else
-        {
+        if ($user) {
+            return redirect()->route('admin.manageuser')->with('message', 'User signed up');
+        } else {
             return redirect()->back()->withErrors("Input valid Information")->withInput();
         }
         // Auth::login($user);

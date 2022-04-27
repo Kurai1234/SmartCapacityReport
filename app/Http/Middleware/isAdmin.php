@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Models\Role;
 use Illuminate\Http\Request;
 
 class isAdmin
@@ -16,8 +17,8 @@ class isAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user()->is_admin)
-        return $next($request);
-    return redirect()->back();
+        if (auth()->check() && auth()->user()->role->hasAuthority())
+            return $next($request);
+        return redirect()->back();
     }
 }

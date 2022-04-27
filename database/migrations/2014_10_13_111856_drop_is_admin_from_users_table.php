@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddTagToAccessPointsTable extends Migration
+class DropIsAdminFromUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class AddTagToAccessPointsTable extends Migration
      */
     public function up()
     {
-        Schema::table('access_points', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             //
-            $table->string('tag')->nullable();
         });
     }
 
@@ -26,9 +25,11 @@ class AddTagToAccessPointsTable extends Migration
      */
     public function down()
     {
-        Schema::table('access_points', function (Blueprint $table) {
-            //
-            // $table->string('tag')->nullable(); 
-        });
+        if (Schema::hasColumn('users', 'is_admin')) {
+            Schema::table('users', function (Blueprint $table) {
+                //
+                $table->dropColumn('is_admin');
+            });
+        }
     }
 }

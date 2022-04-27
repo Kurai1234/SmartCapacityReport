@@ -46,7 +46,7 @@ Route::middleware(['preventBackHistory'])->group(function () {
             Route::get('/devices', [ManageDeviceController::class, 'index'])->name('devices');
             Route::get('/devices/{id}', [ManageDeviceController::class, 'edit'])->name('devices.edit');
             Route::patch('/devices/{id}/update', [ManageDeviceController::class, 'update'])->name('devices.update');
-            Route::prefix('admin')->middleware(['isAdmin'])->group(function () {
+            Route::prefix('admin')->group(function () {
                 Route::get('backups', [BackupdatabaseController::class, 'index'])->name('backup');
                 Route::get('backups/{file}', [BackupdatabaseController::class, 'download'])->name('backup.download');
                 Route::get('manageusers', [ManageuserController::class, 'index'])->name('admin.manageuser');

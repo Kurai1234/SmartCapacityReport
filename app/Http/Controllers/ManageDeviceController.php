@@ -25,7 +25,7 @@ class ManageDeviceController extends Controller
     }
 
     public function update(Request $request, $id){
-        $this->authorize('edit-device');
+        // $this->authorize('edit-device');
         $request->validate([
             'name'=>'required',
             'product'=>'required',

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -30,8 +31,8 @@ class FirstLoginController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'user_name' => $request->user_name,
-            'is_admin' => true,
             'password' => Hash::make($request->password),
+            'role_id' => Role::superadmin(),
         ]);
 
         //fires a event that user is created.

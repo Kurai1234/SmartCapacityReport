@@ -9,6 +9,8 @@ use App\Models\AccessPoint;
 use App\Models\AccessPointStatistic;
 use Illuminate\Http\Request;
 use MaestroApiClass;
+use App\Models\User;
+use App\Models\Role;
 use Carbon\Carbon;
 use ReportQuery;
 
@@ -17,7 +19,7 @@ class AccesspointController extends Controller
     //
     public function index()
     {
-            //returns All data
+        //returns All data       
         $data = $this->formData();
         return view('auth.pages.Accesspoints.accesspoint', compact('data'));
     }

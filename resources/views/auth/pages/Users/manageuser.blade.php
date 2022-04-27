@@ -40,7 +40,7 @@
                     <td>{{$user->id}}</td>
                     <td >{{$user->name}}</td>
                     <td class="table--hide--column">{{$user->user_name}}</td>
-                    <td class="table--hide--column">{{$user->is_admin?"Admin":"User"}}</td>
+                    <td class="table--hide--column">{{$user->role->name}}</td>
                     <td class="table--hide--column">{{$user->email}}</td>
                     <td><a class="btn btn-sm btn-primary" href="{{route('admin.edituser',$user->id)}}">Edit</a>
 
